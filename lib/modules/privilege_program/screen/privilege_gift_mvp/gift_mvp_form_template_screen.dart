@@ -44,6 +44,7 @@ class GiftMVPFromTemplateScreen extends StatelessWidget {
               body: Container(
                 color: Colors.transparent,
                 padding: const EdgeInsets.symmetric(
+<<<<<<< HEAD
                     horizontal: 20.0, vertical: 20.0),
                 child: SingleChildScrollView(
                   child: Column(
@@ -64,6 +65,50 @@ class GiftMVPFromTemplateScreen extends StatelessWidget {
                           onChanged: (v) {},
                           //  controller: priCon.textSearchCategoriesController,
                           keyboardType: TextInputType.name,
+=======
+                  horizontal: 11,
+                ),
+                decoration: BoxDecoration(
+                  color: Colors.grey[200],
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: CustomFormFieldSearch(
+                  onSaved: (e) {},
+                  onChanged: (v) {},
+                  //  controller: priCon.textSearchCategoriesController,
+                  keyboardType: TextInputType.name,
+                ),
+              ),
+              //Template
+              const SizedBox(
+                height: 20.0,
+              ),
+              Column(
+                children: listAcountTemplate
+                    .map(
+                      (e) => Padding(
+                        padding: const EdgeInsets.only(bottom: 16.0),
+                        child: GestureDetector(
+                          onTap: () {
+                            debugPrint('ID==${e.id}');
+                            try {
+                              var string = GoRouterState.of(context).location;
+
+                              context.push("$string/choosen-template");
+                            } catch (e) {
+                              debugPrint("Hello ERROR$e");
+                            }
+                          },
+                          child: CustomCardGiftMVPForm(
+                            id: e.id,
+                            acountName: e.accountName,
+                            accountNumber: e.accountNumber,
+                            imageAccount: e.imageAcount,
+                            onTapDeleted: () {},
+                            onTapEdit: () {},
+                            onTapHistory: () {},
+                          ),
+>>>>>>> refs/remotes/origin/dev
                         ),
                       ),
                       //Template
@@ -97,6 +142,7 @@ class GiftMVPFromTemplateScreen extends StatelessWidget {
                   ),
                 ),
               ),
+<<<<<<< HEAD
               floatingActionButton: Align(
                 alignment: Alignment.bottomRight,
                 child: FloatingActionButton(
@@ -111,6 +157,27 @@ class GiftMVPFromTemplateScreen extends StatelessWidget {
             ),
           );
         },
+=======
+            ],
+          ),
+        ),
+      ),
+      floatingActionButton: Align(
+        alignment: Alignment.bottomRight,
+        child: FloatingActionButton(
+          child:
+              SvgPicture.asset('assets/images/privilege/created_template.svg'),
+          onPressed: () {
+            try {
+              var string = GoRouterState.of(context).location;
+
+              context.push("$string/create-template");
+            } catch (e) {
+              debugPrint("Hello ERROR$e");
+            }
+          },
+        ),
+>>>>>>> refs/remotes/origin/dev
       ),
     );
   }

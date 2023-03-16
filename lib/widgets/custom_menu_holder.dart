@@ -67,7 +67,7 @@ class _FocusedMenuHolderState extends State<CustomFocusedMenuHolder> {
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
+    return GestureDetector(
         key: containerKey,
         onTap: () async {
           widget.onPressed();
@@ -238,9 +238,15 @@ class FocusedMenuDetails extends StatelessWidget {
                                   padding: const EdgeInsets.symmetric(
                                       vertical: 8.0, horizontal: 14),
                                   child: Row(
-                                    mainAxisAlignment:
+                                    mainAxisAlignment: item.mainAxisAlignment ??
                                         MainAxisAlignment.spaceBetween,
                                     children: <Widget>[
+                                      if (item.leadingIcon != null)
+                                        Padding(
+                                          padding: item.paddingBetweenItem ??
+                                              EdgeInsets.zero,
+                                          child: item.leadingIcon!,
+                                        ),
                                       item.title,
                                       if (item.trailingIcon != null) ...[
                                         item.trailingIcon!
@@ -288,12 +294,18 @@ class FocusedMenuDetails extends StatelessWidget {
 class CustomFocusedMenuItem {
   Color? backgroundColor;
   Widget title;
+  MainAxisAlignment? mainAxisAlignment;
   Widget? trailingIcon;
+  Widget? leadingIcon;
   Function onPressed;
+  EdgeInsets? paddingBetweenItem;
 
   CustomFocusedMenuItem(
       {this.backgroundColor,
       required this.title,
       this.trailingIcon,
+      this.leadingIcon,
+      this.paddingBetweenItem,
+      this.mainAxisAlignment,
       required this.onPressed});
 }

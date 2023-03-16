@@ -4,6 +4,7 @@ import 'package:cicgreenloan/modules/google_map_module/google_map.dart';
 import 'package:cicgreenloan/modules/investment_module/investment_export.dart';
 import 'package:cicgreenloan/modules/news/screen/news_detail_screen.dart';
 import 'package:cicgreenloan/modules/privilege_program/privilege_export.dart';
+import 'package:cicgreenloan/modules/privilege_program/screen/choose_gift_template.dart';
 import 'package:cicgreenloan/modules/privilege_program/screen/privilege_point/privilege_point_screen.dart';
 import 'package:cicgreenloan/modules/report_module/report_export.dart';
 import 'package:cicgreenloan/modules/setting_modules/setting_export.dart';
@@ -237,22 +238,73 @@ final router = GoRouter(
                             ),
                           ),
                           GoRoute(
-                            parentNavigatorKey: _rootNavigatorKey,
-                            path: 'gift-mvp-transfer',
-                            builder: (context, state) => GiftMVPTransferScreen(
-                              key: state.pageKey,
-                            ),
-                            routes: [
-                              GoRoute(
-                                parentNavigatorKey: _rootNavigatorKey,
-                                path: 'review-gift-mvp',
-                                builder: (context, state) =>
-                                    ReviewGiftMVPTransfer(
-                                  key: state.pageKey,
+                              parentNavigatorKey: _rootNavigatorKey,
+                              path: 'gift-mvp-option',
+                              builder: (context, state) => GiftMvpOption(
+                                    key: state.pageKey,
+                                  ),
+                              routes: [
+                                GoRoute(
+                                  parentNavigatorKey: _rootNavigatorKey,
+                                  path: 'gift-mvp-transfer',
+                                  builder: (context, state) =>
+                                      GiftMVPTransferScreen(
+                                    key: state.pageKey,
+                                  ),
+                                  routes: [
+                                    GoRoute(
+                                      parentNavigatorKey: _rootNavigatorKey,
+                                      path: 'review-gift-mvp',
+                                      builder: (context, state) =>
+                                          ReviewGiftMVPTransfer(
+                                        key: state.pageKey,
+                                      ),
+                                    ),
+                                  ],
                                 ),
-                              ),
-                            ],
-                          ),
+                                GoRoute(
+                                    parentNavigatorKey: _rootNavigatorKey,
+                                    path: 'gift-mvp-template',
+                                    builder: (context, state) =>
+                                        GiftMVPFromTemplateScreen(
+                                          key: state.pageKey,
+                                        ),
+                                    routes: [
+                                      GoRoute(
+                                        parentNavigatorKey: _rootNavigatorKey,
+                                        path: 'create-template',
+                                        builder: (context, state) =>
+                                            CreateTemplateScreen(
+                                          key: state.pageKey,
+                                        ),
+                                      ),
+                                      GoRoute(
+                                        parentNavigatorKey: _rootNavigatorKey,
+                                        path: 'choosen-template',
+                                        builder: (context, state) =>
+                                            ChooseGiftTemplateScreen(
+                                          key: state.pageKey,
+                                        ),
+                                      ),
+                                    ]),
+                              ]),
+                          // GoRoute(
+                          //   parentNavigatorKey: _rootNavigatorKey,
+                          //   path: 'gift-mvp-transfer',
+                          //   builder: (context, state) => GiftMVPTransferScreen(
+                          //     key: state.pageKey,
+                          //   ),
+                          //   routes: [
+                          //     GoRoute(
+                          //       parentNavigatorKey: _rootNavigatorKey,
+                          //       path: 'review-gift-mvp',
+                          //       builder: (context, state) =>
+                          //           ReviewGiftMVPTransfer(
+                          //         key: state.pageKey,
+                          //       ),
+                          //     ),
+                          //   ],
+                          // ),
                         ]),
                   ],
                 ),
@@ -460,6 +512,14 @@ final router = GoRouter(
                                     path: 'create-template',
                                     builder: (context, state) =>
                                         CreateTemplateScreen(
+                                      key: state.pageKey,
+                                    ),
+                                  ),
+                                  GoRoute(
+                                    parentNavigatorKey: _rootNavigatorKey,
+                                    path: 'choosen-template',
+                                    builder: (context, state) =>
+                                        ChooseGiftTemplateScreen(
                                       key: state.pageKey,
                                     ),
                                   ),
@@ -876,6 +936,60 @@ final router = GoRouter(
                                         : 0,
                                   ),
                                 ),
+                                GoRoute(
+                                    parentNavigatorKey: _rootNavigatorKey,
+                                    path: 'gift-mvp-option',
+                                    builder: (context, state) => GiftMvpOption(
+                                          key: state.pageKey,
+                                        ),
+                                    routes: [
+                                      GoRoute(
+                                        parentNavigatorKey: _rootNavigatorKey,
+                                        path: 'gift-mvp-transfer',
+                                        builder: (context, state) =>
+                                            GiftMVPTransferScreen(
+                                          key: state.pageKey,
+                                        ),
+                                        routes: [
+                                          GoRoute(
+                                            parentNavigatorKey:
+                                                _rootNavigatorKey,
+                                            path: 'review-gift-mvp',
+                                            builder: (context, state) =>
+                                                ReviewGiftMVPTransfer(
+                                              key: state.pageKey,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      GoRoute(
+                                          parentNavigatorKey: _rootNavigatorKey,
+                                          path: 'gift-mvp-template',
+                                          builder: (context, state) =>
+                                              GiftMVPFromTemplateScreen(
+                                                key: state.pageKey,
+                                              ),
+                                          routes: [
+                                            GoRoute(
+                                              parentNavigatorKey:
+                                                  _rootNavigatorKey,
+                                              path: 'create-template',
+                                              builder: (context, state) =>
+                                                  CreateTemplateScreen(
+                                                key: state.pageKey,
+                                              ),
+                                            ),
+                                            GoRoute(
+                                              parentNavigatorKey:
+                                                  _rootNavigatorKey,
+                                              path: 'choosen-template',
+                                              builder: (context, state) =>
+                                                  ChooseGiftTemplateScreen(
+                                                key: state.pageKey,
+                                              ),
+                                            ),
+                                          ]),
+                                    ])
                               ])
                         ]),
 
