@@ -147,164 +147,150 @@ class _QrCodeScreenState extends State<QrCodeScreen> {
                                             height: width * 0.7,
                                             width: width * 0.7,
                                             child: MobileScanner(
-                                              allowDuplicates: false,
-                                              // allowDuplicates: true,
-                                              controller: cameraController,
-                                              onDetect: (capture, _) async {
-                                                debugPrint(
-                                                    "ONDETECT**+++++++${capture.rawValue}");
-                                                // final List<Barcode> barcodes =
-                                                //     capture.barcodes;
-                                                // final image = capture.image;
-                                                // setState(() {});
-                                                // String rawValue = "";
-                                                // for (final barcode
-                                                //     in barcodes) {
-                                                //   if (barcode
-                                                //       .rawValue!.isNotEmpty) {
-                                                //     rawValue =
-                                                //         barcode.rawValue!;
-                                                //   }
-                                                // }
-                                                // debugPrint(
-                                                //     "Hello====******${barcode.barcodes}");
-                                                try {
-                                                  setState(() {
-                                                    isGenerateDynamiclink =
-                                                        true;
-                                                  });
-
-                                                  // try {
-                                                  PendingDynamicLinkData? url =
-                                                      await FirebaseDynamicLinks
-                                                          .instance
-                                                          .getDynamicLink(
-                                                    Uri.parse(
-                                                        capture.rawValue!),
-                                                  );
-
+                                                allowDuplicates: false,
+                                                // allowDuplicates: true,
+                                                controller: cameraController,
+                                                onDetect: (capture, _) async {
                                                   debugPrint(
-                                                      "Link: ${url!.link}");
-                                                  // } catch (e) {
-                                                  //   throw "$e";
-                                                  // }
-                                                  // debugPrint("sssss${url?.link}");
-                                                  Future.delayed(
-                                                      const Duration(
-                                                          seconds: 1), () {
+                                                      "ONDETECT**+++++++${capture.rawValue}");
+
+                                                  try {
                                                     setState(() {
-                                                      if (url == null) {
-                                                        captureImage = null;
-                                                        customRouterSnackbar(
-                                                            description:
-                                                                "Invalid QR",
-                                                            suffix: false,
-                                                            prefix: true);
-                                                      } else {
-                                                        customRouterSnackbar(
-                                                            description:
-                                                                "QR code found!",
-                                                            suffix: false,
-                                                            prefix: true);
-                                                      }
+                                                      isGenerateDynamiclink =
+                                                          true;
+                                                    });
+
+                                                    // try {
+                                                    PendingDynamicLinkData?
+                                                        url =
+                                                        await FirebaseDynamicLinks
+                                                            .instance
+                                                            .getDynamicLink(
+                                                      Uri.parse(
+                                                          capture.rawValue!),
+                                                    );
+
+                                                    debugPrint(
+                                                        "Link: ${url!.link}");
+                                                    // } catch (e) {
+                                                    //   throw "$e";
+                                                    // }
+                                                    // debugPrint("sssss${url?.link}");
+                                                    Future.delayed(
+                                                        const Duration(
+                                                            seconds: 1), () {
+                                                      customRouterSnackbar(
+                                                          description:
+                                                              "QR code found!",
+                                                          suffix: false,
+                                                          prefix: true);
+                                                      setState(() {
+                                                        isGenerateDynamiclink =
+                                                            false;
+                                                        String links = url.link
+                                                            .toString()
+                                                            .replaceAll(
+                                                                'https://cicapp.page.link',
+                                                                '');
+                                                        if (links.contains(
+                                                            'event')) {
+                                                          debugPrint(
+                                                              "Link: $links");
+                                                          int? param =
+                                                              int.tryParse(links
+                                                                  .replaceAll(
+                                                                      '/event/',
+                                                                      ''));
+                                                          // eventCon
+                                                          //     .getRegisterWithGuest(param,
+                                                          //         isCheckIn: true,
+                                                          //         context: context)
+                                                          eventCon.eventDetail
+                                                              .value.id = param;
+
+                                                          if (widget.pageName !=
+                                                              null) {
+                                                            eventCon.getRegisterWithGuest(
+                                                                param,
+                                                                isCheckIn: true,
+                                                                context:
+                                                                    context,
+                                                                fromPage: widget
+                                                                    .pageName);
+                                                          } else {
+                                                            eventCon
+                                                                .getRegisterWithGuest(
+                                                              param,
+                                                              isCheckIn: true,
+                                                              context: context,
+                                                            );
+                                                          }
+                                                        } else {
+                                                          //  claim to discount
+                                                          debugPrint(
+                                                              "Claim to discount url:$links");
+                                                          if (links.contains(
+                                                              'privilege-claim')) {
+                                                            int? id = int.tryParse(
+                                                                links.replaceAll(
+                                                                    '/privilege-claim/',
+                                                                    ''));
+                                                            debugPrint(
+                                                                "Claim discount url:$links::$id");
+                                                            preController
+                                                                .onPaymentPrivilege(
+                                                                    context:
+                                                                        context,
+                                                                    id: id)
+                                                                .then((value) =>
+                                                                    router.go(
+                                                                        links));
+                                                          } else {
+                                                            router.go(links);
+                                                          }
+                                                        }
+                                                        if (links.contains(
+                                                            'gift-mvp-transfer')) {
+                                                          debugPrint(
+                                                              "Link: $links");
+                                                        }
+
+                                                        settingCon
+                                                            .isHideBottomNavigation
+                                                            .value = false;
+                                                        settingCon.update();
+                                                      });
+                                                    });
+                                                    // debugPrint(
+                                                    //     "Redeem to MVP QR:${barcode.rawValue}");
+                                                  } catch (ex) {
+                                                    setState(() {
                                                       isGenerateDynamiclink =
                                                           false;
-                                                      String links = url.link
-                                                          .toString()
-                                                          .replaceAll(
-                                                              'https://cicapp.page.link',
-                                                              '');
-                                                      if (links
-                                                          .contains('event')) {
-                                                        debugPrint(
-                                                            "Link: $links");
-                                                        int? param =
-                                                            int.tryParse(links
-                                                                .replaceAll(
-                                                                    '/event/',
-                                                                    ''));
-                                                        // eventCon
-                                                        //     .getRegisterWithGuest(param,
-                                                        //         isCheckIn: true,
-                                                        //         context: context)
-                                                        eventCon.eventDetail
-                                                            .value.id = param;
-
-                                                        if (widget.pageName !=
-                                                            null) {
-                                                          eventCon
-                                                              .getRegisterWithGuest(
-                                                                  param,
-                                                                  isCheckIn:
-                                                                      true,
-                                                                  context:
-                                                                      context,
-                                                                  fromPage: widget
-                                                                      .pageName);
-                                                        } else {
-                                                          eventCon
-                                                              .getRegisterWithGuest(
-                                                            param,
-                                                            isCheckIn: true,
-                                                            context: context,
-                                                          );
-                                                        }
-                                                      } else {
-                                                        //  claim to discount
-                                                        debugPrint(
-                                                            "Claim to discount url:$links");
-                                                        if (links.contains(
-                                                            'privilege-claim')) {
-                                                          int? id = int.tryParse(
-                                                              links.replaceAll(
-                                                                  '/privilege-claim/',
-                                                                  ''));
-                                                          debugPrint(
-                                                              "Claim discount url:$links::$id");
-                                                          preController
-                                                              .onPaymentPrivilege(
-                                                                  context:
-                                                                      context,
-                                                                  id: id)
-                                                              .then((value) =>
-                                                                  router.go(
-                                                                      links));
-                                                        } else {
-                                                          router.go(links);
-                                                        }
-                                                      }
-                                                      if (links.contains(
-                                                          'gift-mvp-transfer')) {
-                                                        debugPrint(
-                                                            "Link: $links");
-                                                      }
-
-                                                      settingCon
-                                                          .isHideBottomNavigation
-                                                          .value = false;
-                                                      settingCon.update();
+                                                      captureImage = null;
                                                     });
-                                                  });
-                                                  // debugPrint(
-                                                  //     "Redeem to MVP QR:${barcode.rawValue}");
-                                                } catch (ex) {
-                                                  setState(() {
+
+                                                    customRouterSnackbar(
+                                                        description:
+                                                            "Invalid QR",
+                                                        suffix: false,
+                                                        prefix: true);
+
+                                                    debugPrint("Ex: $ex");
+                                                  } finally {
+                                                    captureImage = null;
                                                     isGenerateDynamiclink =
                                                         false;
-                                                  });
-                                                  debugPrint("Ex: $ex");
-                                                } finally {
-                                                  captureImage = null;
-                                                  isGenerateDynamiclink = false;
+                                                  }
                                                 }
 
                                                 // debugPrint("is Checke Scann");
                                                 // debugPrint(
                                                 //     "Redeem to MVP QR:${barcode.rawValue}");
-                                              },
-                                            ),
+
+                                                ),
                                           ),
-                                          if (captureImage != null)
+                                          if (captureImage != null && isGenerateDynamiclink)
                                             Container(
                                               height: width * 0.7,
                                               width: width * 0.7,
@@ -408,6 +394,7 @@ class _QrCodeScreenState extends State<QrCodeScreen> {
                                                         setState(() {});
                                                         debugPrint(
                                                             "image.path${image.path}");
+
                                                         // await cameraController
                                                         //     .analyzeImage(
                                                         //         image.path);
@@ -415,7 +402,9 @@ class _QrCodeScreenState extends State<QrCodeScreen> {
                                                             .analyzeImage(
                                                                 image.path)) {
                                                           // setState(() {});
+
                                                           if (!mounted) return;
+
                                                           // ScaffoldMessenger.of(
                                                           //         context)
                                                           //     .showSnackBar(
@@ -433,7 +422,7 @@ class _QrCodeScreenState extends State<QrCodeScreen> {
                                                           setState(() {});
                                                           customRouterSnackbar(
                                                               description:
-                                                                  'No barcode found!',
+                                                                  'No QR code found!',
                                                               suffix: false,
                                                               prefix: true);
                                                           // ScaffoldMessenger.of(
