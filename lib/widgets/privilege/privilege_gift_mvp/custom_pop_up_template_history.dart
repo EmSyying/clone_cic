@@ -55,7 +55,7 @@ onShowPopUpTemplateHistory(
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(
-                    vertical: 10.0, horizontal: 20.0),
+                    vertical: 14.0, horizontal: 20.0),
                 child: Align(
                   alignment: Alignment.centerLeft,
                   child: Text(
@@ -68,8 +68,9 @@ onShowPopUpTemplateHistory(
                 ),
               ),
               Divider(
-                thickness: 1.2,
-                color: Colors.grey[300],
+                //thickness: 1.2,
+                color: Colors.grey[400],
+                height: 1,
               ),
               //List of Transaction History Gift MVP
               SingleChildScrollView(

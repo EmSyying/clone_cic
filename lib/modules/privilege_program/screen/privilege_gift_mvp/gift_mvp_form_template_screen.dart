@@ -93,18 +93,26 @@ class GiftMVPFromTemplateScreen extends StatelessWidget {
                                       accountNumber: e.accountNumber,
                                       imageAccount: e.imageAcount,
                                       onTapDeleted: () {},
-                                      onTapEdit: () {},
+                                      onTapEdit: () {
+                                        try {
+                                          var string = GoRouterState.of(context)
+                                              .location;
+
+                                          context.push("$string/edit-template");
+                                          debugPrint("Hello ERRO====R $string");
+                                        } catch (e) {
+                                          debugPrint("Hello ERRO====R$e");
+                                        }
+                                      },
                                       onTapHistory: () async {
                                         context.pop(context);
-
                                         onShowPopUpTemplateHistory(
                                           context,
                                           child: ListView.separated(
                                             separatorBuilder:
-                                                (context, index) =>
-                                                    const Divider(
-                                              color: Colors.grey,
-                                              height: 0.5,
+                                                (context, index) => Divider(
+                                              color: Colors.grey[400],
+                                              height: 1,
                                             ),
                                             itemCount:
                                                 listTransactionHistory.length,
@@ -124,6 +132,9 @@ class GiftMVPFromTemplateScreen extends StatelessWidget {
                                               amount:
                                                   listTransactionHistory[index]
                                                       .amount,
+                                              amountColorType:
+                                                  listTransactionHistory[index]
+                                                      .amountColorType,
                                             ),
                                           ),
                                         );
@@ -204,39 +215,46 @@ List<CardTemplateMVPModel> listAcountTemplate = [
 
 List<CardTemplateMVPModel> listTransactionHistory = [
   CardTemplateMVPModel(
-      accountName: 'Champei Spa Toul Kork',
-      dated: '21 Feb 2023 | 01:34:12 AM',
-      image: 'assets/images/privilege/transfer_icon.svg',
-      amount: '- 245 MVP',
-      id: 1),
+    accountName: 'Champei Spa Toul Kork',
+    dated: '21 Feb 2023 | 01:34:12 AM',
+    image: 'assets/images/privilege/transfer_icon.svg',
+    amount: '+ 245 MVP',
+    id: 1,
+  ),
   CardTemplateMVPModel(
       accountName: 'Champei Spa Toul Kork 1',
       dated: '21 Feb 2023 | 01:34:12 AM',
       image: 'assets/images/privilege/transfer_icon.svg',
-      amount: '- 245 MVP',
-      id: 2),
+      amount: '+ 245 MVP',
+      id: 2,
+      amountColorType: "Cash Out"),
   CardTemplateMVPModel(
-      accountName: 'Champei Spa Toul Kork 2',
-      dated: '21 Feb 2023 | 01:34:12 AM',
-      image: 'assets/images/privilege/transfer_icon.svg',
-      amount: '- 245 MVP',
-      id: 3),
+    accountName: 'Champei Spa Toul Kork 2',
+    dated: '21 Feb 2023 | 01:34:12 AM',
+    image: 'assets/images/privilege/transfer_icon.svg',
+    amount: '+ 245 MVP',
+    id: 3,
+  ),
   CardTemplateMVPModel(
-      accountName: 'Champei Spa Toul Kork 3',
-      dated: '21 Feb 2023 | 01:34:12 AM',
-      image: 'assets/images/privilege/transfer_icon.svg',
-      amount: '- 245 MVP',
-      id: 4),
+    accountName: 'Champei Spa Toul Kork 3',
+    dated: '21 Feb 2023 | 01:34:12 AM',
+    image: 'assets/images/privilege/transfer_icon.svg',
+    amount: '+ 245 MVP',
+    id: 4,
+    amountColorType: "Cash Out",
+  ),
   CardTemplateMVPModel(
-      accountName: 'Champei Spa Toul Kork 4',
-      dated: '21 Feb 2023 | 01:34:12 AM',
-      image: 'assets/images/privilege/transfer_icon.svg',
-      amount: '- 245 MVP',
-      id: 5),
+    accountName: 'Champei Spa Toul Kork 4',
+    dated: '21 Feb 2023 | 01:34:12 AM',
+    image: 'assets/images/privilege/transfer_icon.svg',
+    amount: '+ 245 MVP',
+    id: 5,
+  ),
   CardTemplateMVPModel(
-      accountName: 'Champei Spa Toul Kork 5',
-      dated: '21 Feb 2023 | 01:34:12 AM',
-      image: 'assets/images/privilege/transfer_icon.svg',
-      amount: '- 245 MVP',
-      id: 6),
+    accountName: 'Champei Spa Toul Kork 5',
+    dated: '21 Feb 2023 | 01:34:12 AM',
+    image: 'assets/images/privilege/transfer_icon.svg',
+    amount: '+ 245 MVP',
+    id: 6,
+  ),
 ];

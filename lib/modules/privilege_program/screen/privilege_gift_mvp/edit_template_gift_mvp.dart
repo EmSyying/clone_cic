@@ -9,8 +9,8 @@ import '../../../../Utils/form_builder/custom_button.dart';
 import '../../../../Utils/form_builder/custom_textformfield.dart';
 import '../../../../Utils/helper/custom_appbar_colorswhite.dart';
 
-class CreateTemplateScreen extends StatelessWidget {
-  const CreateTemplateScreen({super.key});
+class EditTemplateGiftMVP extends StatelessWidget {
+  const EditTemplateGiftMVP({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +18,7 @@ class CreateTemplateScreen extends StatelessWidget {
       appBar: CustomAppBarWhiteColor(
         context: context,
         elevation: 0,
-        title: 'Create Template',
+        title: 'Edit Template',
         colorTitle: true,
         backgroundColor: Theme.of(context).primaryColor,
         leading: IconButton(
@@ -98,7 +98,7 @@ class CreateTemplateScreen extends StatelessWidget {
                                   child: Column(
                                     children: [
                                       Text(
-                                        'Upload Profile Picture',
+                                        'Edit Profile Picture',
                                         style: Theme.of(context)
                                             .textTheme
                                             .displaySmall!

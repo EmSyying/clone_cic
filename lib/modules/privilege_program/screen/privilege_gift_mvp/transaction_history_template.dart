@@ -6,8 +6,15 @@ class TransactionHistoryTemplate extends StatelessWidget {
   final String? amount;
   final String? image;
   final String? title;
-  const TransactionHistoryTemplate(
-      {super.key, this.dated, this.amount, this.image, this.title});
+  final String? amountColorType;
+  const TransactionHistoryTemplate({
+    super.key,
+    this.dated,
+    this.amount,
+    this.image,
+    this.title,
+    this.amountColorType,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -68,7 +75,8 @@ class TransactionHistoryTemplate extends StatelessWidget {
           amount ?? '',
           style: Theme.of(context).textTheme.displayMedium!.copyWith(
                 fontSize: 12,
-                color: Colors.green,
+                color:
+                    amountColorType == "Cash Out" ? Colors.red : Colors.green,
                 fontWeight: FontWeight.w500,
               ),
         ),

@@ -6,6 +6,7 @@ class CardTemplateMVPModel {
   final String? dated;
   final String? amount;
   final String? image;
+  final String? amountColorType;
 
   CardTemplateMVPModel({
     this.imageAcount,
@@ -15,5 +16,6 @@ class CardTemplateMVPModel {
     this.dated,
     this.amount,
     this.image,
+    this.amountColorType,
   });
 }

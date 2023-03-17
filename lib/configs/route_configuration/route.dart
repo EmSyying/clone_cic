@@ -46,6 +46,7 @@ import '../../modules/privilege_program/screen/mvp_qr.dart';
 import '../../modules/privilege_program/screen/privilege/mvp_transaction_history.dart';
 import '../../modules/privilege_program/screen/privilege/privilage_store.dart';
 import '../../modules/privilege_program/screen/privilege_gift_mvp/created_template_screen.dart';
+import '../../modules/privilege_program/screen/privilege_gift_mvp/edit_template_gift_mvp.dart';
 import '../../modules/privilege_program/screen/privilege_gift_mvp/gift_mvp_form_template_screen.dart';
 import '../../modules/privilege_program/screen/privilege_point/gift_mvp_option.dart';
 import '../../modules/privilege_program/screen/privilege_point/gift_mvp_successfully.dart';
@@ -263,30 +264,31 @@ final router = GoRouter(
                                   ],
                                 ),
                                 GoRoute(
-                                    parentNavigatorKey: _rootNavigatorKey,
-                                    path: 'gift-mvp-template',
-                                    builder: (context, state) =>
-                                        GiftMVPFromTemplateScreen(
-                                          key: state.pageKey,
-                                        ),
-                                    routes: [
-                                      GoRoute(
-                                        parentNavigatorKey: _rootNavigatorKey,
-                                        path: 'create-template',
-                                        builder: (context, state) =>
-                                            CreateTemplateScreen(
-                                          key: state.pageKey,
-                                        ),
+                                  parentNavigatorKey: _rootNavigatorKey,
+                                  path: 'gift-mvp-template',
+                                  builder: (context, state) =>
+                                      GiftMVPFromTemplateScreen(
+                                    key: state.pageKey,
+                                  ),
+                                  routes: [
+                                    GoRoute(
+                                      parentNavigatorKey: _rootNavigatorKey,
+                                      path: 'create-template',
+                                      builder: (context, state) =>
+                                          CreateTemplateScreen(
+                                        key: state.pageKey,
                                       ),
-                                      GoRoute(
-                                        parentNavigatorKey: _rootNavigatorKey,
-                                        path: 'choosen-template',
-                                        builder: (context, state) =>
-                                            ChooseGiftTemplateScreen(
-                                          key: state.pageKey,
-                                        ),
+                                    ),
+                                    GoRoute(
+                                      parentNavigatorKey: _rootNavigatorKey,
+                                      path: 'choosen-template',
+                                      builder: (context, state) =>
+                                          ChooseGiftTemplateScreen(
+                                        key: state.pageKey,
                                       ),
-                                    ]),
+                                    ),
+                                  ],
+                                ),
                               ]),
                           // GoRoute(
                           //   parentNavigatorKey: _rootNavigatorKey,
@@ -512,6 +514,14 @@ final router = GoRouter(
                                     path: 'create-template',
                                     builder: (context, state) =>
                                         CreateTemplateScreen(
+                                      key: state.pageKey,
+                                    ),
+                                  ),
+                                  GoRoute(
+                                    parentNavigatorKey: _rootNavigatorKey,
+                                    path: 'edit-template',
+                                    builder: (context, state) =>
+                                        EditTemplateGiftMVP(
                                       key: state.pageKey,
                                     ),
                                   ),
