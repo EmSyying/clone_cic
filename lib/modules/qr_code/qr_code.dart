@@ -56,6 +56,8 @@ class _QrCodeScreenState extends State<QrCodeScreen> {
   Uri? uri;
   bool isInvalid = false;
   bool isGenerateDynamiclink = false;
+  List<String> blackListQRCode = [];
+  String imagePath = "";
 
   ///
   Future<void> _onCaptureAndSave(BuildContext context) async {
@@ -268,6 +270,14 @@ class _QrCodeScreenState extends State<QrCodeScreen> {
                                                       isGenerateDynamiclink =
                                                           false;
                                                       captureImage = null;
+                                                      if (!blackListQRCode
+                                                          .contains(
+                                                              imagePath)) {
+                                                        debugPrint(
+                                                            "Yes is Not contained");
+                                                        blackListQRCode
+                                                            .add(imagePath);
+                                                      }
                                                     });
 
                                                     customRouterSnackbar(
@@ -290,7 +300,8 @@ class _QrCodeScreenState extends State<QrCodeScreen> {
 
                                                 ),
                                           ),
-                                          if (captureImage != null && isGenerateDynamiclink)
+                                          if (captureImage != null &&
+                                              isGenerateDynamiclink)
                                             Container(
                                               height: width * 0.7,
                                               width: width * 0.7,
@@ -387,10 +398,13 @@ class _QrCodeScreenState extends State<QrCodeScreen> {
                                                       );
 
                                                       if (image != null) {
+                                                        isGenerateDynamiclink =
+                                                            true;
                                                         captureImage =
                                                             await File(
                                                                     image.path)
                                                                 .readAsBytes();
+                                                        imagePath = image.path;
                                                         setState(() {});
                                                         debugPrint(
                                                             "image.path${image.path}");
@@ -398,44 +412,68 @@ class _QrCodeScreenState extends State<QrCodeScreen> {
                                                         // await cameraController
                                                         //     .analyzeImage(
                                                         //         image.path);
-                                                        if (await cameraController
-                                                            .analyzeImage(
-                                                                image.path)) {
-                                                          // setState(() {});
+                                                        
+                                                        
+                                                        if (!blackListQRCode
+                                                            .contains(
+                                                                imagePath)) {
+                                                          if (await cameraController
+                                                              .analyzeImage(
+                                                                  image.path)) {
+                                                            // setState(() {});
 
-                                                          if (!mounted) return;
+                                                            if (!mounted) {
+                                                              return;
+                                                            }
 
-                                                          // ScaffoldMessenger.of(
-                                                          //         context)
-                                                          //     .showSnackBar(
-                                                          //   SnackBar(
-                                                          //     content: const Text(
-                                                          //         'Barcode found!'),
-                                                          //     backgroundColor:
-                                                          //         Theme.of(context)
-                                                          //             .primaryColor,
-                                                          //   ),
-                                                          // );
+                                                            // ScaffoldMessenger.of(
+                                                            //         context)
+                                                            //     .showSnackBar(
+                                                            //   SnackBar(
+                                                            //     content: const Text(
+                                                            //         'Barcode found!'),
+                                                            //     backgroundColor:
+                                                            //         Theme.of(context)
+                                                            //             .primaryColor,
+                                                            //   ),
+                                                            // );
+                                                          } else {
+                                                            if (!mounted) {
+                                                              return;
+                                                            }
+                                                            isGenerateDynamiclink =
+                                                                false;
+                                                            captureImage = null;
+                                                            setState(() {});
+                                                            customRouterSnackbar(
+                                                                description:
+                                                                    'No QR code found!',
+                                                                suffix: false,
+                                                                prefix: true);
+                                                            // ScaffoldMessenger.of(
+                                                            //         context)
+                                                            //     .showSnackBar(
+                                                            //   SnackBar(
+                                                            //     content: const Text(
+                                                            //         'No barcode found!'),
+                                                            //     backgroundColor:
+                                                            //         Theme.of(context)
+                                                            //             .primaryColor,
+                                                            //   ),
+                                                            // );
+                                                          }
                                                         } else {
-                                                          if (!mounted) return;
+                                                          debugPrint(
+                                                              "IS Containing");
+                                                          isGenerateDynamiclink =
+                                                              false;
                                                           captureImage = null;
                                                           setState(() {});
                                                           customRouterSnackbar(
                                                               description:
-                                                                  'No QR code found!',
+                                                                  'Invalid QR',
                                                               suffix: false,
                                                               prefix: true);
-                                                          // ScaffoldMessenger.of(
-                                                          //         context)
-                                                          //     .showSnackBar(
-                                                          //   SnackBar(
-                                                          //     content: const Text(
-                                                          //         'No barcode found!'),
-                                                          //     backgroundColor:
-                                                          //         Theme.of(context)
-                                                          //             .primaryColor,
-                                                          //   ),
-                                                          // );
                                                         }
                                                       }
                                                     } catch (e) {
