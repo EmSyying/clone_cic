@@ -94,6 +94,7 @@ class GiftMVPFromTemplateScreen extends StatelessWidget {
                                       imageAccount: e.imageAcount,
                                       onTapDeleted: () {},
                                       onTapEdit: () {
+                                        context.pop();
                                         try {
                                           var string = GoRouterState.of(context)
                                               .location;
