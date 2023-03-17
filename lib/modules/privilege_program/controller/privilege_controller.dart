@@ -1085,6 +1085,7 @@ class PrivilegeController extends GetxController {
     } finally {}
   }
 
+  /// Fetch template
   Future<void> fetchTemplate(BuildContext context) async {
     try {
       await apiBaseHelper
@@ -1103,7 +1104,6 @@ class PrivilegeController extends GetxController {
 
   ///Template with Choose from template option:
   ///TODO: Hany
-
   Future<void> searchTemplate(BuildContext context) async {
     try {
       await apiBaseHelper
@@ -1122,6 +1122,7 @@ class PrivilegeController extends GetxController {
     } finally {}
   }
 
+  ///Create template with choosing option
   Future<void> createTemplateChooseTemplateOption(BuildContext context) async {
     try {
       await apiBaseHelper.onNetworkRequesting(
@@ -1144,6 +1145,7 @@ class PrivilegeController extends GetxController {
     } finally {}
   }
 
+  ///Update Template
   Future<void> updateTemplate(BuildContext context) async {
     try {
       await apiBaseHelper.onNetworkRequesting(
@@ -1165,22 +1167,7 @@ class PrivilegeController extends GetxController {
     } finally {}
   }
 
-  Future<void> deleteTemplate(BuildContext context) async {
-    try {
-      await apiBaseHelper.onNetworkRequesting(
-          url: 'template',
-          methode: METHODE.delete,
-          isAuthorize: true,
-          body: {
-            'template_id': 4,
-          }).then((response) {
-        update();
-      }).onError((ErrorModel error, stackTrace) {});
-    } catch (e) {
-      debugPrint("====>:$e");
-    } finally {}
-  }
-
+  ///Transaction on template
   Future<void> transactionTemplate(BuildContext context) async {
     try {
       await apiBaseHelper
@@ -1190,6 +1177,23 @@ class PrivilegeController extends GetxController {
         isAuthorize: true,
       )
           .then((response) {
+        update();
+      }).onError((ErrorModel error, stackTrace) {});
+    } catch (e) {
+      debugPrint("====>:$e");
+    } finally {}
+  }
+
+  ///Delete template TODO Kithya
+  Future<void> deleteTemplate(BuildContext context) async {
+    try {
+      await apiBaseHelper.onNetworkRequesting(
+          url: 'template',
+          methode: METHODE.delete,
+          isAuthorize: true,
+          body: {
+            'template_id': 4,
+          }).then((response) {
         update();
       }).onError((ErrorModel error, stackTrace) {});
     } catch (e) {
