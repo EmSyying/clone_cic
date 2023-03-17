@@ -3,7 +3,6 @@ import 'package:cicgreenloan/modules/privilege_program/model/dynamic_link_model.
 import 'package:cicgreenloan/modules/privilege_program/model/payment_summary.dart';
 import 'package:cicgreenloan/modules/privilege_program/model/stores_model/privilege_shop_model.dart';
 import 'package:cicgreenloan/modules/privilege_program/model/stores_model/store_branch_model.dart';
-import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
@@ -241,6 +240,13 @@ class PrivilegeController extends GetxController {
       numberOfBranch(value["number_of_branches"]);
     });
   }
+
+  // functionRefreshPageStore() async {
+  //   storeBranchListPage.value = 1;
+  //   await onFetchShopBranchItemList(storeBranchListPage.value);
+  //   await onFetchNumberOfBranch();
+  //   await onFetchHomeStoreData();
+  // }
 
   Future<void> onFetchShopBranchItemList(int page) async {
     debugPrint("PAGE: $page");
@@ -1045,5 +1051,149 @@ class PrivilegeController extends GetxController {
     } finally {
       isRedeemToSubmitMVP(false);
     }
+  }
+
+  ///Template with Gift MVP to ohter account option:
+  ///TODO: Virak
+
+  Future<void> createTemplateOtherAccountOption(BuildContext context) async {
+    try {
+      await apiBaseHelper.onNetworkRequesting(
+        url: 'user/wallet/gift-mvp',
+        methode: METHODE.post,
+        isAuthorize: true,
+        body: {
+          'sender': '582864858',
+
+          ///Wallet MVP Account
+          'receiver': '046192935',
+
+          ///Wallet MVP Account
+          'remark': 'Gift MVP',
+          'is_create_template': 1,
+
+          ///if value equal 0 meaning not create template, 1 meaning create template
+          'template_name': ''
+
+          ///name optional
+        },
+      ).then((response) {
+        update();
+      }).onError((ErrorModel error, stackTrace) {});
+    } catch (e) {
+      debugPrint("====>:$e");
+    } finally {}
+  }
+
+  Future<void> fetchTemplate(BuildContext context) async {
+    try {
+      await apiBaseHelper
+          .onNetworkRequesting(
+        url: 'list-template',
+        methode: METHODE.get,
+        isAuthorize: true,
+      )
+          .then((response) {
+        update();
+      }).onError((ErrorModel error, stackTrace) {});
+    } catch (e) {
+      debugPrint("====>:$e");
+    } finally {}
+  }
+
+  ///Template with Choose from template option:
+  ///TODO: Hany
+
+  Future<void> searchTemplate(BuildContext context) async {
+    try {
+      await apiBaseHelper
+          .onNetworkRequesting(
+        url: 'list-template?search=name',
+
+        ///can search name or number wallet
+        methode: METHODE.get,
+        isAuthorize: true,
+      )
+          .then((response) {
+        update();
+      }).onError((ErrorModel error, stackTrace) {});
+    } catch (e) {
+      debugPrint("====>:$e");
+    } finally {}
+  }
+
+  Future<void> createTemplateChooseTemplateOption(BuildContext context) async {
+    try {
+      await apiBaseHelper.onNetworkRequesting(
+        url: 'create-template',
+        methode: METHODE.post,
+        isAuthorize: true,
+        body: {
+          'receiver': '582864858',
+
+          ///wallet MVP
+          'template_name': '',
+
+          ///name optional
+        },
+      ).then((response) {
+        update();
+      }).onError((ErrorModel error, stackTrace) {});
+    } catch (e) {
+      debugPrint("=====>:$e");
+    } finally {}
+  }
+
+  Future<void> updateTemplate(BuildContext context) async {
+    try {
+      await apiBaseHelper.onNetworkRequesting(
+          url: 'template',
+          methode: METHODE.patch,
+          isAuthorize: true,
+          body: {
+            'template_id': 4,
+            'wallet_number': '946674133',
+            'template_name': 'Testing'
+
+            ///name optional
+          }).then((response) {
+        debugPrint("------------Success");
+        update();
+      }).onError((ErrorModel error, stackTrace) {});
+    } catch (e) {
+      debugPrint("====>:$e");
+    } finally {}
+  }
+
+  Future<void> deleteTemplate(BuildContext context) async {
+    try {
+      await apiBaseHelper.onNetworkRequesting(
+          url: 'template',
+          methode: METHODE.delete,
+          isAuthorize: true,
+          body: {
+            'template_id': 4,
+          }).then((response) {
+        update();
+      }).onError((ErrorModel error, stackTrace) {});
+    } catch (e) {
+      debugPrint("====>:$e");
+    } finally {}
+  }
+
+  Future<void> transactionTemplate(BuildContext context) async {
+    try {
+      await apiBaseHelper
+          .onNetworkRequesting(
+        url: 'template-transaction-history?template_id=1',
+        methode: METHODE.get,
+        isAuthorize: true,
+      )
+          .then((response) {
+        update();
+      }).onError((ErrorModel error, stackTrace) {});
+    } catch (e) {
+      debugPrint("====>:$e");
+    } finally {}
   }
 }

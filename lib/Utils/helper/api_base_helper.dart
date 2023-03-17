@@ -12,12 +12,7 @@ class ErrorModel {
   const ErrorModel({this.statusCode, this.bodyString});
 }
 
-enum METHODE {
-  get,
-  post,
-  delete,
-  update,
-}
+enum METHODE { get, post, delete, update, patch }
 
 class ApiBaseHelper extends GetConnect {
   final String urlKey = 'api_base_urlv3';
@@ -61,6 +56,14 @@ class ApiBaseHelper extends GetConnect {
         case METHODE.update:
           if (body != null) {
             final response = await put(fullUrl, json.encode(body),
+                headers: header ?? defaultHeader);
+            return _returnResponse(response, isConvertToByte);
+          }
+          return Future.error(
+              const ErrorModel(bodyString: 'Body must be included'));
+        case METHODE.patch:
+          if (body != null) {
+            final response = await patch(fullUrl, json.encode(body),
                 headers: header ?? defaultHeader);
             return _returnResponse(response, isConvertToByte);
           }
