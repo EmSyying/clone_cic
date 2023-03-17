@@ -29,7 +29,7 @@ class CustomQRCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final walletController = Get.put(WalletController());;
+    final walletController = Get.put(WalletController());
     return Container(
       padding: const EdgeInsets.all(24),
       decoration: const BoxDecoration(

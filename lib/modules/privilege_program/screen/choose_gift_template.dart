@@ -196,8 +196,8 @@ class ChooseGiftTemplateScreen extends StatelessWidget {
                               height: 75,
                               width: 75,
                               clipBehavior: Clip.hardEdge,
-                              decoration:
-                                  const BoxDecoration(shape: BoxShape.circle),
+                              decoration: const BoxDecoration(
+                                  color: Colors.white, shape: BoxShape.circle),
                               child: Image.network(
                                 "https://99designs-blog.imgix.net/blog/wp-content/uploads/2017/06/apple.png?auto=format&q=60&fit=max&w=930",
                                 // fit: BoxFit.cover,
@@ -389,71 +389,73 @@ class BodyWidget extends StatelessWidget {
     return Container(
       alignment: Alignment.topCenter,
       color: Colors.white,
-      child: Column(
-        children: [
-          CustomTextFieldNew(
-            enable: false,
-            noDisableColor: true,
-            // isReadOnly: true,
-            controller: mvpBalanceTextController,
-            prefix: RichText(
-              text: TextSpan(
-                style: txtTheme.bodyMedium!.copyWith(
-                  fontWeight: FontWeight.w400,
-                  color: const Color(0xff848F92),
-                  fontSize: 16,
-                ),
-                text: "023532433" " | ",
-                children: [
-                  TextSpan(
-                    style: txtTheme.bodyMedium!.copyWith(
-                      fontWeight: FontWeight.w700,
-                      color: Colors.black,
-                      fontSize: 16,
-                    ),
-                    text: "1,000",
-                  ),
-                  TextSpan(
-                    style: txtTheme.bodyMedium!
-                        .copyWith(fontSize: 12, color: const Color(0xff848F92)),
-                    text: "  " "MVP",
-                  )
-                ],
-              ),
-            ),
-            keyboardType: TextInputType.number,
-            isRequired: false,
-            // hintText: 'Enter receive number',
-            onChange: (phone) {},
-            isValidate: true,
-            labelText: 'MVP Balance',
-          ),
-          CustomTextFieldNew(
-            suffixIcon: Padding(
-              padding: const EdgeInsets.only(top: 15, right: 10),
-              child: Text("MVP",
+      child: SingleChildScrollView(
+        child: Column(
+          children: [
+            CustomTextFieldNew(
+              enable: false,
+              noDisableColor: true,
+              // isReadOnly: true,
+              controller: mvpBalanceTextController,
+              prefix: RichText(
+                text: TextSpan(
                   style: txtTheme.bodyMedium!.copyWith(
-                      fontWeight: FontWeight.w500,
-                      fontSize: 14,
-                      color: const Color(0xff848F92))),
+                    fontWeight: FontWeight.w400,
+                    color: const Color(0xff848F92),
+                    fontSize: 16,
+                  ),
+                  text: "023532433" " | ",
+                  children: [
+                    TextSpan(
+                      style: txtTheme.bodyMedium!.copyWith(
+                        fontWeight: FontWeight.w700,
+                        color: Colors.black,
+                        fontSize: 16,
+                      ),
+                      text: "1,000",
+                    ),
+                    TextSpan(
+                      style: txtTheme.bodyMedium!.copyWith(
+                          fontSize: 12, color: const Color(0xff848F92)),
+                      text: "  " "MVP",
+                    )
+                  ],
+                ),
+              ),
+              keyboardType: TextInputType.number,
+              isRequired: false,
+              // hintText: 'Enter receive number',
+              onChange: (phone) {},
+              isValidate: true,
+              labelText: 'MVP Balance',
             ),
-            enable: true,
-            isRequired: true,
-            keyboardType: TextInputType.number,
-            hintText: 'Amount',
-            onChange: (phone) {},
-            isValidate: true,
-            labelText: 'Amount',
-          ),
-          CustomTextFieldNew(
-            enable: true,
-            isRequired: false,
-            keyboardType: TextInputType.text,
-            hintText: 'Remark',
-            onChange: (phone) {},
-            labelText: 'Remark',
-          ),
-        ],
+            CustomTextFieldNew(
+              suffixIcon: Padding(
+                padding: const EdgeInsets.only(top: 15, right: 10),
+                child: Text("MVP",
+                    style: txtTheme.bodyMedium!.copyWith(
+                        fontWeight: FontWeight.w500,
+                        fontSize: 14,
+                        color: const Color(0xff848F92))),
+              ),
+              enable: true,
+              isRequired: true,
+              keyboardType: TextInputType.number,
+              hintText: 'Amount',
+              onChange: (phone) {},
+              isValidate: true,
+              labelText: 'Amount',
+            ),
+            CustomTextFieldNew(
+              enable: true,
+              isRequired: false,
+              keyboardType: TextInputType.text,
+              hintText: 'Remark',
+              onChange: (phone) {},
+              labelText: 'Remark',
+            ),
+          ],
+        ),
       ),
     );
   }
