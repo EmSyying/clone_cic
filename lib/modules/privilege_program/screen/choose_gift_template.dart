@@ -18,6 +18,7 @@ class ChooseGiftTemplateScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final txtTheme = Theme.of(context).textTheme;
     return Scaffold(
+      // resizeToAvoidBottomInset: false,
       appBar: CustomAppBarWhiteColor(
         context: context,
         elevation: 0,
@@ -97,9 +98,9 @@ class ChooseGiftTemplateScreen extends StatelessWidget {
           },
         ),
       ),
-      bottomNavigationBar: BottomNavigationBarButton(
-        onPressed: () {},
-      ),
+      // bottomNavigationBar: BottomNavigationBarButton(
+      //   onPressed: () {},
+      // ),
       body: NestedScrollView(
         floatHeaderSlivers: true,
         headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
@@ -389,73 +390,82 @@ class BodyWidget extends StatelessWidget {
     return Container(
       alignment: Alignment.topCenter,
       color: Colors.white,
-      child: SingleChildScrollView(
-        child: Column(
-          children: [
-            CustomTextFieldNew(
-              enable: false,
-              noDisableColor: true,
-              // isReadOnly: true,
-              controller: mvpBalanceTextController,
-              prefix: RichText(
-                text: TextSpan(
-                  style: txtTheme.bodyMedium!.copyWith(
-                    fontWeight: FontWeight.w400,
-                    color: const Color(0xff848F92),
-                    fontSize: 16,
-                  ),
-                  text: "023532433" " | ",
-                  children: [
-                    TextSpan(
-                      style: txtTheme.bodyMedium!.copyWith(
-                        fontWeight: FontWeight.w700,
-                        color: Colors.black,
-                        fontSize: 16,
+      child: Column(
+        children: [
+          Expanded(
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  CustomTextFieldNew(
+                    enable: false,
+                    noDisableColor: true,
+                    // isReadOnly: true,
+                    controller: mvpBalanceTextController,
+                    prefix: RichText(
+                      text: TextSpan(
+                        style: txtTheme.bodyMedium!.copyWith(
+                          fontWeight: FontWeight.w400,
+                          color: const Color(0xff848F92),
+                          fontSize: 16,
+                        ),
+                        text: "023532433" " | ",
+                        children: [
+                          TextSpan(
+                            style: txtTheme.bodyMedium!.copyWith(
+                              fontWeight: FontWeight.w700,
+                              color: Colors.black,
+                              fontSize: 16,
+                            ),
+                            text: "1,000",
+                          ),
+                          TextSpan(
+                            style: txtTheme.bodyMedium!.copyWith(
+                                fontSize: 12, color: const Color(0xff848F92)),
+                            text: "  " "MVP",
+                          )
+                        ],
                       ),
-                      text: "1,000",
                     ),
-                    TextSpan(
-                      style: txtTheme.bodyMedium!.copyWith(
-                          fontSize: 12, color: const Color(0xff848F92)),
-                      text: "  " "MVP",
-                    )
-                  ],
-                ),
+                    keyboardType: TextInputType.number,
+                    isRequired: false,
+                    // hintText: 'Enter receive number',
+                    onChange: (phone) {},
+                    isValidate: true,
+                    labelText: 'MVP Balance',
+                  ),
+                  CustomTextFieldNew(
+                    suffixIcon: Padding(
+                      padding: const EdgeInsets.only(top: 15, right: 10),
+                      child: Text("MVP",
+                          style: txtTheme.bodyMedium!.copyWith(
+                              fontWeight: FontWeight.w500,
+                              fontSize: 14,
+                              color: const Color(0xff848F92))),
+                    ),
+                    enable: true,
+                    isRequired: true,
+                    keyboardType: TextInputType.number,
+                    hintText: 'Amount',
+                    onChange: (phone) {},
+                    isValidate: true,
+                    labelText: 'Amount',
+                  ),
+                  CustomTextFieldNew(
+                    enable: true,
+                    isRequired: false,
+                    keyboardType: TextInputType.text,
+                    hintText: 'Remark',
+                    onChange: (phone) {},
+                    labelText: 'Remark',
+                  ),
+                ],
               ),
-              keyboardType: TextInputType.number,
-              isRequired: false,
-              // hintText: 'Enter receive number',
-              onChange: (phone) {},
-              isValidate: true,
-              labelText: 'MVP Balance',
             ),
-            CustomTextFieldNew(
-              suffixIcon: Padding(
-                padding: const EdgeInsets.only(top: 15, right: 10),
-                child: Text("MVP",
-                    style: txtTheme.bodyMedium!.copyWith(
-                        fontWeight: FontWeight.w500,
-                        fontSize: 14,
-                        color: const Color(0xff848F92))),
-              ),
-              enable: true,
-              isRequired: true,
-              keyboardType: TextInputType.number,
-              hintText: 'Amount',
-              onChange: (phone) {},
-              isValidate: true,
-              labelText: 'Amount',
-            ),
-            CustomTextFieldNew(
-              enable: true,
-              isRequired: false,
-              keyboardType: TextInputType.text,
-              hintText: 'Remark',
-              onChange: (phone) {},
-              labelText: 'Remark',
-            ),
-          ],
-        ),
+          ),
+          BottomNavigationBarButton(
+            onPressed: () {},
+          )
+        ],
       ),
     );
   }
