@@ -361,12 +361,16 @@ class _QrCodeScreenState extends State<QrCodeScreen> {
                                           Padding(
                                             padding: EdgeInsets.only(
                                                 bottom: Get.height * 0.08),
-                                            child: const Text(
+                                            child: Text(
                                               "Align QR code within the frame to scan",
-                                              style: TextStyle(
-                                                  fontSize: 16,
-                                                  fontWeight: FontWeight.w400,
-                                                  color: Colors.white),
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .bodyMedium!
+                                                  .copyWith(
+                                                      fontSize: 16,
+                                                      fontWeight:
+                                                          FontWeight.w400,
+                                                      color: Colors.white),
                                             ),
                                           ),
                                           Row(
@@ -469,11 +473,18 @@ class _QrCodeScreenState extends State<QrCodeScreen> {
                                                         child: SvgPicture.asset(
                                                             "assets/images/qr.svg"),
                                                       ),
-                                                      const Text(
+                                                      Text(
                                                         "Upload QR",
-                                                        style: TextStyle(
-                                                            color:
-                                                                Colors.white),
+                                                        style: Theme.of(context)
+                                                            .textTheme
+                                                            .bodyMedium!
+                                                            .copyWith(
+                                                                fontSize: 14,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w400,
+                                                                color: Colors
+                                                                    .white),
                                                       ),
                                                     ],
                                                   ),
@@ -516,10 +527,18 @@ class _QrCodeScreenState extends State<QrCodeScreen> {
                                                             : null,
                                                       ),
                                                     ),
-                                                    const Text(
+                                                    Text(
                                                       "Flash",
-                                                      style: TextStyle(
-                                                          color: Colors.white),
+                                                      style: Theme.of(context)
+                                                          .textTheme
+                                                          .bodyMedium!
+                                                          .copyWith(
+                                                              fontSize: 14,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w400,
+                                                              color:
+                                                                  Colors.white),
                                                     ),
                                                   ],
                                                 ),
