@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:io';
 
 import 'package:cicgreenloan/modules/privilege_program/screen/privilege_gift_mvp/transaction_history_template.dart';
@@ -5,17 +6,52 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 import '../../../../Utils/helper/custom_appbar_colorswhite.dart';
+import '../../../../widgets/bonus/custom_empty_state.dart';
 import '../../../../widgets/privilege/privilege/custom_formfield_search.dart';
 import '../../../../widgets/privilege/privilege_gift_mvp/custom_card_gift_mvp_form.dart';
 import '../../../../widgets/privilege/privilege_gift_mvp/custom_pop_up_template_history.dart';
+import '../../controller/privilege_controller.dart';
 import '../../model/gift_mvp_model/card_template_mvp_model.dart';
 
-class GiftMVPFromTemplateScreen extends StatelessWidget {
+class GiftMVPFromTemplateScreen extends StatefulWidget {
   const GiftMVPFromTemplateScreen({super.key});
+
+  @override
+  State<GiftMVPFromTemplateScreen> createState() =>
+      _GiftMVPFromTemplateScreenState();
+}
+
+class _GiftMVPFromTemplateScreenState extends State<GiftMVPFromTemplateScreen> {
+  final priCon = Get.put(PrivilegeController());
+  Timer? searchOnStoppedTyping;
+  @override
+  void initState() {
+    priCon.fetchListTemplate('');
+    super.initState();
+  }
+
+  //function search template
+  onChangeSearchName(value) {
+    const duration = Duration(milliseconds: 800);
+    if (searchOnStoppedTyping != null) {
+      setState(() => searchOnStoppedTyping!.cancel());
+    }
+    setState(
+      () => searchOnStoppedTyping =
+          Timer(duration, () => searchTemplateName(value)),
+    );
+  }
+
+  searchTemplateName(textSearch) async {
+    await priCon.fetchListTemplate(textSearch).then(
+          (value) {},
+        );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -42,110 +78,144 @@ class GiftMVPFromTemplateScreen extends StatelessWidget {
                   },
                 ),
               ),
-              body: Container(
-                color: Colors.transparent,
-                padding: const EdgeInsets.symmetric(
-                    horizontal: 20.0, vertical: 20.0),
-                child: SingleChildScrollView(
-                  child: Column(
-                    children: [
-                      //Text form field Search
-                      Container(
-                        height: 38,
-                        width: double.infinity,
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 11,
+              body: Obx(
+                () => Container(
+                  color: Colors.transparent,
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 20.0, vertical: 20.0),
+                  child: SingleChildScrollView(
+                    child: Column(
+                      children: [
+                        //Text form field Search
+                        Container(
+                          height: 38,
+                          width: double.infinity,
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 11,
+                          ),
+                          decoration: BoxDecoration(
+                            color: Colors.grey[200],
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          child: CustomFormFieldSearch(
+                            onSaved: (e) {},
+                            onChanged: (value) async {
+                              await onChangeSearchName(value);
+                            },
+                            keyboardType: TextInputType.name,
+                          ),
                         ),
-                        decoration: BoxDecoration(
-                          color: Colors.grey[200],
-                          borderRadius: BorderRadius.circular(10),
+                        //Template
+                        const SizedBox(
+                          height: 20.0,
                         ),
-                        child: CustomFormFieldSearch(
-                          onSaved: (e) {},
-                          onChanged: (v) {},
-                          //  controller: priCon.textSearchCategoriesController,
-                          keyboardType: TextInputType.name,
-                        ),
-                      ),
-                      //Template
-                      const SizedBox(
-                        height: 20.0,
-                      ),
-                      Column(
-                        children: listAcountTemplate
-                            .map(
-                              (e) => Padding(
-                                padding: const EdgeInsets.only(bottom: 16.0),
-                                child: GestureDetector(
-                                  onTap: () {
-                                    try {
-                                      var string =
-                                          GoRouterState.of(context).location;
+                        priCon.isLoadingTemplate.value
+                            ? const Center(
+                                child: CircularProgressIndicator(),
+                              )
+                            : priCon.listGiftTemplate.isNotEmpty
+                                ? Column(
+                                    children: priCon.listGiftTemplate
+                                        .asMap()
+                                        .entries
+                                        .map(
+                                          (e) => Padding(
+                                            padding: const EdgeInsets.only(
+                                                bottom: 16.0),
+                                            child: GestureDetector(
+                                              onTap: () {
+                                                try {
+                                                  var string =
+                                                      GoRouterState.of(context)
+                                                          .location;
 
-                                      context.push("$string/choosen-template");
-                                    } catch (e) {
-                                      debugPrint("Hello ERROR$e");
-                                    }
-                                  },
-                                  child: CustomCardGiftMVPForm(
-                                      id: e.id,
-                                      acountName: e.accountName,
-                                      accountNumber: e.accountNumber,
-                                      imageAccount: e.imageAcount,
-                                      onTapDeleted: () {},
-                                      onTapEdit: () {
-                                        context.pop();
-                                        try {
-                                          var string = GoRouterState.of(context)
-                                              .location;
+                                                  context.push(
+                                                      "$string/choosen-template");
+                                                } catch (e) {
+                                                  debugPrint("Hello ERROR$e");
+                                                }
+                                              },
+                                              child: CustomCardGiftMVPForm(
+                                                  id: e.value.id,
+                                                  acountName: e.value.name,
+                                                  accountNumber:
+                                                      e.value.walletNumber,
+                                                  // imageAccount: ,
+                                                  onTapDeleted: () {},
+                                                  onTapEdit: () {
+                                                    context.pop();
+                                                    try {
+                                                      var string =
+                                                          GoRouterState.of(
+                                                                  context)
+                                                              .location;
 
-                                          context.push("$string/edit-template");
-                                          debugPrint("Hello ERRO====R $string");
-                                        } catch (e) {
-                                          debugPrint("Hello ERRO====R$e");
-                                        }
-                                      },
-                                      onTapHistory: () async {
-                                        context.pop(context);
-                                        onShowPopUpTemplateHistory(
-                                          context,
-                                          child: ListView.separated(
-                                            separatorBuilder:
-                                                (context, index) => Divider(
-                                              color: Colors.grey[400],
-                                              height: 1,
-                                            ),
-                                            itemCount:
-                                                listTransactionHistory.length,
-                                            physics: const ScrollPhysics(),
-                                            shrinkWrap: true,
-                                            itemBuilder: (_, index) =>
-                                                TransactionHistoryTemplate(
-                                              title:
-                                                  listTransactionHistory[index]
-                                                      .accountName,
-                                              image:
-                                                  listTransactionHistory[index]
-                                                      .image,
-                                              dated:
-                                                  listTransactionHistory[index]
-                                                      .dated,
-                                              amount:
-                                                  listTransactionHistory[index]
-                                                      .amount,
-                                              amountColorType:
-                                                  listTransactionHistory[index]
-                                                      .amountColorType,
+                                                      context.push(
+                                                          "$string/edit-template");
+                                                      debugPrint(
+                                                          "Hello ERRO====R $string");
+                                                    } catch (e) {
+                                                      debugPrint(
+                                                          "Hello ERRO====R$e");
+                                                    }
+                                                  },
+                                                  onTapHistory: () async {
+                                                    context.pop(context);
+                                                    onShowPopUpTemplateHistory(
+                                                      context,
+                                                      child: ListView.separated(
+                                                        separatorBuilder:
+                                                            (context, index) =>
+                                                                Divider(
+                                                          color:
+                                                              Colors.grey[400],
+                                                          height: 1,
+                                                        ),
+                                                        itemCount:
+                                                            listTransactionHistory
+                                                                .length,
+                                                        physics:
+                                                            const ScrollPhysics(),
+                                                        shrinkWrap: true,
+                                                        itemBuilder: (_,
+                                                                index) =>
+                                                            TransactionHistoryTemplate(
+                                                          title:
+                                                              listTransactionHistory[
+                                                                      index]
+                                                                  .accountName,
+                                                          image:
+                                                              listTransactionHistory[
+                                                                      index]
+                                                                  .image,
+                                                          dated:
+                                                              listTransactionHistory[
+                                                                      index]
+                                                                  .dated,
+                                                          amount:
+                                                              listTransactionHistory[
+                                                                      index]
+                                                                  .amount,
+                                                          amountColorType:
+                                                              listTransactionHistory[
+                                                                      index]
+                                                                  .amountColorType,
+                                                        ),
+                                                      ),
+                                                    );
+                                                  }),
                                             ),
                                           ),
-                                        );
-                                      }),
-                                ),
-                              ),
-                            )
-                            .toList(),
-                      ),
-                    ],
+                                        )
+                                        .toList(),
+                                  )
+                                : const CustomEmptyState(
+                                    colors: true,
+                                    title: 'No Template!',
+                                    description: 'No Template Here !',
+                                  ),
+                      ],
+                    ),
                   ),
                 ),
               ),
@@ -174,45 +244,6 @@ class GiftMVPFromTemplateScreen extends StatelessWidget {
     );
   }
 }
-
-List<CardTemplateMVPModel> listAcountTemplate = [
-  CardTemplateMVPModel(
-    accountName: 'Champei Spa',
-    accountNumber: '089 993 338 | MVP',
-    imageAcount: 'assets/images/svgfile/cashout.svg',
-    id: 2,
-  ),
-  CardTemplateMVPModel(
-    accountName: 'Bell Saka',
-    accountNumber: '123 456 663 | MVP',
-    imageAcount: 'assets/images/svgfile/cashout.svg',
-    id: 3,
-  ),
-  CardTemplateMVPModel(
-    accountName: 'Park Coffee',
-    accountNumber: '089 993 338 | MVP',
-    imageAcount: 'assets/images/svgfile/cashout.svg',
-    id: 4,
-  ),
-  CardTemplateMVPModel(
-    accountName: 'Lucy King',
-    accountNumber: '123 456 663 | MVP',
-    imageAcount: 'assets/images/svgfile/cashout.svg',
-    id: 5,
-  ),
-  CardTemplateMVPModel(
-    accountName: 'Emily Taylor',
-    accountNumber: '123 456 663 | MVP',
-    imageAcount: 'assets/images/svgfile/cashout.svg',
-    id: 6,
-  ),
-  CardTemplateMVPModel(
-    accountName: 'Champei Spa',
-    accountNumber: '089 993 338 | MVP',
-    imageAcount: 'assets/images/svgfile/cashout.svg',
-    id: 7,
-  ),
-];
 
 List<CardTemplateMVPModel> listTransactionHistory = [
   CardTemplateMVPModel(

@@ -14,6 +14,7 @@ import '../../../utils/helper/custom_route_snackbar.dart';
 import '../../../utils/helper/pagination/pagination_model.dart';
 import '../../google_map_module/controllers/google_map_controller.dart';
 import '../model/category_model/model_categories.dart';
+import '../model/gift_mvp_model/template_gift_mvp_model.dart';
 import '../model/history/model_history_privilege.dart';
 import '../model/location/location.dart';
 import '../model/mvp_history_model/mpv_history_model.dart';
@@ -1104,22 +1105,47 @@ class PrivilegeController extends GetxController {
 
   ///Template with Choose from template option:
   ///TODO: Hany
-  Future<void> searchTemplate(BuildContext context) async {
+
+  // final modelGiftMVPTemplate = TemplateGiftMVPModel().obs;
+  final listGiftTemplate = <TemplateGiftMVPModel>[].obs;
+  final isLoadingTemplate = false.obs;
+
+  Future<List<TemplateGiftMVPModel>> fetchListTemplate(String? name) async {
+    isLoadingTemplate(true);
+
     try {
       await apiBaseHelper
           .onNetworkRequesting(
-        url: 'list-template?search=name',
-
-        ///can search name or number wallet
+        url: 'list-template?search=$name',
         methode: METHODE.get,
         isAuthorize: true,
       )
           .then((response) {
-        update();
-      }).onError((ErrorModel error, stackTrace) {});
+        debugPrint('response========200===Template=$response');
+        var responseJson = response['data'];
+        //  categoriesModelList.clear();
+        debugPrint('responseJson templated:===${responseJson!}');
+        listGiftTemplate.clear();
+        responseJson.map((e) {
+          listGiftTemplate.add(
+            TemplateGiftMVPModel.fromJson(e),
+          );
+        }).toList();
+        debugPrint('responseJson templated:====${listGiftTemplate[0].name}');
+
+        isLoadingTemplate(false);
+      }).onError((ErrorModel errorModel, stackTrace) {
+        isLoadingTemplate(false);
+        debugPrint('responseJson templated:===${errorModel.bodyString}');
+      });
     } catch (e) {
-      debugPrint("====>:$e");
-    } finally {}
+      isLoadingTemplate(false);
+      debugPrint('------------>>> $e');
+    } finally {
+      isLoadingTemplate(false);
+    }
+
+    return listGiftTemplate;
   }
 
   ///Create template with choosing option
