@@ -85,16 +85,18 @@ class CustomMVPTransactionHistory extends StatelessWidget {
                         fontWeight: FontWeight.w500,
                         color: Colors.black),
                   ),
-                  const SizedBox(height: 6),
-                  Text(
-                    rewardText ?? '',
-                    style: textStyle?.copyWith(
-                        fontSize: 12,
-                        fontWeight: FontWeight.w500,
-                        color: const Color(0xff464646),
-                        overflow: TextOverflow.clip),
-                    maxLines: 2,
-                  ),
+                  SizedBox(height: rewardText == null ? 0 : 6),
+                  rewardText == null
+                      ? Container()
+                      : Text(
+                          rewardText ?? '',
+                          style: textStyle?.copyWith(
+                              fontSize: 12,
+                              fontWeight: FontWeight.w500,
+                              color: const Color(0xff464646),
+                              overflow: TextOverflow.clip),
+                          maxLines: 2,
+                        ),
                   const SizedBox(height: 6),
                   Text(
                     date ?? '',
