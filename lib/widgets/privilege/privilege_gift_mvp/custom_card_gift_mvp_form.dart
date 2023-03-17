@@ -47,7 +47,7 @@ class CustomCardGiftMVPForm extends StatelessWidget {
               color: Colors.blueAccent.withOpacity(0.1),
             ),
             alignment: Alignment.center,
-            child: SvgPicture.asset(
+            child: SvgPicture.network(
               imageAccount ?? '',
             ),
           ),
@@ -80,21 +80,6 @@ class CustomCardGiftMVPForm extends StatelessWidget {
                                   fontSize: 12,
                                   color: Colors.grey,
                                   fontWeight: FontWeight.w500,
-                                ),
-                      ),
-                      const VerticalDivider(
-                        color: Colors.grey,
-                        thickness: 1,
-                        width: 12,
-                        indent: 3,
-                      ),
-                      Text(
-                        'MVP',
-                        style:
-                            Theme.of(context).textTheme.displayMedium!.copyWith(
-                                  fontSize: 12,
-                                  color: Colors.grey,
-                                  fontWeight: FontWeight.w400,
                                 ),
                       ),
                     ],

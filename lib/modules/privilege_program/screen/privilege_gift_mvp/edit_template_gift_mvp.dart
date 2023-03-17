@@ -215,7 +215,22 @@ class EditTemplateGiftMVP extends StatelessWidget {
                     horizontal: 20.0, vertical: 24.0),
                 child: CustomButton(
                   width: double.infinity,
-                  onPressed: () {},
+                  onPressed: () {
+                    context.pushNamed(
+                      'SuccessScreen',
+                      queryParams: {
+                        'title': 'Success',
+                        'description': 'Template is updated.',
+                        'appbarTitle': 'Done',
+                      },
+                      extra: {
+                        'onPressedButton': () {
+                          context
+                              .go("/mymvp/gift-mvp-option/gift-mvp-template");
+                        },
+                      },
+                    );
+                  },
                   title: 'Save',
                   isDisable: false,
                   isOutline: false,

@@ -10,10 +10,13 @@ import 'package:go_router/go_router.dart';
 import '../../../Utils/helper/format_Number.dart';
 import '../../../Utils/helper/option_model/option_form.dart';
 
+import '../../../utils/function/debounc_function.dart';
 import '../../../utils/helper/custom_route_snackbar.dart';
 import '../../../utils/helper/pagination/pagination_model.dart';
 import '../../google_map_module/controllers/google_map_controller.dart';
+import '../../wallet/model/mma_deposit_card_model.dart';
 import '../model/category_model/model_categories.dart';
+import '../model/gift_mvp_model/template_gift_mvp_model.dart';
 import '../model/history/model_history_privilege.dart';
 import '../model/location/location.dart';
 import '../model/mvp_history_model/mpv_history_model.dart';
@@ -1053,6 +1056,109 @@ class PrivilegeController extends GetxController {
     }
   }
 
+  List<MMADepositCardModel> mvpgiftOption = [
+    MMADepositCardModel(
+      title: 'Choose from template',
+      imageMMACard: 'assets/images/chhose_from_template.svg',
+    ),
+    MMADepositCardModel(
+      title: 'Gift MVP to other account',
+      imageMMACard: 'assets/images/gift_mvp.svg',
+    ),
+  ].obs;
+
+  //gift mvp
+  final receiveWalletNumber = ''.obs;
+  final receiverWalletName = ''.obs;
+  final isGiftMVPVerifyAccountValidate = true.obs;
+  final isGiftMVPVerifyAccountValidateMessage = ''.obs;
+  final amountgiftMVPController = TextEditingController().obs;
+  final mvpGiftRemark = TextEditingController();
+
+  void clearGiftMVPForm() {
+    isGiftMVPVerifyAccountValidate(true);
+    receiveWalletNumber('');
+    receiverWalletName('');
+
+    isGiftMVPVerifyAccountValidateMessage('');
+    amountgiftMVPController.value.clear();
+    mvpGiftRemark.clear();
+  }
+
+  Future<String?> verifyWallet(String walletNumber) async {
+    String? walletName;
+
+    if (walletNumber.isNotEmpty) {
+      await apiBaseHelper
+          .onNetworkRequesting(
+        url: 'wallet/verify/Account',
+        body: {
+          'receiver_number': walletNumber,
+        },
+        methode: METHODE.post,
+        isAuthorize: true,
+      )
+          .then(
+        (response) {
+          debugPrint('Verify Wallet : $response');
+          walletName = response['receiver_name'].toString();
+        },
+      ).onError((ErrorModel error, _) {
+        isGiftMVPVerifyAccountValidateMessage(
+            error.bodyString['message'] ?? '');
+        debugPrint('Error => ${error.bodyString}');
+      });
+    } else {
+      isGiftMVPVerifyAccountValidateMessage(
+          'Please input reciever wallet number.');
+    }
+
+    return walletName;
+  }
+
+  RxBool createTemplate = false.obs;
+
+  final _inputWalletDebounce = Debounce();
+
+  validateForm() {}
+
+  //textfield onChanged
+  void inputRecieverWalletChanged(String value) {
+    receiveWalletNumber.value = value;
+    _inputWalletDebounce.listener(() async {
+      await verifyWallet(value).then((res) {
+        isGiftMVPVerifyAccountValidate.value = res != null;
+        receiverWalletName.value = res ?? '';
+        debugPrint(
+            'Wallet Name : ${receiverWalletName.value} => ${isGiftMVPVerifyAccountValidate.value}');
+      });
+    });
+  }
+
+  Future<bool> sentMVPGift() async {
+    bool success = false;
+    await apiBaseHelper
+        .onNetworkRequesting(
+      url: 'user/wallet/gift-mvp',
+      body: {
+        'receiver_account_number': receiveWalletNumber.value,
+        'amount': amountgiftMVPController.value.text,
+        'remark': mvpGiftRemark.text,
+      },
+      methode: METHODE.post,
+      isAuthorize: true,
+    )
+        .then(
+      (value) {
+        success = true;
+        clearGiftMVPForm();
+      },
+    ).onError(
+      (ErrorModel error, _) {},
+    );
+    return success;
+  }
+
   ///Template with Gift MVP to ohter account option:
   ///TODO: Virak
 
@@ -1085,41 +1191,47 @@ class PrivilegeController extends GetxController {
     } finally {}
   }
 
-  /// Fetch template
-  Future<void> fetchTemplate(BuildContext context) async {
+  // final modelGiftMVPTemplate = TemplateGiftMVPModel().obs;
+  final listGiftTemplate = <TemplateGiftMVPModel>[].obs;
+  final isLoadingTemplate = false.obs;
+
+  Future<List<TemplateGiftMVPModel>> fetchListTemplate(
+      [String? keySearch]) async {
+    isLoadingTemplate(true);
+
     try {
       await apiBaseHelper
           .onNetworkRequesting(
-        url: 'list-template',
+        url: 'list-template?search=${keySearch ?? ''}',
         methode: METHODE.get,
         isAuthorize: true,
       )
           .then((response) {
-        update();
-      }).onError((ErrorModel error, stackTrace) {});
-    } catch (e) {
-      debugPrint("====>:$e");
-    } finally {}
-  }
+        debugPrint('response========200===Template=$response');
+        var responseJson = response['data'];
+        //  categoriesModelList.clear();
+        debugPrint('responseJson templated:===${responseJson!}');
+        listGiftTemplate.clear();
+        responseJson.map((e) {
+          listGiftTemplate.add(
+            TemplateGiftMVPModel.fromJson(e),
+          );
+        }).toList();
+        debugPrint('responseJson templated:====${listGiftTemplate[0].name}');
 
-  ///Template with Choose from template option:
-  ///TODO: Hany
-  Future<void> searchTemplate(BuildContext context) async {
-    try {
-      await apiBaseHelper
-          .onNetworkRequesting(
-        url: 'list-template?search=name',
-
-        ///can search name or number wallet
-        methode: METHODE.get,
-        isAuthorize: true,
-      )
-          .then((response) {
-        update();
-      }).onError((ErrorModel error, stackTrace) {});
+        isLoadingTemplate(false);
+      }).onError((ErrorModel errorModel, stackTrace) {
+        isLoadingTemplate(false);
+        debugPrint('responseJson templated:===${errorModel.bodyString}');
+      });
     } catch (e) {
-      debugPrint("====>:$e");
-    } finally {}
+      isLoadingTemplate(false);
+      debugPrint('------------>>> $e');
+    } finally {
+      isLoadingTemplate(false);
+    }
+
+    return listGiftTemplate;
   }
 
   ///Create template with choosing option
