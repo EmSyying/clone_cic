@@ -3,6 +3,7 @@ import 'dart:ui';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../../Utils/form_builder/custom_button.dart';
@@ -174,17 +175,36 @@ class EditTemplateGiftMVP extends StatelessWidget {
                     CustomTextFieldNew(
                       keyboardType: TextInputType.number,
                       isRequired: true,
-                      hintText: 'Enter receive number',
+                      hintText: 'Receiver Wallet Number',
                       onChange: (phone) {},
                       isValidate: true,
-                      labelText: 'Enter receive number',
+                      labelText: 'Receiver Wallet Number',
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                      child: Row(
+                        // mainAxisSize: MainAxisSize.min,
+                        children: [
+                          SvgPicture.asset('assets/images/wallet_found.svg'),
+                          const SizedBox(width: 5),
+                          const Text(
+                            'hany',
+                            textAlign: TextAlign.left,
+                            style: TextStyle(
+                                fontSize: 12, color: Color(0xff4FA30F)),
+                          )
+                        ],
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 16.0,
                     ),
                     CustomTextFieldNew(
                       keyboardType: TextInputType.name,
-                      hintText: 'Create Template',
+                      hintText: 'Template Name',
                       onChange: (phone) {},
                       isValidate: true,
-                      labelText: 'Create Template',
+                      labelText: 'Template Name',
                     ),
                   ],
                 ),
