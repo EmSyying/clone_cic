@@ -197,7 +197,7 @@ class _QrCodeScreenState extends State<QrCodeScreen> {
                                                         captureImage = null;
                                                         customRouterSnackbar(
                                                             description:
-                                                                "QR code not found!",
+                                                                "Invalid QR",
                                                             suffix: false,
                                                             prefix: true);
                                                       } else {
