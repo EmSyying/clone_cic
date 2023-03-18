@@ -56,8 +56,8 @@ class _QrCodeScreenState extends State<QrCodeScreen> {
   Uri? uri;
   bool isInvalid = false;
   bool isGenerateDynamiclink = false;
-  List<String> blackListQRCode = [];
-  String imagePath = "";
+  // List<String> blackListQRCode = [];
+  // String imagePath = "";
 
   ///
   Future<void> _onCaptureAndSave(BuildContext context) async {
@@ -149,12 +149,23 @@ class _QrCodeScreenState extends State<QrCodeScreen> {
                                             height: width * 0.7,
                                             width: width * 0.7,
                                             child: MobileScanner(
-                                                allowDuplicates: false,
-                                                // allowDuplicates: true,
+                                                // fit: BoxFit.contain,
                                                 controller: cameraController,
-                                                onDetect: (capture, _) async {
+                                                onDetect: (capture) async {
+                                                  // final List<Barcode> barcodes =
+                                                  //     capture.barcodes;
+                                                  // final Uint8List? image =
+                                                  //     capture.image;
+                                                  // for (final barcode
+                                                  //     in barcodes) {
+                                                  //   debugPrint(
+                                                  //       'Barcode found! ${barcode.rawValue}');
+                                                  // }
+                                                  String rawValue = capture
+                                                      .raw[0]["rawValue"];
+
                                                   debugPrint(
-                                                      "ONDETECT**+++++++${capture.rawValue}");
+                                                      "ONDETECT**+++++++$rawValue}");
 
                                                   try {
                                                     setState(() {
@@ -168,8 +179,7 @@ class _QrCodeScreenState extends State<QrCodeScreen> {
                                                         await FirebaseDynamicLinks
                                                             .instance
                                                             .getDynamicLink(
-                                                      Uri.parse(
-                                                          capture.rawValue!),
+                                                      Uri.parse(rawValue),
                                                     );
 
                                                     debugPrint(
@@ -270,14 +280,6 @@ class _QrCodeScreenState extends State<QrCodeScreen> {
                                                       isGenerateDynamiclink =
                                                           false;
                                                       captureImage = null;
-                                                      if (!blackListQRCode
-                                                          .contains(
-                                                              imagePath)) {
-                                                        debugPrint(
-                                                            "Yes is Not contained");
-                                                        blackListQRCode
-                                                            .add(imagePath);
-                                                      }
                                                     });
 
                                                     customRouterSnackbar(
@@ -292,13 +294,13 @@ class _QrCodeScreenState extends State<QrCodeScreen> {
                                                     isGenerateDynamiclink =
                                                         false;
                                                   }
-                                                }
+                                                }),
 
-                                                // debugPrint("is Checke Scann");
-                                                // debugPrint(
-                                                //     "Redeem to MVP QR:${barcode.rawValue}");
+                                            //     // debugPrint("is Checke Scann");
+                                            //     // debugPrint(
+                                            //     //     "Redeem to MVP QR:${barcode.rawValue}");
 
-                                                ),
+                                            //     ),
                                           ),
                                           if (captureImage != null &&
                                               isGenerateDynamiclink)
@@ -404,7 +406,7 @@ class _QrCodeScreenState extends State<QrCodeScreen> {
                                                             await File(
                                                                     image.path)
                                                                 .readAsBytes();
-                                                        imagePath = image.path;
+
                                                         setState(() {});
                                                         debugPrint(
                                                             "image.path${image.path}");
@@ -412,59 +414,31 @@ class _QrCodeScreenState extends State<QrCodeScreen> {
                                                         // await cameraController
                                                         //     .analyzeImage(
                                                         //         image.path);
-                                                        
-                                                        
-                                                        if (!blackListQRCode
-                                                            .contains(
-                                                                imagePath)) {
-                                                          if (await cameraController
-                                                              .analyzeImage(
-                                                                  image.path)) {
-                                                            // setState(() {});
 
-                                                            if (!mounted) {
-                                                              return;
-                                                            }
+                                                        if (await cameraController
+                                                            .analyzeImage(
+                                                                image.path)) {
+                                                          // setState(() {});
 
-                                                            // ScaffoldMessenger.of(
-                                                            //         context)
-                                                            //     .showSnackBar(
-                                                            //   SnackBar(
-                                                            //     content: const Text(
-                                                            //         'Barcode found!'),
-                                                            //     backgroundColor:
-                                                            //         Theme.of(context)
-                                                            //             .primaryColor,
-                                                            //   ),
-                                                            // );
-                                                          } else {
-                                                            if (!mounted) {
-                                                              return;
-                                                            }
-                                                            isGenerateDynamiclink =
-                                                                false;
-                                                            captureImage = null;
-                                                            setState(() {});
-                                                            customRouterSnackbar(
-                                                                description:
-                                                                    'No QR code found!',
-                                                                suffix: false,
-                                                                prefix: true);
-                                                            // ScaffoldMessenger.of(
-                                                            //         context)
-                                                            //     .showSnackBar(
-                                                            //   SnackBar(
-                                                            //     content: const Text(
-                                                            //         'No barcode found!'),
-                                                            //     backgroundColor:
-                                                            //         Theme.of(context)
-                                                            //             .primaryColor,
-                                                            //   ),
-                                                            // );
+                                                          if (!mounted) {
+                                                            return;
                                                           }
+
+                                                          // ScaffoldMessenger.of(
+                                                          //         context)
+                                                          //     .showSnackBar(
+                                                          //   SnackBar(
+                                                          //     content: const Text(
+                                                          //         'Barcode found!'),
+                                                          //     backgroundColor:
+                                                          //         Theme.of(context)
+                                                          //             .primaryColor,
+                                                          //   ),
+                                                          // );
                                                         } else {
-                                                          debugPrint(
-                                                              "IS Containing");
+                                                          if (!mounted) {
+                                                            return;
+                                                          }
                                                           isGenerateDynamiclink =
                                                               false;
                                                           captureImage = null;
@@ -474,6 +448,17 @@ class _QrCodeScreenState extends State<QrCodeScreen> {
                                                                   'Invalid QR',
                                                               suffix: false,
                                                               prefix: true);
+                                                          // ScaffoldMessenger.of(
+                                                          //         context)
+                                                          //     .showSnackBar(
+                                                          //   SnackBar(
+                                                          //     content: const Text(
+                                                          //         'No barcode found!'),
+                                                          //     backgroundColor:
+                                                          //         Theme.of(context)
+                                                          //             .primaryColor,
+                                                          //   ),
+                                                          // );
                                                         }
                                                       }
                                                     } catch (e) {
