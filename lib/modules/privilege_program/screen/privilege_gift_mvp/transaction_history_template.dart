@@ -7,6 +7,7 @@ class TransactionHistoryTemplate extends StatelessWidget {
   final String? image;
   final String? title;
   final String? amountColorType;
+  final int? id;
   const TransactionHistoryTemplate({
     super.key,
     this.dated,
@@ -14,6 +15,7 @@ class TransactionHistoryTemplate extends StatelessWidget {
     this.image,
     this.title,
     this.amountColorType,
+    this.id,
   });
 
   @override

@@ -6,6 +6,10 @@ onShowPopUpTemplateHistory(
   double? isHeight,
   bool? isscroll = false,
   Widget? child,
+  int? id,
+  String? titleGiftTemplate,
+  String? acountNumGiftTemplate,
+
   // String? titleGiftTemplate,
   // String? acountNumGiftTemplate,
 }) {
@@ -49,8 +53,9 @@ onShowPopUpTemplateHistory(
                     horizontal: 20.0, vertical: 10.0),
                 child: headerCardGiftTemplate(
                   context,
-                  titleGiftTemplate: 'Champei Spa',
-                  acountNumGiftTemplate: '089 993 338 | MVP',
+                  titleGiftTemplate: titleGiftTemplate,
+                  acountNumGiftTemplate: acountNumGiftTemplate,
+                  id: id,
                 ),
               ),
               Padding(
@@ -87,8 +92,12 @@ onShowPopUpTemplateHistory(
   );
 }
 
-Row headerCardGiftTemplate(BuildContext context,
-    {String? titleGiftTemplate, String? acountNumGiftTemplate}) {
+Row headerCardGiftTemplate(
+  BuildContext context, {
+  String? titleGiftTemplate,
+  String? acountNumGiftTemplate,
+  int? id,
+}) {
   return Row(
     mainAxisAlignment: MainAxisAlignment.start,
     children: [

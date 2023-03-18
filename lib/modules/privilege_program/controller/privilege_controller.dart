@@ -17,6 +17,7 @@ import '../../google_map_module/controllers/google_map_controller.dart';
 import '../../wallet/model/mma_deposit_card_model.dart';
 import '../model/category_model/model_categories.dart';
 import '../model/gift_mvp_model/template_gift_mvp_model.dart';
+import '../model/gift_mvp_model/transcation_history_template_model.dart';
 import '../model/history/model_history_privilege.dart';
 import '../model/location/location.dart';
 import '../model/mvp_history_model/mpv_history_model.dart';
@@ -891,6 +892,7 @@ class PrivilegeController extends GetxController {
     isRedeemToVerifyAccountValidate.value = true;
   }
 
+//
   // Verify Account
   Future<void> onRedeemToVerifyAccount(BuildContext context) async {
     isRedeemToMVPReview(true);
@@ -1235,26 +1237,37 @@ class PrivilegeController extends GetxController {
   }
 
   ///Create template with choosing option
+  // final receiverAcount = ''.obs;
+  final templateName = ''.obs;
+  // final isTemplateToVerifyAccountValidate = true.obs;
+  // final isTemplatedToVerifyAccountValidateMessage = ''.obs;
   Future<void> createTemplateChooseTemplateOption(BuildContext context) async {
+    isLoadingTemplate(true);
     try {
       await apiBaseHelper.onNetworkRequesting(
         url: 'create-template',
         methode: METHODE.post,
         isAuthorize: true,
         body: {
-          'receiver': '582864858',
-
-          ///wallet MVP
-          'template_name': '',
-
-          ///name optional
+          'receiver': receiveAccountname.value,
+          'template_name': templateName,
         },
       ).then((response) {
+        debugPrint('--------------- Success $response');
+
+        receiveAccountname.value = response['receiver'];
+        templateName.value = response['template_name'];
+        isLoadingTemplate(false);
         update();
-      }).onError((ErrorModel error, stackTrace) {});
+      }).onError((ErrorModel error, stackTrace) {
+        isLoadingTemplate(false);
+      });
     } catch (e) {
+      isLoadingTemplate(false);
       debugPrint("=====>:$e");
-    } finally {}
+    } finally {
+      isLoadingTemplate(false);
+    }
   }
 
   ///Update Template
@@ -1280,20 +1293,46 @@ class PrivilegeController extends GetxController {
   }
 
   ///Transaction on template
-  Future<void> transactionTemplate(BuildContext context) async {
+  final listTransactionHistoryTemplate =
+      <TransactionHisotryTemplateModel>[].obs;
+  final isLoadingTransactionTemplate = false.obs;
+  Future<List<TransactionHisotryTemplateModel>> transactionHistoryTemplate(
+      int? id) async {
+    listTransactionHistoryTemplate.clear();
+    isLoadingTransactionTemplate(true);
+
     try {
       await apiBaseHelper
           .onNetworkRequesting(
-        url: 'template-transaction-history?template_id=1',
+        url: 'template-transaction-history?template_id=$id',
         methode: METHODE.get,
         isAuthorize: true,
       )
           .then((response) {
-        update();
-      }).onError((ErrorModel error, stackTrace) {});
+        debugPrint('response========200===Template history=======$response');
+        var responseJson = response['data'];
+        debugPrint('responseJson templated history:===${responseJson!}');
+        // listTransactionHistoryTemplate.clear();
+        responseJson.map((e) {
+          listTransactionHistoryTemplate.add(
+            TransactionHisotryTemplateModel.fromJson(e),
+          );
+        }).toList();
+        debugPrint(
+            'responseJson templated history id:====${listTransactionHistoryTemplate[0].walletName}');
+
+        isLoadingTransactionTemplate(false);
+      }).onError((ErrorModel errorModel, stackTrace) {
+        isLoadingTransactionTemplate(false);
+        debugPrint('responseJson templated:===${errorModel.bodyString}');
+      });
     } catch (e) {
+      isLoadingTransactionTemplate(false);
       debugPrint("====>:$e");
-    } finally {}
+    } finally {
+      isLoadingTransactionTemplate(false);
+    }
+    return listTransactionHistoryTemplate;
   }
 
   ///Delete template TODO Kithya

@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'dart:async';
 import 'dart:io';
 
@@ -16,10 +18,12 @@ import '../../../../widgets/privilege/privilege/custom_formfield_search.dart';
 import '../../../../widgets/privilege/privilege_gift_mvp/custom_card_gift_mvp_form.dart';
 import '../../../../widgets/privilege/privilege_gift_mvp/custom_pop_up_template_history.dart';
 import '../../controller/privilege_controller.dart';
-import '../../model/gift_mvp_model/card_template_mvp_model.dart';
 
 class GiftMVPFromTemplateScreen extends StatefulWidget {
-  const GiftMVPFromTemplateScreen({super.key});
+  // final int? id;
+  const GiftMVPFromTemplateScreen({
+    super.key,
+  });
 
   @override
   State<GiftMVPFromTemplateScreen> createState() =>
@@ -28,10 +32,12 @@ class GiftMVPFromTemplateScreen extends StatefulWidget {
 
 class _GiftMVPFromTemplateScreenState extends State<GiftMVPFromTemplateScreen> {
   final priCon = Get.put(PrivilegeController());
+  int? id;
   Timer? searchOnStoppedTyping;
   @override
   void initState() {
     priCon.fetchListTemplate('');
+    // priCon.transactionHistoryTemplate(id);
     super.initState();
   }
 
@@ -161,47 +167,69 @@ class _GiftMVPFromTemplateScreenState extends State<GiftMVPFromTemplateScreen> {
                                                   },
                                                   onTapHistory: () async {
                                                     context.pop(context);
+                                                    //header template history
+
+                                                    await priCon
+                                                        .transactionHistoryTemplate(
+                                                            e.value.id);
+                                                    // debugPrint(
+                                                    //     'id===========${priCon.listGiftTemplate.first.id}');
                                                     onShowPopUpTemplateHistory(
+                                                      id: e.value.id,
+                                                      titleGiftTemplate:
+                                                          e.value.name,
+                                                      acountNumGiftTemplate:
+                                                          e.value.walletNumber,
                                                       context,
-                                                      child: ListView.separated(
-                                                        separatorBuilder:
-                                                            (context, index) =>
-                                                                Divider(
-                                                          color:
-                                                              Colors.grey[400],
-                                                          height: 1,
-                                                        ),
-                                                        itemCount:
-                                                            listTransactionHistory
-                                                                .length,
-                                                        physics:
-                                                            const ScrollPhysics(),
-                                                        shrinkWrap: true,
-                                                        itemBuilder: (_,
-                                                                index) =>
-                                                            TransactionHistoryTemplate(
-                                                          title:
-                                                              listTransactionHistory[
-                                                                      index]
-                                                                  .accountName,
-                                                          image:
-                                                              listTransactionHistory[
-                                                                      index]
-                                                                  .image,
-                                                          dated:
-                                                              listTransactionHistory[
-                                                                      index]
-                                                                  .dated,
-                                                          amount:
-                                                              listTransactionHistory[
-                                                                      index]
-                                                                  .amount,
-                                                          amountColorType:
-                                                              listTransactionHistory[
-                                                                      index]
-                                                                  .amountColorType,
-                                                        ),
-                                                      ),
+                                                      child: priCon
+                                                              .listTransactionHistoryTemplate
+                                                              .isNotEmpty
+                                                          ? ListView.separated(
+                                                              separatorBuilder:
+                                                                  (context,
+                                                                          index) =>
+                                                                      Divider(
+                                                                color: Colors
+                                                                    .grey[400],
+                                                                height: 1,
+                                                              ),
+                                                              itemCount: priCon
+                                                                  .listTransactionHistoryTemplate
+                                                                  .length,
+                                                              physics:
+                                                                  const ScrollPhysics(),
+                                                              shrinkWrap: true,
+                                                              itemBuilder: (_,
+                                                                      index) =>
+                                                                  TransactionHistoryTemplate(
+                                                                id: priCon
+                                                                    .listTransactionHistoryTemplate[
+                                                                        index]
+                                                                    .id,
+                                                                title: priCon
+                                                                    .listTransactionHistoryTemplate[
+                                                                        index]
+                                                                    .walletName,
+                                                                // image:
+                                                                //     priCon.listTransactionHistoryTemplate[
+                                                                //             index]
+                                                                //         .image,
+                                                                dated: priCon
+                                                                    .listTransactionHistoryTemplate[
+                                                                        index]
+                                                                    .paymentDate,
+                                                                amount: priCon
+                                                                    .listTransactionHistoryTemplate[
+                                                                        index]
+                                                                    .amount,
+                                                                // amountColorType:
+                                                                //     listTransactionHistory[
+                                                                //             index]
+                                                                //         .amountColorType,
+                                                              ),
+                                                            )
+                                                          : emtyStateTransactionTemplate(
+                                                              context),
                                                     );
                                                   }),
                                             ),
@@ -243,50 +271,40 @@ class _GiftMVPFromTemplateScreenState extends State<GiftMVPFromTemplateScreen> {
       ),
     );
   }
-}
 
-List<CardTemplateMVPModel> listTransactionHistory = [
-  CardTemplateMVPModel(
-    accountName: 'Champei Spa Toul Kork',
-    dated: '21 Feb 2023 | 01:34:12 AM',
-    image: 'assets/images/privilege/transfer_icon.svg',
-    amount: '+ 245 MVP',
-    id: 1,
-  ),
-  CardTemplateMVPModel(
-      accountName: 'Champei Spa Toul Kork 1',
-      dated: '21 Feb 2023 | 01:34:12 AM',
-      image: 'assets/images/privilege/transfer_icon.svg',
-      amount: '+ 245 MVP',
-      id: 2,
-      amountColorType: "Cash Out"),
-  CardTemplateMVPModel(
-    accountName: 'Champei Spa Toul Kork 2',
-    dated: '21 Feb 2023 | 01:34:12 AM',
-    image: 'assets/images/privilege/transfer_icon.svg',
-    amount: '+ 245 MVP',
-    id: 3,
-  ),
-  CardTemplateMVPModel(
-    accountName: 'Champei Spa Toul Kork 3',
-    dated: '21 Feb 2023 | 01:34:12 AM',
-    image: 'assets/images/privilege/transfer_icon.svg',
-    amount: '+ 245 MVP',
-    id: 4,
-    amountColorType: "Cash Out",
-  ),
-  CardTemplateMVPModel(
-    accountName: 'Champei Spa Toul Kork 4',
-    dated: '21 Feb 2023 | 01:34:12 AM',
-    image: 'assets/images/privilege/transfer_icon.svg',
-    amount: '+ 245 MVP',
-    id: 5,
-  ),
-  CardTemplateMVPModel(
-    accountName: 'Champei Spa Toul Kork 5',
-    dated: '21 Feb 2023 | 01:34:12 AM',
-    image: 'assets/images/privilege/transfer_icon.svg',
-    amount: '+ 245 MVP',
-    id: 6,
-  ),
-];
+  Container emtyStateTransactionTemplate(BuildContext context) {
+    return Container(
+      color: Colors.white,
+      width: double.infinity,
+      padding: const EdgeInsets.only(bottom: 30.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Image.asset(
+            'assets/images/emptyState.png',
+            width: 180,
+            height: 180,
+          ),
+          Text(
+            'No Transaction History',
+            style: Theme.of(context)
+                .textTheme
+                .headlineMedium!
+                .copyWith(fontWeight: FontWeight.w600),
+          ),
+          const SizedBox(
+            height: 6.0,
+          ),
+          Text(
+            'No Transaction History Here !',
+            style: Theme.of(context)
+                .textTheme
+                .displayMedium!
+                .copyWith(fontWeight: FontWeight.w400),
+            textAlign: TextAlign.center,
+          ),
+        ],
+      ),
+    );
+  }
+}

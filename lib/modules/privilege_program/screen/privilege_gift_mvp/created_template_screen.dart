@@ -3,17 +3,22 @@ import 'dart:ui';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../../Utils/form_builder/custom_button.dart';
 import '../../../../Utils/form_builder/custom_textformfield.dart';
 import '../../../../Utils/helper/custom_appbar_colorswhite.dart';
+import '../../controller/privilege_controller.dart';
 
 class CreateTemplateScreen extends StatelessWidget {
   const CreateTemplateScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final priCon = Get.put(PrivilegeController());
+    priCon.onRedeemToVerifyAccount(context);
     return Scaffold(
       appBar: CustomAppBarWhiteColor(
         context: context,
@@ -163,47 +168,98 @@ class CreateTemplateScreen extends StatelessWidget {
             ),
           ];
         },
-        body: Container(
-          alignment: Alignment.topCenter,
-          color: Colors.white,
-          child: Column(
-            children: [
-              Expanded(
-                child: Column(
-                  children: [
-                    CustomTextFieldNew(
-                      keyboardType: TextInputType.number,
-                      isRequired: true,
-                      hintText: 'Enter receive number',
-                      onChange: (phone) {},
-                      isValidate: true,
-                      labelText: 'Enter receive number',
+        body: Obx(() {
+          debugPrint('========');
+          return Container(
+            alignment: Alignment.topCenter,
+            color: Colors.white,
+            child: Column(
+              children: [
+                Expanded(
+                  child: Obx(
+                    () => Column(
+                      children: [
+                        CustomTextFieldNew(
+                          isValidate:
+                              priCon.isRedeemToVerifyAccountValidate.value,
+                          validateText: priCon
+                              .isGiftMVPVerifyAccountValidateMessage.value,
+                          initialValue: priCon.receiveAccountNumber.value,
+                          keyboardType: const TextInputType.numberWithOptions(
+                              decimal: true, signed: false),
+                          isRequired: true,
+                          autoFocus: false,
+                          labelText: 'Receiver  Number',
+                          hintText: 'Receiver  Number',
+                          onChange: (value) async {
+                            priCon.receiveAccountNumber.value = value;
+                          },
+                        ),
+                        if (priCon.isRedeemToVerifyAccountValidate.value ==
+                            true)
+                          Padding(
+                            padding: EdgeInsets.only(
+                                left: 20,
+                                bottom: priCon.receiveAccountname.value != ''
+                                    ? 10
+                                    : 0,
+                                right: 20),
+                            child: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                if (priCon.receiveAccountname.value != '')
+                                  SvgPicture.asset(
+                                      'assets/images/wallet_found.svg'),
+                                const SizedBox(width: 5),
+                                if (priCon.receiveAccountname.value != '')
+                                  Text(
+                                    priCon.receiveAccountname.value,
+                                    style: const TextStyle(
+                                        fontSize: 12, color: Color(0xff4FA30F)),
+                                  )
+                              ],
+                            ),
+                          ),
+                        CustomTextFieldNew(
+                          keyboardType: TextInputType.name,
+                          hintText: 'Create Template',
+                          onChange: (name) {
+                            priCon.templateName.value = name;
+                          },
+                          isValidate: true,
+                          labelText: 'Create Template',
+                          initialValue: priCon.templateName.value,
+                        ),
+                      ],
                     ),
-                    CustomTextFieldNew(
-                      keyboardType: TextInputType.name,
-                      hintText: 'Create Template',
-                      onChange: (phone) {},
-                      isValidate: true,
-                      labelText: 'Create Template',
-                    ),
-                  ],
+                  ),
                 ),
-              ),
-              Container(
-                color: Colors.white,
-                padding: const EdgeInsets.symmetric(
-                    horizontal: 20.0, vertical: 24.0),
-                child: CustomButton(
-                  width: double.infinity,
-                  onPressed: () {},
-                  title: 'Save',
-                  isDisable: false,
-                  isOutline: false,
+                Container(
+                  color: Colors.white,
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 20.0, vertical: 24.0),
+                  child: CustomButton(
+                    width: double.infinity,
+                    onPressed: () async {
+                      debugPrint('hany test create template====');
+                      await priCon
+                          .createTemplateChooseTemplateOption(context)
+                          .then(
+                            (value) => context.pop(),
+                          );
+
+                      debugPrint(
+                          'review numbwer========${priCon.receiveAccountname.value}');
+                    },
+                    title: 'Save',
+                    isDisable: false,
+                    isOutline: false,
+                  ),
                 ),
-              ),
-            ],
-          ),
-        ),
+              ],
+            ),
+          );
+        }),
       ),
     );
   }
