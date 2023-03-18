@@ -16,6 +16,9 @@ _$_TemplateGiftMVPModel _$$_TemplateGiftMVPModelFromJson(
       typeCode: json['type_code'] as String?,
       createdAt: json['created_at'] as String?,
       updatedAt: json['updated_at'] as String?,
+      image: json['image'] as String?,
+      defaultImage: json['default_image'] as String?,
+      walletNumberNoFormat: json['wallet_number_no_format'] as String?,
     );
 
 Map<String, dynamic> _$$_TemplateGiftMVPModelToJson(
@@ -28,4 +31,7 @@ Map<String, dynamic> _$$_TemplateGiftMVPModelToJson(
       'type_code': instance.typeCode,
       'created_at': instance.createdAt,
       'updated_at': instance.updatedAt,
+      'image': instance.image,
+      'default_image': instance.defaultImage,
+      'wallet_number_no_format': instance.walletNumberNoFormat,
     };

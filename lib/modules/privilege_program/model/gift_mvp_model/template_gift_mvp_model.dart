@@ -13,6 +13,10 @@ class TemplateGiftMVPModel with _$TemplateGiftMVPModel {
     @JsonKey(name: "type_code") final String? typeCode,
     @JsonKey(name: "created_at") final String? createdAt,
     @JsonKey(name: "updated_at") final String? updatedAt,
+    @JsonKey(name: "image") final String? image,
+    @JsonKey(name: "default_image") final String? defaultImage,
+    @JsonKey(name: "wallet_number_no_format")
+        final String? walletNumberNoFormat,
   }) = _TemplateGiftMVPModel;
 
   factory TemplateGiftMVPModel.fromJson(Map<String, dynamic> json) =>

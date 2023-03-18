@@ -34,6 +34,12 @@ mixin _$TemplateGiftMVPModel {
   String? get createdAt => throw _privateConstructorUsedError;
   @JsonKey(name: "updated_at")
   String? get updatedAt => throw _privateConstructorUsedError;
+  @JsonKey(name: "image")
+  String? get image => throw _privateConstructorUsedError;
+  @JsonKey(name: "default_image")
+  String? get defaultImage => throw _privateConstructorUsedError;
+  @JsonKey(name: "wallet_number_no_format")
+  String? get walletNumberNoFormat => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -54,7 +60,10 @@ abstract class $TemplateGiftMVPModelCopyWith<$Res> {
       @JsonKey(name: "wallet_number") String? walletNumber,
       @JsonKey(name: "type_code") String? typeCode,
       @JsonKey(name: "created_at") String? createdAt,
-      @JsonKey(name: "updated_at") String? updatedAt});
+      @JsonKey(name: "updated_at") String? updatedAt,
+      @JsonKey(name: "image") String? image,
+      @JsonKey(name: "default_image") String? defaultImage,
+      @JsonKey(name: "wallet_number_no_format") String? walletNumberNoFormat});
 }
 
 /// @nodoc
@@ -78,6 +87,9 @@ class _$TemplateGiftMVPModelCopyWithImpl<$Res,
     Object? typeCode = freezed,
     Object? createdAt = freezed,
     Object? updatedAt = freezed,
+    Object? image = freezed,
+    Object? defaultImage = freezed,
+    Object? walletNumberNoFormat = freezed,
   }) {
     return _then(_value.copyWith(
       id: freezed == id
@@ -108,6 +120,18 @@ class _$TemplateGiftMVPModelCopyWithImpl<$Res,
           ? _value.updatedAt
           : updatedAt // ignore: cast_nullable_to_non_nullable
               as String?,
+      image: freezed == image
+          ? _value.image
+          : image // ignore: cast_nullable_to_non_nullable
+              as String?,
+      defaultImage: freezed == defaultImage
+          ? _value.defaultImage
+          : defaultImage // ignore: cast_nullable_to_non_nullable
+              as String?,
+      walletNumberNoFormat: freezed == walletNumberNoFormat
+          ? _value.walletNumberNoFormat
+          : walletNumberNoFormat // ignore: cast_nullable_to_non_nullable
+              as String?,
     ) as $Val);
   }
 }
@@ -127,7 +151,10 @@ abstract class _$$_TemplateGiftMVPModelCopyWith<$Res>
       @JsonKey(name: "wallet_number") String? walletNumber,
       @JsonKey(name: "type_code") String? typeCode,
       @JsonKey(name: "created_at") String? createdAt,
-      @JsonKey(name: "updated_at") String? updatedAt});
+      @JsonKey(name: "updated_at") String? updatedAt,
+      @JsonKey(name: "image") String? image,
+      @JsonKey(name: "default_image") String? defaultImage,
+      @JsonKey(name: "wallet_number_no_format") String? walletNumberNoFormat});
 }
 
 /// @nodoc
@@ -148,6 +175,9 @@ class __$$_TemplateGiftMVPModelCopyWithImpl<$Res>
     Object? typeCode = freezed,
     Object? createdAt = freezed,
     Object? updatedAt = freezed,
+    Object? image = freezed,
+    Object? defaultImage = freezed,
+    Object? walletNumberNoFormat = freezed,
   }) {
     return _then(_$_TemplateGiftMVPModel(
       id: freezed == id
@@ -178,6 +208,18 @@ class __$$_TemplateGiftMVPModelCopyWithImpl<$Res>
           ? _value.updatedAt
           : updatedAt // ignore: cast_nullable_to_non_nullable
               as String?,
+      image: freezed == image
+          ? _value.image
+          : image // ignore: cast_nullable_to_non_nullable
+              as String?,
+      defaultImage: freezed == defaultImage
+          ? _value.defaultImage
+          : defaultImage // ignore: cast_nullable_to_non_nullable
+              as String?,
+      walletNumberNoFormat: freezed == walletNumberNoFormat
+          ? _value.walletNumberNoFormat
+          : walletNumberNoFormat // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -192,7 +234,10 @@ class _$_TemplateGiftMVPModel implements _TemplateGiftMVPModel {
       @JsonKey(name: "wallet_number") this.walletNumber,
       @JsonKey(name: "type_code") this.typeCode,
       @JsonKey(name: "created_at") this.createdAt,
-      @JsonKey(name: "updated_at") this.updatedAt});
+      @JsonKey(name: "updated_at") this.updatedAt,
+      @JsonKey(name: "image") this.image,
+      @JsonKey(name: "default_image") this.defaultImage,
+      @JsonKey(name: "wallet_number_no_format") this.walletNumberNoFormat});
 
   factory _$_TemplateGiftMVPModel.fromJson(Map<String, dynamic> json) =>
       _$$_TemplateGiftMVPModelFromJson(json);
@@ -218,10 +263,19 @@ class _$_TemplateGiftMVPModel implements _TemplateGiftMVPModel {
   @override
   @JsonKey(name: "updated_at")
   final String? updatedAt;
+  @override
+  @JsonKey(name: "image")
+  final String? image;
+  @override
+  @JsonKey(name: "default_image")
+  final String? defaultImage;
+  @override
+  @JsonKey(name: "wallet_number_no_format")
+  final String? walletNumberNoFormat;
 
   @override
   String toString() {
-    return 'TemplateGiftMVPModel(id: $id, userId: $userId, name: $name, walletNumber: $walletNumber, typeCode: $typeCode, createdAt: $createdAt, updatedAt: $updatedAt)';
+    return 'TemplateGiftMVPModel(id: $id, userId: $userId, name: $name, walletNumber: $walletNumber, typeCode: $typeCode, createdAt: $createdAt, updatedAt: $updatedAt, image: $image, defaultImage: $defaultImage, walletNumberNoFormat: $walletNumberNoFormat)';
   }
 
   @override
@@ -239,13 +293,28 @@ class _$_TemplateGiftMVPModel implements _TemplateGiftMVPModel {
             (identical(other.createdAt, createdAt) ||
                 other.createdAt == createdAt) &&
             (identical(other.updatedAt, updatedAt) ||
-                other.updatedAt == updatedAt));
+                other.updatedAt == updatedAt) &&
+            (identical(other.image, image) || other.image == image) &&
+            (identical(other.defaultImage, defaultImage) ||
+                other.defaultImage == defaultImage) &&
+            (identical(other.walletNumberNoFormat, walletNumberNoFormat) ||
+                other.walletNumberNoFormat == walletNumberNoFormat));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, id, userId, name, walletNumber,
-      typeCode, createdAt, updatedAt);
+  int get hashCode => Object.hash(
+      runtimeType,
+      id,
+      userId,
+      name,
+      walletNumber,
+      typeCode,
+      createdAt,
+      updatedAt,
+      image,
+      defaultImage,
+      walletNumberNoFormat);
 
   @JsonKey(ignore: true)
   @override
@@ -264,14 +333,26 @@ class _$_TemplateGiftMVPModel implements _TemplateGiftMVPModel {
 
 abstract class _TemplateGiftMVPModel implements TemplateGiftMVPModel {
   factory _TemplateGiftMVPModel(
-          {@JsonKey(name: "id") final int? id,
-          @JsonKey(name: "user_id") final int? userId,
-          @JsonKey(name: "name") final String? name,
-          @JsonKey(name: "wallet_number") final String? walletNumber,
-          @JsonKey(name: "type_code") final String? typeCode,
-          @JsonKey(name: "created_at") final String? createdAt,
-          @JsonKey(name: "updated_at") final String? updatedAt}) =
-      _$_TemplateGiftMVPModel;
+      {@JsonKey(name: "id")
+          final int? id,
+      @JsonKey(name: "user_id")
+          final int? userId,
+      @JsonKey(name: "name")
+          final String? name,
+      @JsonKey(name: "wallet_number")
+          final String? walletNumber,
+      @JsonKey(name: "type_code")
+          final String? typeCode,
+      @JsonKey(name: "created_at")
+          final String? createdAt,
+      @JsonKey(name: "updated_at")
+          final String? updatedAt,
+      @JsonKey(name: "image")
+          final String? image,
+      @JsonKey(name: "default_image")
+          final String? defaultImage,
+      @JsonKey(name: "wallet_number_no_format")
+          final String? walletNumberNoFormat}) = _$_TemplateGiftMVPModel;
 
   factory _TemplateGiftMVPModel.fromJson(Map<String, dynamic> json) =
       _$_TemplateGiftMVPModel.fromJson;
@@ -297,6 +378,15 @@ abstract class _TemplateGiftMVPModel implements TemplateGiftMVPModel {
   @override
   @JsonKey(name: "updated_at")
   String? get updatedAt;
+  @override
+  @JsonKey(name: "image")
+  String? get image;
+  @override
+  @JsonKey(name: "default_image")
+  String? get defaultImage;
+  @override
+  @JsonKey(name: "wallet_number_no_format")
+  String? get walletNumberNoFormat;
   @override
   @JsonKey(ignore: true)
   _$$_TemplateGiftMVPModelCopyWith<_$_TemplateGiftMVPModel> get copyWith =>

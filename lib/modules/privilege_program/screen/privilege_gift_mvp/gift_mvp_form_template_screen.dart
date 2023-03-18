@@ -146,7 +146,7 @@ class _GiftMVPFromTemplateScreenState extends State<GiftMVPFromTemplateScreen> {
                                                   acountName: e.value.name,
                                                   accountNumber:
                                                       e.value.walletNumber,
-                                                  // imageAccount: ,
+                                                  imageAccount: e.value.image,
                                                   onTapDeleted: () {},
                                                   onTapEdit: () {
                                                     context.pop();

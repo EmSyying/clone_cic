@@ -45,11 +45,17 @@ class CustomCardGiftMVPForm extends StatelessWidget {
             decoration: BoxDecoration(
               shape: BoxShape.circle,
               color: Colors.blueAccent.withOpacity(0.1),
+              image: DecorationImage(
+                image: NetworkImage(
+                  imageAccount ?? '',
+                ),
+                fit: BoxFit.cover,
+              ),
             ),
             alignment: Alignment.center,
-            child: SvgPicture.network(
-              imageAccount ?? '',
-            ),
+            // child: Image.network(
+            //   imageAccount ?? '',
+            // ),
           ),
           const SizedBox(
             width: 14.0,
