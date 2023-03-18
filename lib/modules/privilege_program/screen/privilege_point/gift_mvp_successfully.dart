@@ -335,14 +335,18 @@ class GiftMVPSuccessfully extends StatelessWidget {
                       height: 30.0,
                     ),
                     // loading while user sumitting updated by Chhany
-                    CustomButton(
-                      width: double.infinity,
-                      onPressed: onPressed,
-                      backgroundColor: AppColor.mainColor,
-                      colorText: AppColor.arrowforwardColor['dark'],
-                      isDisable: false,
-                      isOutline: true,
-                      title: 'Done',
+                    SafeArea(
+                      top: false,
+                      minimum: const EdgeInsets.only(bottom: 20),
+                      child: CustomButton(
+                        width: double.infinity,
+                        onPressed: onPressed,
+                        backgroundColor: AppColor.mainColor,
+                        colorText: AppColor.arrowforwardColor['dark'],
+                        isDisable: false,
+                        isOutline: true,
+                        title: 'Done',
+                      ),
                     ),
                   ],
                 ),

@@ -1,7 +1,7 @@
 import 'dart:io';
 
 import 'package:cicgreenloan/Utils/helper/custom_appbar_colorswhite.dart';
-import 'package:cicgreenloan/modules/wallet/controller/wallet_controller.dart';
+import 'package:cicgreenloan/modules/privilege_program/controller/privilege_controller.dart';
 import 'package:cicgreenloan/widgets/wallets/custom_mma_card.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -12,7 +12,7 @@ class GiftMvpOption extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final walletController = Get.put(WalletController());
+    final walletController = Get.put(PrivilegeController());
     return Scaffold(
       appBar: CustomAppBarWhiteColor(
         context: context,

@@ -14,6 +14,7 @@ import 'package:cicgreenloan/modules/report_module/controllers/documentation_con
 import 'package:cicgreenloan/modules/notification_modules/screens/notification.dart';
 import 'package:cicgreenloan/modules/ut_trading/controllers/trading_controller.dart';
 import 'package:cicgreenloan/modules/notification_modules/controllers/notification_controller.dart';
+import 'package:cicgreenloan/utils/helper/app_pincode/pincode_view.dart';
 import 'package:cicgreenloan/utils/helper/cic/cic_guider.dart';
 import 'package:cicgreenloan/widgets/dashboard/custom_associate_member.dart';
 import 'package:cicgreenloan/widgets/defualt_size_web.dart';
@@ -609,15 +610,17 @@ class _MainDashboardState extends State<MainDashboard> {
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    // TextButton(
-                    //   onPressed: () {
-                    //     Navigator.push(
-                    //         context,
-                    //         MaterialPageRoute(
-                    //             builder: (context) => const NewsScreen()));
-                    //   },
-                    //   child: const Text('test'),
-                    // ),
+                    ElevatedButton(
+                      onPressed: () async {
+                        Navigator.of(context, rootNavigator: true).push(
+                          MaterialPageRoute(
+                            builder: (context) => const PinCodeView(),
+                          ),
+                        );
+                      },
+                      child: const Text('Tester'),
+                    ),
+
                     if (!_settingCon.isAMMode!)
                       GestureDetector(
                         key: actionKey,

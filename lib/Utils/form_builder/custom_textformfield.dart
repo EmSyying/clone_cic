@@ -32,6 +32,7 @@ class CustomTextFieldNew extends StatelessWidget {
   final TextInputAction? textInputAction;
   final int? maxlenght;
   final EdgeInsetsGeometry? padding;
+  final Widget? errorWidget;
 
   const CustomTextFieldNew({
     this.maxlenght,
@@ -65,6 +66,7 @@ class CustomTextFieldNew extends StatelessWidget {
     this.prefix,
     this.padding,
     this.noDisableColor = false,
+    this.errorWidget,
   }) : super(key: key);
   @override
   Widget build(BuildContext context) {
@@ -162,7 +164,9 @@ class CustomTextFieldNew extends StatelessWidget {
                     ),
               enabledBorder: initialValue != ''
                   ? OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.grey[300]!),
+                      borderSide: isValidate != null && !isValidate!
+                          ? const BorderSide(color: Colors.red)
+                          : BorderSide(color: Colors.grey[300]!),
                       borderRadius: BorderRadius.circular(10),
                     )
                   : OutlineInputBorder(
@@ -177,6 +181,7 @@ class CustomTextFieldNew extends StatelessWidget {
               ),
             ),
           ),
+          errorWidget ?? const SizedBox.shrink(),
           isValidate != null && !isValidate!
               ? Padding(
                   padding:

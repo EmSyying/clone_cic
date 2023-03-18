@@ -30,85 +30,7 @@ class WalletController extends GetxController {
   final isConfirm = false.obs;
   //End
   final name = ''.obs;
-  //gift mvp
-  final receiveWalletNumber = ''.obs;
-  final receiverWalletName = ''.obs;
-  final isGiftMVPVerifyAccountValidate = true.obs;
-  final isGiftMVPVerifyAccountValidateMessage = ''.obs;
-  final amountgiftMVPController = TextEditingController().obs;
-  final mvpGiftRemark = TextEditingController();
-
-  void clearGiftMVPForm() {
-    isGiftMVPVerifyAccountValidate(true);
-    receiveWalletNumber('');
-    isGiftMVPVerifyAccountValidateMessage('');
-    amountgiftMVPController.value.clear();
-    mvpGiftRemark.clear();
-  }
-
-  Future<String?> verifyWallet(String walletNumber) async {
-    String? walletName;
-    await _apiBaseHelper
-        .onNetworkRequesting(
-      url: 'wallet/verify/Account',
-      body: {
-        'receiver_number': walletNumber,
-      },
-      methode: METHODE.post,
-      isAuthorize: true,
-    )
-        .then(
-      (response) {
-        debugPrint('Verify Wallet : $response');
-        walletName = response['receiver_name'].toString();
-      },
-    ).onError((ErrorModel error, _) {
-      isGiftMVPVerifyAccountValidateMessage(error.bodyString['message'] ?? '');
-      debugPrint('Error => ${error.bodyString}');
-    });
-    return walletName;
-  }
-
-  RxBool createTemplate = false.obs;
-
-  final _inputWalletDebounce = Debounce();
-
-  validateForm() {}
-
-  //textfield onChanged
-  void inputRecieverWalletChanged(String value) {
-    _inputWalletDebounce.listener(() async {
-      await verifyWallet(value).then((res) {
-        isGiftMVPVerifyAccountValidate.value = res != null;
-        receiverWalletName.value = res ?? '';
-      });
-    });
-  }
-
-  Future<bool> sentMVPGift() async {
-    bool success = false;
-    await _apiBaseHelper
-        .onNetworkRequesting(
-      url: 'user/wallet/gift-mvp',
-      body: {
-        'receiver_account_number': receiveWalletNumber.value,
-        'amount': amountgiftMVPController.value.text,
-        'remark': mvpGiftRemark.text,
-      },
-      methode: METHODE.post,
-      isAuthorize: true,
-    )
-        .then(
-      (value) {
-        success = true;
-        clearGiftMVPForm();
-      },
-    ).onError(
-      (ErrorModel error, _) {},
-    );
-    return success;
-  }
-
+  
   List<MMADepositCardModel> mmacardlist = [
     MMADepositCardModel(
       title: 'To deposit via Banks / Wallets',
@@ -129,16 +51,7 @@ class WalletController extends GetxController {
       imageMMACard: 'assets/images/wallet/transferto-other-account.svg',
     ),
   ].obs;
-  List<MMADepositCardModel> mvpgiftOption = [
-    MMADepositCardModel(
-      title: 'Choose from template',
-      imageMMACard: 'assets/images/chhose_from_template.svg',
-    ),
-    MMADepositCardModel(
-      title: 'Gift MVP to other account',
-      imageMMACard: 'assets/images/gift_mvp.svg',
-    ),
-  ].obs;
+  
 
   ///Fetch FiF Option List
   final listFiFOption = <InvestOptionModel>[].obs;
