@@ -302,7 +302,8 @@ class RecentActivityDetailSummery extends StatelessWidget {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              GestureDetector(
+                              InkWell(
+                                splashColor: Colors.transparent,
                                 onTap: () async {
                                   if (clickedShare) {
                                     clickedShare == false;
@@ -483,8 +484,8 @@ class RecentActivityDetailSummery extends StatelessWidget {
       debugPrint("Short link for summery payment: $url");
 
       Share.shareXFiles([XFile('${directory.path}/transferqr.png')],
-          text:
-              'Hi! Here is my CiC QR and Payment\'s Link. Scan the QR or tap on the link for sending payment: $url',
+          // text:
+          //     'Hi! Here is my CiC QR and Payment\'s Link. Scan the QR or tap on the link for sending payment: $url',
           sharePositionOrigin: box.localToGlobal(Offset.zero) & box.size);
     } catch (e) {
       debugPrint("$e");

@@ -5,7 +5,7 @@ class CustomMVPTransactionHistory extends StatelessWidget {
   final String? referenceId;
   final String? rewardText;
   final String? date;
-  final double? amount;
+  final String? amount;
   final String? type;
 
   const CustomMVPTransactionHistory({
@@ -26,7 +26,7 @@ class CustomMVPTransactionHistory extends StatelessWidget {
           const SizedBox(width: 4),
           RichText(
             text: TextSpan(
-                text: amount.toString(),
+                text: amount,
                 style: textStyle?.copyWith(
                     color: _color, fontSize: 14, fontWeight: FontWeight.w700),
                 children: [
