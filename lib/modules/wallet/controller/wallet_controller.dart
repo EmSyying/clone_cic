@@ -10,7 +10,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../../utils/function/debounc_function.dart';
 import '../../privilege_program/model/payment_summary.dart';
 import '../../qr_code/qrcode_controller/qr_type.dart';
 import '../model/exchange_point_transaction.dart/exchange_point_transaction.dart';
@@ -30,7 +29,7 @@ class WalletController extends GetxController {
   final isConfirm = false.obs;
   //End
   final name = ''.obs;
-  
+
   List<MMADepositCardModel> mmacardlist = [
     MMADepositCardModel(
       title: 'To deposit via Banks / Wallets',
@@ -51,7 +50,6 @@ class WalletController extends GetxController {
       imageMMACard: 'assets/images/wallet/transferto-other-account.svg',
     ),
   ].obs;
-  
 
   ///Fetch FiF Option List
   final listFiFOption = <InvestOptionModel>[].obs;
@@ -481,7 +479,7 @@ class WalletController extends GetxController {
   Future<void> checkValidateAccount() async {
     // String numberSubmit = qrRecievingPhone.text.startsWith('0')
     //     ? '+855${qrRecievingPhone.text.substring(1)}'
-    //     : qrRecievingPhone.text;
+    //     : qrRecievingPhone.text;//
     _checkValidateLoading(true);
     await _apiBaseHelper
         .onNetworkRequesting(
