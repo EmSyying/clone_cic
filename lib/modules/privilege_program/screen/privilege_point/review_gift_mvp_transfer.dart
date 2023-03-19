@@ -1,5 +1,9 @@
+import 'package:cicgreenloan/modules/privilege_program/controller/privilege_controller.dart';
+import 'package:cicgreenloan/utils/helper/custom_route_snackbar.dart';
+import 'package:cicgreenloan/utils/helper/format_number.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../../Utils/helper/custom_appbar.dart';
@@ -14,7 +18,7 @@ class ReviewGiftMVPTransfer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // final walletController = Get.put(WalletController());
+    final privilegeController = Get.put(PrivilegeController());
     return WillPopScope(
       onWillPop: () async => false,
       child: Scaffold(
@@ -98,8 +102,11 @@ class ReviewGiftMVPTransfer extends StatelessWidget {
                           const SizedBox(
                             height: 22,
                           ),
-                          const CustomCashOutAndTransferAmount(
-                            amountCashOutTransfer: '12.00',
+                          CustomCashOutAndTransferAmount(
+                            amountCashOutTransfer: FormatNumber.formatNumber(
+                                num.tryParse(privilegeController
+                                        .amountgiftMVPController.value.text) ??
+                                    0),
                             // priController.amountToRedeemDisplay.value,
                             pointTrue: true,
                           ),
@@ -121,8 +128,7 @@ class ReviewGiftMVPTransfer extends StatelessWidget {
                           Column(
                             children: [
                               Text(
-                                'Hany',
-                                // priController.receiveAccountname.value,
+                                privilegeController.receiverWalletName.value,
                                 style: Theme.of(context)
                                     .textTheme
                                     .headlineMedium!
@@ -175,24 +181,35 @@ class ReviewGiftMVPTransfer extends StatelessWidget {
                 children: [
                   SlideButton(
                     callback: () async {
-                      context.pushNamed(
-                        'GiftMVPSuccessfully',
-                        queryParams: {
-                          'amount': '25',
-                          'accountMVP': 'kim kim',
-                          'transactionID': '0002346',
-                          'date': '02 Jan 2022',
-                          'reference': '8487566',
-                          'fromAccount': 'hany',
-                          'originalAmount': '989',
-                          'remark': 'about remak',
-                        },
-                        extra: {
-                          'onPressed': () {
-                            Navigator.pop(context);
-                          },
-                        },
-                      );
+                      await privilegeController.sentMVPGift().then((value) {
+                        if (value != null) {
+                          context.pushNamed(
+                            'GiftMVPSuccessfully',
+                            queryParams: {
+                              'amount': value.amount,
+                              'accountMVP': value.toAccountName,
+                              'transactionID': value.transactionId,
+                              'date': value.date,
+                              'reference': value.reference,
+                              'fromAccount': value.fromAccountName,
+                              'originalAmount': value.originalAmount,
+                              'remark': value.remark ?? '',
+                            },
+                            extra: {
+                              'onPressed': () {
+                                context.go('/mymvp');
+                              },
+                            },
+                          );
+                        } else {
+                          customRouterSnackbar(
+                            title: 'Error',
+                            description:
+                                'Somethings went wrong please try again.',
+                            type: SnackType.error,
+                          );
+                        }
+                      });
                     },
                   ),
                   const SizedBox(

@@ -14,8 +14,10 @@ import '../../../utils/function/debounc_function.dart';
 import '../../../utils/helper/custom_route_snackbar.dart';
 import '../../../utils/helper/pagination/pagination_model.dart';
 import '../../google_map_module/controllers/google_map_controller.dart';
+import '../../wallet/controller/wallet_controller.dart';
 import '../../wallet/model/mma_deposit_card_model.dart';
 import '../model/category_model/model_categories.dart';
+import '../model/gift_mvp_model/review_mvp/review_mvp_model.dart';
 import '../model/gift_mvp_model/template_gift_mvp_model.dart';
 import '../model/gift_mvp_model/transcation_history_template_model.dart';
 import '../model/history/model_history_privilege.dart';
@@ -1076,15 +1078,21 @@ class PrivilegeController extends GetxController {
   final isGiftMVPVerifyAccountValidateMessage = ''.obs;
   final amountgiftMVPController = TextEditingController().obs;
   final mvpGiftRemark = TextEditingController();
+  final receiveWalletNumberController = TextEditingController();
 
   void clearGiftMVPForm() {
-    isGiftMVPVerifyAccountValidate(true);
     receiveWalletNumber('');
     receiverWalletName('');
-
     isGiftMVPVerifyAccountValidateMessage('');
+
+    isGiftMVPVerifyAccountValidate(true);
+    validateMVPAmount(true);
+
     amountgiftMVPController.value.clear();
     mvpGiftRemark.clear();
+    receiveWalletNumberController.clear();
+    templateNameController.clear();
+    createTemplate(false);
   }
 
   Future<String?> verifyWallet(String walletNumber) async {
@@ -1119,10 +1127,18 @@ class PrivilegeController extends GetxController {
   }
 
   RxBool createTemplate = false.obs;
+  final templateNameController = TextEditingController();
 
   final _inputWalletDebounce = Debounce();
+  final validateMVPAmount = true.obs;
 
-  validateForm() {}
+  final walletController = Get.put(WalletController());
+  amountValidator() {
+    final amount = num.tryParse(amountgiftMVPController.value.text);
+    validateMVPAmount.value = amount != null &&
+        amount > 0 &&
+        amount <= (walletController.mvpBalance.value.mvpAmount ?? 0);
+  }
 
   //textfield onChanged
   void inputRecieverWalletChanged(String value) {
@@ -1137,60 +1153,38 @@ class PrivilegeController extends GetxController {
     });
   }
 
-  Future<bool> sentMVPGift() async {
-    bool success = false;
+  ///Sent Gift MVP
+  Future<ReviewMvpSuccessModel?> sentMVPGift() async {
+    ReviewMvpSuccessModel? result;
+    final sender = walletController.mvpBalance.value.mvpWalletID;
+    debugPrint('Sender => $sender');
+
     await apiBaseHelper
         .onNetworkRequesting(
       url: 'user/wallet/gift-mvp',
       body: {
-        'receiver_account_number': receiveWalletNumber.value,
+        'sender': 132783837, //sender
+        'receiver': receiveWalletNumber.value,
         'amount': amountgiftMVPController.value.text,
         'remark': mvpGiftRemark.text,
+        'is_create_template': createTemplate.value ? 1 : 0,
+        'template_name': templateNameController.text
       },
       methode: METHODE.post,
       isAuthorize: true,
     )
         .then(
       (value) {
-        success = true;
+        result = ReviewMvpSuccessModel.fromJson(value);
+
         clearGiftMVPForm();
       },
     ).onError(
-      (ErrorModel error, _) {},
+      (ErrorModel error, _) {
+        debugPrint('SentMVPGift Error => ${error.bodyString}');
+      },
     );
-    return success;
-  }
-
-  ///Template with Gift MVP to ohter account option:
-  ///TODO: Virak
-
-  Future<void> createTemplateOtherAccountOption(BuildContext context) async {
-    try {
-      await apiBaseHelper.onNetworkRequesting(
-        url: 'user/wallet/gift-mvp',
-        methode: METHODE.post,
-        isAuthorize: true,
-        body: {
-          'sender': '582864858',
-
-          ///Wallet MVP Account
-          'receiver': '046192935',
-
-          ///Wallet MVP Account
-          'remark': 'Gift MVP',
-          'is_create_template': 1,
-
-          ///if value equal 0 meaning not create template, 1 meaning create template
-          'template_name': ''
-
-          ///name optional
-        },
-      ).then((response) {
-        update();
-      }).onError((ErrorModel error, stackTrace) {});
-    } catch (e) {
-      debugPrint("====>:$e");
-    } finally {}
+    return result;
   }
 
   // final modelGiftMVPTemplate = TemplateGiftMVPModel().obs;
