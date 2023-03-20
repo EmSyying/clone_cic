@@ -56,7 +56,7 @@ class _CustomButtonState extends State<CustomButton> {
               ),
               onPressed: widget.onPressed,
               child: Text(
-                widget.title!,
+                widget.title ?? '',
                 style: Theme.of(context).textTheme.labelLarge,
               ),
             ),
@@ -80,7 +80,7 @@ class _CustomButtonState extends State<CustomButton> {
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
                               widget.iconUrl != null
-                                  ? SvgPicture.asset(widget.iconUrl!)
+                                  ? SvgPicture.asset(widget.iconUrl ?? '')
                                   : Container(),
                               if (widget.iconUrl != null)
                                 const SizedBox(
@@ -88,7 +88,7 @@ class _CustomButtonState extends State<CustomButton> {
                                 ),
                               widget.colorText != null
                                   ? Text(
-                                      widget.title!,
+                                      widget.title ?? '',
                                       style: widget.isCardInvestfif == false
                                           ? Theme.of(context)
                                               .textTheme
@@ -97,7 +97,7 @@ class _CustomButtonState extends State<CustomButton> {
                                           : widget.style,
                                     )
                                   : Text(
-                                      widget.title!,
+                                      widget.title ?? '',
                                       style: widget.isCardInvestfif == false
                                           ? Theme.of(context)
                                               .textTheme
@@ -125,14 +125,14 @@ class _CustomButtonState extends State<CustomButton> {
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
                                 widget.iconUrl != null
-                                    ? SvgPicture.asset(widget.iconUrl!)
+                                    ? SvgPicture.asset(widget.iconUrl ?? '')
                                     : Container(),
                                 if (widget.iconUrl != null)
                                   const SizedBox(
                                     width: 15,
                                   ),
                                 Text(
-                                  widget.title!,
+                                  widget.title ?? "",
                                   style: TextStyle(
                                       fontFamily: 'DMSans',
                                       fontSize: 16,
@@ -150,7 +150,7 @@ class _CustomButtonState extends State<CustomButton> {
                                   onPressed: null,
                                   style: ElevatedButton.styleFrom(
                                     disabledBackgroundColor:
-                                        widget.backgroundColor!,
+                                        widget.backgroundColor,
                                     shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(8),
                                     ),
@@ -158,7 +158,7 @@ class _CustomButtonState extends State<CustomButton> {
                                       vertical: 15.0,
                                     ),
                                   ),
-                                  child: Text(widget.title!,
+                                  child: Text(widget.title ?? '',
                                       style: Theme.of(context)
                                           .textTheme
                                           .labelLarge!
@@ -181,7 +181,7 @@ class _CustomButtonState extends State<CustomButton> {
                                     //     borderRadius:
                                     //         BorderRadius.circular(80)),
                                     child: Text(
-                                      widget.title!,
+                                      widget.title ?? "",
                                       style: Theme.of(context)
                                           .textTheme
                                           .labelLarge!
@@ -207,14 +207,15 @@ class _CustomButtonState extends State<CustomButton> {
                                           CrossAxisAlignment.center,
                                       children: [
                                         widget.iconUrl != null
-                                            ? SvgPicture.asset(widget.iconUrl!)
+                                            ? SvgPicture.asset(
+                                                widget.iconUrl ?? "")
                                             : Container(),
                                         if (widget.iconUrl != null)
                                           const SizedBox(
                                             width: 15,
                                           ),
                                         Text(
-                                          widget.title!,
+                                          widget.title ?? '',
                                           style: Theme.of(context)
                                               .textTheme
                                               .labelLarge,
@@ -241,7 +242,7 @@ class _CustomButtonState extends State<CustomButton> {
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
                                 widget.iconUrl != null
-                                    ? SvgPicture.asset(widget.iconUrl!)
+                                    ? SvgPicture.asset(widget.iconUrl ?? '')
                                     : Container(),
                                 if (widget.iconUrl != null)
                                   const SizedBox(
@@ -249,7 +250,7 @@ class _CustomButtonState extends State<CustomButton> {
                                   ),
                                 widget.colorText != null
                                     ? Text(
-                                        widget.title!,
+                                        widget.title ?? '',
                                         style: widget.isCardInvestfif == false
                                             ? Theme.of(context)
                                                 .textTheme
@@ -259,7 +260,7 @@ class _CustomButtonState extends State<CustomButton> {
                                             : widget.style,
                                       )
                                     : Text(
-                                        widget.title!,
+                                        widget.title ?? '',
                                         style: widget.isCardInvestfif == false
                                             ? Theme.of(context)
                                                 .textTheme
@@ -291,7 +292,8 @@ class _CustomButtonState extends State<CustomButton> {
                                         CrossAxisAlignment.center,
                                     children: [
                                       widget.iconUrl != null
-                                          ? SvgPicture.asset(widget.iconUrl!)
+                                          ? SvgPicture.asset(
+                                              widget.iconUrl ?? '')
                                           : Container(),
                                       if (widget.iconUrl != null)
                                         const SizedBox(
@@ -299,7 +301,7 @@ class _CustomButtonState extends State<CustomButton> {
                                         ),
                                       widget.colorText != null
                                           ? Text(
-                                              widget.title!,
+                                              widget.title ?? '',
                                               style: TextStyle(
                                                 fontFamily: 'DMSans',
                                                 fontSize: 16,
@@ -308,7 +310,7 @@ class _CustomButtonState extends State<CustomButton> {
                                               ),
                                             )
                                           : Text(
-                                              widget.title!,
+                                              widget.title ?? '',
                                               style: TextStyle(
                                                 fontFamily: 'DMSans',
                                                 fontSize: 16,
@@ -329,7 +331,7 @@ class _CustomButtonState extends State<CustomButton> {
                                         Theme.of(context).primaryColor,
                                     onPressed: null,
                                     child: Text(
-                                      widget.title!,
+                                      widget.title ?? '',
                                       style: Theme.of(context)
                                           .textTheme
                                           .labelLarge!
@@ -345,7 +347,7 @@ class _CustomButtonState extends State<CustomButton> {
                                         Theme.of(context).primaryColor,
                                     onPressed: null,
                                     child: Text(
-                                      widget.title!,
+                                      widget.title ?? '',
                                       style: Theme.of(context)
                                           .textTheme
                                           .labelLarge!

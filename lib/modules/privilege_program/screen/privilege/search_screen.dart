@@ -139,343 +139,395 @@ class _SearchScreenState extends State<SearchScreen> {
                       padding: EdgeInsets.only(left: 20.0, right: 20.0),
                       child: CustomShimmerAllShop(),
                     )
-                  : SingleChildScrollView(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          GestureDetector(
-                            onTap: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => const PrivilegeFilters(
-                                    showLocation: false,
-                                  ),
-                                ),
-                              );
-                            },
-                            child: Container(
-                              margin: const EdgeInsets.only(
-                                  left: 20.0, top: 14, bottom: 16),
-                              decoration: BoxDecoration(
-                                  color: AppColor.lightblue.withOpacity(0.06),
-                                  borderRadius: BorderRadius.circular(8.0)),
-                              width: 87,
-                              height: 34,
-                              padding: const EdgeInsets.symmetric(
-                                horizontal: 12.0,
-                                vertical: 7.0,
-                              ),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceAround,
-                                children: [
-                                  SvgPicture.asset(
-                                    'assets/images/privilege/filter_icon.svg',
-                                    color: Theme.of(context).primaryColor,
-                                  ),
-                                  Text(
-                                    'Filter',
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .displaySmall!
-                                        .copyWith(
-                                          fontWeight: FontWeight.w700,
-                                        ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                          Row(
-                            children: [
-                              Padding(
-                                padding: const EdgeInsets.only(
-                                    left: 20.0, bottom: 20.0),
-                                child: Text(
-                                  "${privilegController.categoryFilterList.length} store search in",
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .headlineSmall!
-                                      .copyWith(
-                                        fontWeight: FontWeight.w300,
-                                        color: const Color(0xff000000),
-                                        letterSpacing: 0.2,
-                                      ),
-                                ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.only(
-                                    bottom: 20.0, left: 10.0),
-                                child: Text(
-                                  "\"${widget.locationName ?? ''}\"",
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .headlineSmall!
-                                      .copyWith(
-                                        fontWeight: FontWeight.w500,
-                                        color: const Color(0xff000000),
-                                        letterSpacing: 0.2,
-                                      ),
-                                ),
-                              ),
-                            ],
-                          ),
-                          SingleChildScrollView(
-                            child: Padding(
-                              padding: const EdgeInsets.only(
-                                left: 20.0,
-                                right: 20.0,
-                              ),
-                              child: Column(
-                                children: privilegController.categoryFilterList
-                                    .asMap()
-                                    .entries
-                                    .map(
-                                      (e) => GestureDetector(
-                                        onTap: () {
-                                          context.push(
-                                              "/privilege/all-store/privilege-detail/${privilegController.categoryFilterList[e.key].id}");
-                                        },
-                                        child: Padding(
-                                          padding: const EdgeInsets.only(
-                                              bottom: 18.0),
-                                          child: CustomCardAllStores(
-                                            isFav: e.value.isFavorite!,
-                                            privilegeShopList: e.value,
-                                            onTapFav: () {
-                                              privilegController
-                                                  .setFavouriteStore(
-                                                      id: privilegController
-                                                          .categoryFilterList[
-                                                              e.key]
-                                                          .id!,
-                                                      boolFav: privilegController
-                                                          .categoryFilterList[
-                                                              e.key]
-                                                          .isFavorite!)
-                                                  .then((value) {
-                                                if (privilegController
-                                                    .categoryFilterList[e.key]
-                                                    .isFavorite!) {
-                                                  privilegController
-                                                              .categoryFilterList[
-                                                          e.key] =
-                                                      privilegController
-                                                          .categoryFilterList[
-                                                              e.key]
-                                                          .copyWith(
-                                                              isFavorite:
-                                                                  false);
-                                                } else {
-                                                  privilegController
-                                                              .categoryFilterList[
-                                                          e.key] =
-                                                      privilegController
-                                                          .categoryFilterList[
-                                                              e.key]
-                                                          .copyWith(
-                                                              isFavorite: true);
-                                                }
-                                                // privilegController.onFetchAllStore(1);
-                                                // privilegController
-                                                //     .onFetchFavouriteStore();
-                                                // privilegController.update();
-                                              });
-                                            },
-                                          ),
+                  : Stack(
+                      children: [
+                        NotificationListener<ScrollEndNotification>(
+                          onNotification:
+                              (ScrollEndNotification scrollNotifcation) {
+                            if (scrollNotifcation.metrics.pixels ==
+                                scrollNotifcation.metrics.maxScrollExtent) {
+                              if (privilegController
+                                      .categoryFilterModel.value.links!.next !=
+                                  null) {
+                                privilegController
+                                    .pageNoForSearchResult.value++;
+                                privilegController
+                                    .onFilterByCategoriesByLocation(
+                                        categoryId:
+                                            privilegController.categoryId.value,
+                                        page: privilegController
+                                            .pageNoForSearchResult.value);
+                              }
+                              return true;
+                            }
+                            return false;
+                          },
+                          child: SingleChildScrollView(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                GestureDetector(
+                                  onTap: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) =>
+                                            const PrivilegeFilters(
+                                          showLocation: false,
                                         ),
                                       ),
-                                    )
-                                    .toList(),
-                              ),
+                                    );
+                                  },
+                                  child: Container(
+                                    margin: const EdgeInsets.only(
+                                        left: 20.0, top: 14, bottom: 16),
+                                    decoration: BoxDecoration(
+                                        color: AppColor.lightblue
+                                            .withOpacity(0.06),
+                                        borderRadius:
+                                            BorderRadius.circular(8.0)),
+                                    width: 87,
+                                    height: 34,
+                                    padding: const EdgeInsets.symmetric(
+                                      horizontal: 12.0,
+                                      vertical: 7.0,
+                                    ),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceAround,
+                                      children: [
+                                        SvgPicture.asset(
+                                          'assets/images/privilege/filter_icon.svg',
+                                          color: Theme.of(context).primaryColor,
+                                        ),
+                                        Text(
+                                          'Filter',
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .displaySmall!
+                                              .copyWith(
+                                                fontWeight: FontWeight.w700,
+                                              ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                                Row(
+                                  children: [
+                                    Padding(
+                                      padding: const EdgeInsets.only(
+                                          left: 20.0, bottom: 20.0),
+                                      child: Text(
+                                        "${privilegController.categoryFilterList.length} store search in",
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .headlineSmall!
+                                            .copyWith(
+                                              fontWeight: FontWeight.w300,
+                                              color: const Color(0xff000000),
+                                              letterSpacing: 0.2,
+                                            ),
+                                      ),
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.only(
+                                          bottom: 20.0, left: 10.0),
+                                      child: Text(
+                                        "\"${widget.locationName ?? ''}\"",
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .headlineSmall!
+                                            .copyWith(
+                                              fontWeight: FontWeight.w500,
+                                              color: const Color(0xff000000),
+                                              letterSpacing: 0.2,
+                                            ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                SingleChildScrollView(
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(
+                                      left: 20.0,
+                                      right: 20.0,
+                                    ),
+                                    child: Column(
+                                      children: privilegController
+                                          .categoryFilterList
+                                          .asMap()
+                                          .entries
+                                          .map(
+                                            (e) => GestureDetector(
+                                              onTap: () {
+                                                context.push(
+                                                    "/privilege/all-store/privilege-detail/${privilegController.categoryFilterList[e.key].id}");
+                                              },
+                                              child: Padding(
+                                                padding: const EdgeInsets.only(
+                                                    bottom: 18.0),
+                                                child: CustomCardAllStores(
+                                                  isFav: e.value.isFavorite!,
+                                                  privilegeShopList: e.value,
+                                                  onTapFav: () {
+                                                    privilegController
+                                                        .setFavouriteStore(
+                                                            id: privilegController
+                                                                .categoryFilterList[
+                                                                    e.key]
+                                                                .id!,
+                                                            boolFav: privilegController
+                                                                .categoryFilterList[
+                                                                    e.key]
+                                                                .isFavorite!)
+                                                        .then((value) {
+                                                      if (privilegController
+                                                          .categoryFilterList[
+                                                              e.key]
+                                                          .isFavorite!) {
+                                                        privilegController
+                                                                    .categoryFilterList[
+                                                                e.key] =
+                                                            privilegController
+                                                                .categoryFilterList[
+                                                                    e.key]
+                                                                .copyWith(
+                                                                    isFavorite:
+                                                                        false);
+                                                      } else {
+                                                        privilegController
+                                                                    .categoryFilterList[
+                                                                e.key] =
+                                                            privilegController
+                                                                .categoryFilterList[
+                                                                    e.key]
+                                                                .copyWith(
+                                                                    isFavorite:
+                                                                        true);
+                                                      }
+                                                      // privilegController.onFetchAllStore(1);
+                                                      // privilegController
+                                                      //     .onFetchFavouriteStore();
+                                                      // privilegController.update();
+                                                    });
+                                                  },
+                                                ),
+                                              ),
+                                            ),
+                                          )
+                                          .toList(),
+                                    ),
+                                  ),
+                                ),
+                              ],
                             ),
                           ),
-                        ],
-                      ),
+                        ),
+                        Obx(
+                          () => privilegController.isLoadingResultSearch.value
+                              ? Positioned(
+                                  left: 0,
+                                  right: 0,
+                                  bottom: 20,
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: const [
+                                      CupertinoActivityIndicator(),
+                                      SizedBox(
+                                        width: 10,
+                                      ),
+                                      Text("Loading more...")
+                                    ],
+                                  ),
+                                )
+                              : Container(),
+                        )
+                      ],
                     ),
             )
           : showData
               ? Obx(
-                  () => Column(
-                    children: [
-                      // if (privilegController.searchShopList.isNotEmpty ||
-                      //     privilegController.searchLocationList.isNotEmpty)
-                      Container(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 20.0,
-                          vertical: 20.0,
+                  () => SingleChildScrollView(
+                    child: Column(
+                      children: [
+                        // if (privilegController.searchShopList.isNotEmpty ||
+                        //     privilegController.searchLocationList.isNotEmpty)
+                        Container(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 20.0,
+                            vertical: 20.0,
+                          ),
+                          color: Colors.transparent,
+                          width: double.infinity,
+                          child: CupertinoSlidingSegmentedControl(
+                            groupValue: segmentedControlValue,
+                            backgroundColor:
+                                const Color(0xff252552).withOpacity(0.1),
+                            children: <int, Widget>{
+                              0: Padding(
+                                padding: const EdgeInsets.all(10.0),
+                                child: Text(
+                                  'Stores',
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .bodyLarge!
+                                      .copyWith(
+                                        fontWeight: FontWeight.w500,
+                                      ),
+                                ),
+                              ),
+                              1: Padding(
+                                padding: const EdgeInsets.all(10.0),
+                                child: Text(
+                                  'Location',
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .bodyLarge!
+                                      .copyWith(
+                                        fontWeight: FontWeight.w500,
+                                      ),
+                                ),
+                              ),
+                            },
+                            onValueChanged: (int? value) {
+                              setState(() {
+                                index = value!;
+                                debugPrint("Page View index:$value");
+                                segmentedControlValue = value;
+                                // if (value == 0) {
+                                //   privilegController.onSearchStores(keySearch: keySearch);
+                                // } else {
+                                //   privilegController.onSearchStores(
+                                //       keySearch: keySearch, isLocation: true);
+                                // }
+                                controller.animateToPage(segmentedControlValue,
+                                    duration: const Duration(milliseconds: 200),
+                                    curve: Curves.fastLinearToSlowEaseIn);
+                              });
+                            },
+                          ),
                         ),
-                        color: Colors.transparent,
-                        width: double.infinity,
-                        child: CupertinoSlidingSegmentedControl(
-                          groupValue: segmentedControlValue,
-                          backgroundColor:
-                              const Color(0xff252552).withOpacity(0.1),
-                          children: <int, Widget>{
-                            0: Padding(
-                              padding: const EdgeInsets.all(10.0),
-                              child: Text(
-                                'Stores',
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .bodyLarge!
-                                    .copyWith(
-                                      fontWeight: FontWeight.w500,
-                                    ),
-                              ),
-                            ),
-                            1: Padding(
-                              padding: const EdgeInsets.all(10.0),
-                              child: Text(
-                                'Location',
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .bodyLarge!
-                                    .copyWith(
-                                      fontWeight: FontWeight.w500,
-                                    ),
-                              ),
-                            ),
-                          },
-                          onValueChanged: (int? value) {
-                            setState(() {
-                              index = value!;
-                              debugPrint("Page View index:$value");
+                        Expanded(
+                          child: PageView(
+                            controller: controller,
+                            onPageChanged: (value) {
                               segmentedControlValue = value;
-                              // if (value == 0) {
-                              //   privilegController.onSearchStores(keySearch: keySearch);
-                              // } else {
-                              //   privilegController.onSearchStores(
-                              //       keySearch: keySearch, isLocation: true);
-                              // }
-                              controller.animateToPage(segmentedControlValue,
-                                  duration: const Duration(milliseconds: 200),
-                                  curve: Curves.fastLinearToSlowEaseIn);
-                            });
-                          },
-                        ),
-                      ),
-                      Expanded(
-                        child: PageView(
-                          controller: controller,
-                          onPageChanged: (value) {
-                            segmentedControlValue = value;
-                            setState(() {});
-                          },
-                          children: [
-                            //Store/Shop
-                            privilegController.isSearchLoading.value
-                                ? const Padding(
-                                    padding: EdgeInsets.only(
-                                      left: 20.0,
-                                      right: 20.0,
-                                      top: 20.0,
-                                    ),
-                                    child: CustomShimmerAllShop(),
-                                  )
-                                : privilegController.searchShopList.isNotEmpty
-                                    ? SingleChildScrollView(
-                                        child: Padding(
-                                          padding: const EdgeInsets.only(
-                                              left: 20.0, right: 20.0),
-                                          child: Column(
-                                            children: privilegController
-                                                .searchShopList
-                                                .asMap()
-                                                .entries
-                                                .map(
-                                                  (e) => GestureDetector(
-                                                    onTap: () {
-                                                      // context.go(
-                                                      //     "/privilege/all-store/${privilegController.shopModelList[e.key].id}");
-                                                      Navigator.push(
-                                                        context,
-                                                        MaterialPageRoute(
-                                                          builder: (context) =>
-                                                              PrivilegeDetailScreen(
-                                                            id: e.value.id,
+                              setState(() {});
+                            },
+                            children: [
+                              //Store/Shop
+                              privilegController.isSearchLoading.value
+                                  ? const Padding(
+                                      padding: EdgeInsets.only(
+                                        left: 20.0,
+                                        right: 20.0,
+                                        top: 20.0,
+                                      ),
+                                      child: CustomShimmerAllShop(),
+                                    )
+                                  : privilegController.searchShopList.isNotEmpty
+                                      ? SingleChildScrollView(
+                                          child: Padding(
+                                            padding: const EdgeInsets.only(
+                                                left: 20.0, right: 20.0),
+                                            child: Column(
+                                              children: privilegController
+                                                  .searchShopList
+                                                  .asMap()
+                                                  .entries
+                                                  .map(
+                                                    (e) => GestureDetector(
+                                                      onTap: () {
+                                                        // context.go(
+                                                        //     "/privilege/all-store/${privilegController.shopModelList[e.key].id}");
+                                                        Navigator.push(
+                                                          context,
+                                                          MaterialPageRoute(
+                                                            builder: (context) =>
+                                                                PrivilegeDetailScreen(
+                                                              id: e.value.id,
+                                                            ),
                                                           ),
+                                                        ).then((value) {
+                                                          searchText(
+                                                              searchChangeFov);
+                                                        });
+                                                      },
+                                                      child: Padding(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                    .only(
+                                                                bottom: 18.0),
+                                                        child:
+                                                            CustomCardAllStores(
+                                                          isFav: e.value
+                                                              .isFavorite!,
+                                                          privilegeShopList:
+                                                              e.value,
+                                                          onTapFav: () {
+                                                            privilegController
+                                                                .setFavouriteStore(
+                                                                    id: privilegController
+                                                                        .searchShopList[e
+                                                                            .key]
+                                                                        .id!,
+                                                                    boolFav: privilegController
+                                                                        .searchShopList[
+                                                                            e.key]
+                                                                        .isFavorite!)
+                                                                .then((value) {
+                                                              if (privilegController
+                                                                  .searchShopList[
+                                                                      e.key]
+                                                                  .isFavorite!) {
+                                                                privilegController
+                                                                        .searchShopList[
+                                                                    e
+                                                                        .key] = privilegController
+                                                                    .searchShopList[
+                                                                        e.key]
+                                                                    .copyWith(
+                                                                        isFavorite:
+                                                                            false);
+                                                              } else {
+                                                                privilegController
+                                                                        .searchShopList[
+                                                                    e
+                                                                        .key] = privilegController
+                                                                    .searchShopList[
+                                                                        e.key]
+                                                                    .copyWith(
+                                                                        isFavorite:
+                                                                            true);
+                                                              }
+                                                            });
+                                                          },
                                                         ),
-                                                      ).then((value) {
-                                                        searchText(
-                                                            searchChangeFov);
-                                                      });
-                                                    },
-                                                    child: Padding(
-                                                      padding:
-                                                          const EdgeInsets.only(
-                                                              bottom: 18.0),
-                                                      child:
-                                                          CustomCardAllStores(
-                                                        isFav:
-                                                            e.value.isFavorite!,
-                                                        privilegeShopList:
-                                                            e.value,
-                                                        onTapFav: () {
-                                                          privilegController
-                                                              .setFavouriteStore(
-                                                                  id: privilegController
-                                                                      .searchShopList[
-                                                                          e.key]
-                                                                      .id!,
-                                                                  boolFav: privilegController
-                                                                      .searchShopList[
-                                                                          e.key]
-                                                                      .isFavorite!)
-                                                              .then((value) {
-                                                            if (privilegController
-                                                                .searchShopList[
-                                                                    e.key]
-                                                                .isFavorite!) {
-                                                              privilegController
-                                                                      .searchShopList[
-                                                                  e
-                                                                      .key] = privilegController
-                                                                  .searchShopList[
-                                                                      e.key]
-                                                                  .copyWith(
-                                                                      isFavorite:
-                                                                          false);
-                                                            } else {
-                                                              privilegController
-                                                                      .searchShopList[
-                                                                  e
-                                                                      .key] = privilegController
-                                                                  .searchShopList[
-                                                                      e.key]
-                                                                  .copyWith(
-                                                                      isFavorite:
-                                                                          true);
-                                                            }
-                                                          });
-                                                        },
                                                       ),
                                                     ),
-                                                  ),
-                                                )
-                                                .toList(),
+                                                  )
+                                                  .toList(),
+                                            ),
                                           ),
-                                        ),
-                                      )
-                                    : _buildEmptyState(),
+                                        )
+                                      : _buildEmptyState(),
 
-                            // Location
-                            privilegController.isSearchLoading.value
-                                ? const Padding(
-                                    padding: EdgeInsets.only(
-                                      left: 20.0,
-                                      right: 20.0,
-                                      top: 20.0,
-                                    ),
-                                    child: CustomShimmerAllShop(),
-                                  )
-                                : privilegController
-                                        .searchLocationList.isNotEmpty
-                                    ? Padding(
-                                        padding: const EdgeInsets.symmetric(
-                                            horizontal: 20.0),
-                                        child: SingleChildScrollView(
+                              // Location
+                              privilegController.isSearchLoading.value
+                                  ? const Padding(
+                                      padding: EdgeInsets.only(
+                                        left: 20.0,
+                                        right: 20.0,
+                                        top: 20.0,
+                                      ),
+                                      child: CustomShimmerAllShop(),
+                                    )
+                                  : privilegController
+                                          .searchLocationList.isNotEmpty
+                                      ? Padding(
+                                          padding: const EdgeInsets.symmetric(
+                                              horizontal: 20.0),
                                           child: Column(
                                             children: privilegController
                                                 .searchLocationList
@@ -529,13 +581,13 @@ class _SearchScreenState extends State<SearchScreen> {
                                                 )
                                                 .toList(),
                                           ),
-                                        ),
-                                      )
-                                    : _buildEmptyState(),
-                          ],
+                                        )
+                                      : _buildEmptyState(),
+                            ],
+                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 )
               : const CustomEmptyState(

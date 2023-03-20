@@ -191,11 +191,11 @@ class _QrCodeScreenState extends State<QrCodeScreen> {
                                                     Future.delayed(
                                                         const Duration(
                                                             seconds: 1), () {
-                                                      customRouterSnackbar(
-                                                          description:
-                                                              "QR code found!",
-                                                          suffix: false,
-                                                          prefix: true);
+                                                      // customRouterSnackbar(
+                                                      //     description:
+                                                      //         "QR code found!",
+                                                      //     suffix: false,
+                                                      //     prefix: true);
                                                       setState(() {
                                                         isGenerateDynamiclink =
                                                             false;
