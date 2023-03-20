@@ -1097,6 +1097,7 @@ class PrivilegeController extends GetxController {
   final receiveWalletNumberController = TextEditingController();
 
   void clearGiftMVPForm() {
+    templateName('');
     receiveWalletNumber('');
     receiverWalletName('');
     isGiftMVPVerifyAccountValidateMessage('');
@@ -1252,7 +1253,9 @@ class PrivilegeController extends GetxController {
   final templateName = ''.obs;
   // final isTemplateToVerifyAccountValidate = true.obs;
   // final isTemplatedToVerifyAccountValidateMessage = ''.obs;
+  String templateImage = '';
   Future<void> createTemplateChooseTemplateOption(BuildContext context) async {
+    debugPrint('DATA Image $templateImage');
     isLoadingTemplate(true);
     try {
       await apiBaseHelper.onNetworkRequesting(
@@ -1260,17 +1263,29 @@ class PrivilegeController extends GetxController {
         methode: METHODE.post,
         isAuthorize: true,
         body: {
-          'receiver': receiveAccountname.value,
-          'template_name': templateName,
+          'image': 'data:image/png;base64,${templateImage.toString()}',
+          'receiver': receiveWalletNumberController.value.text,
+          'template_name': templateName.value,
         },
       ).then((response) {
         debugPrint('--------------- Success $response');
+        context.pushNamed('SuccessScreen', queryParams: {
+          'title': 'Success',
+          'description': ''
+        }, extra: {
+          'onPressedButton': () {
+            context.go('/mvp/gift-mvp-option/gift-mvp-template');
+          }
+        });
 
-        receiveAccountname.value = response['receiver'];
-        templateName.value = response['template_name'];
+        //
+
+        // receiveAccountname.value = response['receiver'];
+        // templateName.value = response['template_name'];
         isLoadingTemplate(false);
         update();
       }).onError((ErrorModel error, stackTrace) {
+        debugPrint("=====>:$error");
         isLoadingTemplate(false);
       });
     } catch (e) {

@@ -1,24 +1,55 @@
+import 'dart:convert';
 import 'dart:io';
 import 'dart:ui';
 
+import 'package:cicgreenloan/Utils/helper/custom_loading_button.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
+import 'package:image_picker/image_picker.dart';
 
 import '../../../../Utils/form_builder/custom_button.dart';
 import '../../../../Utils/form_builder/custom_textformfield.dart';
 import '../../../../Utils/helper/custom_appbar_colorswhite.dart';
 import '../../controller/privilege_controller.dart';
 
-class CreateTemplateScreen extends StatelessWidget {
+class CreateTemplateScreen extends StatefulWidget {
   const CreateTemplateScreen({super.key});
 
   @override
+  State<CreateTemplateScreen> createState() => _CreateTemplateScreenState();
+}
+
+class _CreateTemplateScreenState extends State<CreateTemplateScreen> {
+  File? image;
+
+  void selectImage() async {
+    final picker = ImagePicker();
+    final file = await picker.pickImage(source: ImageSource.gallery);
+    image = File(file?.path ?? '');
+    setState(() {});
+
+    final byte = await file?.readAsBytes();
+
+    final base64Image = base64Encode(byte!);
+    privilegeController.templateImage = base64Image;
+
+    debugPrint('Image data for Submit : $base64Image');
+  }
+
+  final privilegeController = Get.put(PrivilegeController());
+
+  @override
+  void dispose() {
+    privilegeController.clearGiftMVPForm();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    final priCon = Get.put(PrivilegeController());
-    priCon.onRedeemToVerifyAccount(context);
     return Scaffold(
       appBar: CustomAppBarWhiteColor(
         context: context,
@@ -102,15 +133,21 @@ class CreateTemplateScreen extends StatelessWidget {
                                   ),
                                   child: Column(
                                     children: [
-                                      Text(
-                                        'Upload Profile Picture',
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .displaySmall!
-                                            .copyWith(
-                                              fontSize: 14,
-                                              fontWeight: FontWeight.w400,
-                                            ),
+                                      GestureDetector(
+                                        onTap: () {
+                                          //Select Picture
+                                          selectImage();
+                                        },
+                                        child: Text(
+                                          'Upload Profile Picture',
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .displaySmall!
+                                              .copyWith(
+                                                fontSize: 14,
+                                                fontWeight: FontWeight.w400,
+                                              ),
+                                        ),
                                       ),
                                     ],
                                   ),
@@ -127,34 +164,22 @@ class CreateTemplateScreen extends StatelessWidget {
                               alignment: Alignment.center,
                               children: [
                                 Container(
+                                  clipBehavior: Clip.antiAlias,
                                   width: 88.0,
                                   height: 88.0,
                                   decoration: const BoxDecoration(
                                     color: Colors.white,
                                     shape: BoxShape.circle,
                                   ),
-                                  // child: CircularProgressIndicator(
-                                  //   strokeWidth: 4,
-                                  //   color: Theme.of(context).primaryColor,
-                                  // ),
+                                  child: image != null
+                                      ? Image.file(
+                                          image!,
+                                          fit: BoxFit.cover,
+                                        )
+                                      : SvgPicture.asset(
+                                          'assets/images/privilege/image_template.svg',
+                                        ),
                                 ),
-                                Container(
-                                  height: 85,
-                                  width: 85,
-                                  decoration: BoxDecoration(
-                                    shape: BoxShape.circle,
-                                    border: Border.all(
-                                      width: 3.5,
-                                      color: Theme.of(context).primaryColor,
-                                    ),
-                                    image: const DecorationImage(
-                                      image: AssetImage(
-                                        'assets/images/privilege/image_template.svg',
-                                      ),
-                                      fit: BoxFit.cover,
-                                    ),
-                                  ),
-                                )
                               ],
                             ),
                           ),
@@ -163,7 +188,6 @@ class CreateTemplateScreen extends StatelessWidget {
                     ),
                   ),
                 ),
-                forceElevated: innerBoxIsScrolled,
               ),
             ),
           ];
@@ -176,85 +200,103 @@ class CreateTemplateScreen extends StatelessWidget {
             child: Column(
               children: [
                 Expanded(
-                  child: Obx(
-                    () => Column(
-                      children: [
-                        CustomTextFieldNew(
-                          isValidate:
-                              priCon.isRedeemToVerifyAccountValidate.value,
-                          validateText: priCon
-                              .isGiftMVPVerifyAccountValidateMessage.value,
-                          initialValue: priCon.receiveAccountNumber.value,
-                          keyboardType: const TextInputType.numberWithOptions(
-                              decimal: true, signed: false),
-                          isRequired: true,
-                          autoFocus: false,
-                          labelText: 'Receiver  Number',
-                          hintText: 'Receiver  Number',
-                          onChange: (value) async {
-                            priCon.receiveAccountNumber.value = value;
-                          },
+                  child: Column(
+                    children: [
+                      CustomTextFieldNew(
+                        padding:
+                            const EdgeInsets.only(left: 20, top: 20, right: 20),
+                        initialValue: privilegeController
+                            .receiveWalletNumberController.text,
+                        isValidate: privilegeController
+                            .isGiftMVPVerifyAccountValidate.value,
+                        validateText: privilegeController
+                            .isGiftMVPVerifyAccountValidateMessage.value,
+                        controller:
+                            privilegeController.receiveWalletNumberController,
+                        inputFormatterList: [
+                          FilteringTextInputFormatter.digitsOnly,
+                        ],
+                        keyboardType: const TextInputType.numberWithOptions(
+                          decimal: false,
+                          signed: false,
                         ),
-                        if (priCon.isRedeemToVerifyAccountValidate.value ==
-                            true)
-                          Padding(
-                            padding: EdgeInsets.only(
-                                left: 20,
-                                bottom: priCon.receiveAccountname.value != ''
-                                    ? 10
-                                    : 0,
-                                right: 20),
-                            child: Row(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                if (priCon.receiveAccountname.value != '')
-                                  SvgPicture.asset(
-                                      'assets/images/wallet_found.svg'),
-                                const SizedBox(width: 5),
-                                if (priCon.receiveAccountname.value != '')
-                                  Text(
-                                    priCon.receiveAccountname.value,
-                                    style: const TextStyle(
-                                        fontSize: 12, color: Color(0xff4FA30F)),
-                                  )
-                              ],
-                            ),
-                          ),
-                        CustomTextFieldNew(
-                          keyboardType: TextInputType.name,
-                          hintText: 'Create Template',
-                          onChange: (name) {
-                            priCon.templateName.value = name;
-                          },
-                          isValidate: true,
-                          labelText: 'Create Template',
-                          initialValue: priCon.templateName.value,
-                        ),
-                      ],
-                    ),
+                        isRequired: true,
+                        labelText: 'Receiver Wallet Number',
+                        hintText: 'Receiver Wallet Number',
+                        onChange:
+                            privilegeController.inputRecieverWalletChanged,
+                        errorWidget: privilegeController
+                                    .isGiftMVPVerifyAccountValidate.value &&
+                                privilegeController
+                                    .receiveWalletNumber.isNotEmpty &&
+                                privilegeController
+                                    .receiverWalletName.isNotEmpty
+                            ? Padding(
+                                padding:
+                                    const EdgeInsets.only(right: 20, top: 8),
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    SvgPicture.asset(
+                                      'assets/images/wallet_found.svg',
+                                      height: 18,
+                                    ),
+                                    const SizedBox(width: 10),
+                                    Text(
+                                      privilegeController
+                                          .receiverWalletName.value,
+                                      style: const TextStyle(
+                                          fontSize: 10.5,
+                                          color: Color(0xff4FA30F)),
+                                    )
+                                  ],
+                                ),
+                              )
+                            : null,
+                      ),
+                      SizedBox(
+                          height: privilegeController
+                                  .isGiftMVPVerifyAccountValidate.value
+                              ? 10
+                              : 0),
+                      CustomTextFieldNew(
+                        keyboardType: TextInputType.name,
+                        hintText: 'Template Name',
+                        onChange: (name) {
+                          privilegeController.templateName.value = name;
+                        },
+                        isValidate: true,
+                        labelText: 'Template Name',
+                        initialValue: privilegeController.templateName.value,
+                      ),
+                    ],
                   ),
                 ),
-                Container(
-                  color: Colors.white,
-                  padding: const EdgeInsets.symmetric(
-                      horizontal: 20.0, vertical: 24.0),
-                  child: CustomButton(
-                    width: double.infinity,
-                    onPressed: () async {
-                      debugPrint('hany test create template====');
-                      await priCon
-                          .createTemplateChooseTemplateOption(context)
-                          .then(
-                            (value) => context.pop(),
-                          );
-
-                      debugPrint(
-                          'review numbwer========${priCon.receiveAccountname.value}');
-                    },
-                    title: 'Save',
-                    isDisable: false,
-                    isOutline: false,
+                SafeArea(
+                  top: false,
+                  minimum: const EdgeInsets.only(
+                    left: 20.0,
+                    right: 20.0,
+                    bottom: 30.0,
                   ),
+                  child: privilegeController.isLoadingTemplate.value
+                      ? const CustomLoadingButton()
+                      : CustomButton(
+                          width: double.infinity,
+                          onPressed: () async {
+                            await privilegeController
+                                .createTemplateChooseTemplateOption(context);
+
+                            debugPrint(
+                                'review numbwer========${privilegeController.receiveAccountname.value}');
+                          },
+                          title: 'Save',
+                          isDisable: !(privilegeController
+                                  .isGiftMVPVerifyAccountValidate.value &&
+                              privilegeController
+                                  .receiverWalletName.value.isNotEmpty),
+                          isOutline: false,
+                        ),
                 ),
               ],
             ),
