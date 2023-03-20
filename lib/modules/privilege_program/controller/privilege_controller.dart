@@ -1151,19 +1151,20 @@ class PrivilegeController extends GetxController {
             'Wallet Name : ${receiverWalletName.value} => ${isGiftMVPVerifyAccountValidate.value}');
       });
     });
+    update();
   }
 
   ///Sent Gift MVP
   Future<ReviewMvpSuccessModel?> sentMVPGift() async {
     ReviewMvpSuccessModel? result;
-    final sender = walletController.mvpBalance.value.mvpWalletID;
+    final sender = walletController.mvpBalance.value.mvpWalletNumber;
     debugPrint('Sender => $sender');
 
     await apiBaseHelper
         .onNetworkRequesting(
       url: 'user/wallet/gift-mvp',
       body: {
-        'sender': 132783837, //sender
+        'sender': sender, //sender
         'receiver': receiveWalletNumber.value,
         'amount': amountgiftMVPController.value.text,
         'remark': mvpGiftRemark.text,
