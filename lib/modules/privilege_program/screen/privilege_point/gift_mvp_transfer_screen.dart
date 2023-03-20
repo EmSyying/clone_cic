@@ -17,8 +17,9 @@ import '../../../wallet/controller/wallet_controller.dart';
 import '../../controller/privilege_controller.dart';
 
 class GiftMVPTransferScreen extends StatelessWidget {
-  const GiftMVPTransferScreen({super.key});
-
+  const GiftMVPTransferScreen({super.key, this.walletNumber, this.amount});
+  final String? walletNumber;
+  final String? amount;
   void _showTemplate(BuildContext context) {
     final privilegeCont = Get.find<PrivilegeController>();
     privilegeCont.fetchListTemplate();
@@ -117,10 +118,17 @@ class GiftMVPTransferScreen extends StatelessWidget {
   Icon get _icon => Platform.isIOS
       ? const Icon(Icons.arrow_back_ios)
       : const Icon(Icons.arrow_back);
-
   @override
   Widget build(BuildContext context) {
     final privilegeController = Get.put(PrivilegeController());
+
+    privilegeController.receiveWalletNumberController.text = walletNumber ?? "";
+    privilegeController.amountgiftMVPController.value.text = amount ?? "";
+    if (walletNumber != null) {
+      privilegeController.inputRecieverWalletChanged(
+          privilegeController.receiveWalletNumberController.text);
+    }
+
     final walletController = Get.put(WalletController());
     final textStyle = Theme.of(context).textTheme.titleMedium;
     final size = MediaQuery.of(context).size;
