@@ -113,6 +113,8 @@ final router = GoRouter(
                   path: 'giftmvp',
                   builder: (context, state) => GiftMVPTransferScreen(
                     key: state.pageKey,
+                    amount: state.queryParams['setAmount'],
+                    walletNumber: state.queryParams['receiveAccountNumber'],
                   ),
                   routes: [
                     GoRoute(
