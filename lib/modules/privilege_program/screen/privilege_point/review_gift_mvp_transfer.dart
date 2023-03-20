@@ -140,7 +140,8 @@ class ReviewGiftMVPTransfer extends StatelessWidget {
                                 height: 8.0,
                               ),
                               Text(
-                                '098378476',
+                                privilegeController
+                                    .receiveWalletNumberController.text,
                                 style: Theme.of(context)
                                     .textTheme
                                     .displayMedium!

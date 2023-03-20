@@ -1,13 +1,13 @@
-# @baseUrl = https://cicstaging.z1central.com/api/
-@baseUrl = https://pre-cic.z1platform.com/api/v4
-@token = eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIyIiwianRpIjoiNjRjOTBiN2JhZjNmYWM3MmU5NTIxNDU0MjBiMzJjYTZkNzgwZDhiYjg2NGIzMzVlY2JkZmZiMmVmZTY5MmQxZDg4NjFmZmI4OTY5MGIxODEiLCJpYXQiOjE2Nzc2Mzg0MTguMzQ5NzIyLCJuYmYiOjE2Nzc2Mzg0MTguMzQ5NzIzLCJleHAiOjE3MDkyNjA4MTguMzQwMTk0LCJzdWIiOiI3NDciLCJzY29wZXMiOlsiKiJdfQ.LLOb91KRNSBqT3HlW947E92D8DzSNkddVyL3Ray4s3xld_h-vmMqw_z0WXtdtLF25E0wkBvHkIzjF1RalQb5mcnEU60zwh5itnpMklrFlYZh7Qc94lJoB9y9yfOdmgw5YW5F0mx8hveLiwh7FCHmKbtzcvKYs5P7IYVKVttaDsMs-a5ZGSW9yTJOMeQ7sNRla3hlZ98V9Ir48XKdNVPGIwqsGuxH8mhK9BUtGCiwG0dls62KADtMabx0tp1BX911e_mjI2WLjvjXGlpKDXTmGF8S6ifp4MuNjGxYonlFRyhLl3793dhPeDU4w6sgAOlFJgehKSlfWRotglsGknYU_mxX54otbX6EgPoPkH1lJQT369vxnM67m-_D0t2XJMYxvRAoiQd_DNMs8N2AcSIldPrWYRC4QiuKwU1-vDwR4n3wzB3RZVMbd2kxTnAAZ-T67cjxI_lXaCqR2KDc__Taoz41lT_uchWIcOWhrjJJcEVd1C7UOle1XaPbeweUM6Zuq5xpqPpX6aNukAXaWAY96ntdNNjOQsBZQDVWZhmG1EMw2zOCk2OQO6UIqzTtHzcD9CkaN031TyhUff4c6mT0XOUcUAtIJgBW2HnCcOL9INAUNHkVTeZGGgQVl1xG0KKf2d7fcOCXPGb9mRUvECeusQnjxi8t9mFV6MdLLjSJ4k8
-POST {{baseUrl}}login
+@baseUrl = https://cicstaging.z1central.com/api/v4
+# @baseUrl = https://pre-cic.z1platform.com/api/v4
+@token = eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIyIiwianRpIjoiM2Q3NWRjM2VhMzEzYmQ3Mzk3MWUxNjNhM2RkYzdiMTE3YmJlOTEwNjJjY2E5MThhMGQ1ZThhMTkzMmQ0Mjk4YWMwNzMyODNmMjk3NzYzMzAiLCJpYXQiOjE2NzkyOTg4MTguMjI0MDI5LCJuYmYiOjE2NzkyOTg4MTguMjI0MDMzLCJleHAiOjE3MTA5MjEyMTguMjE0NDE1LCJzdWIiOiI3NCIsInNjb3BlcyI6WyIqIl19.pcAVeHjdp7J_vp9LSYBdGAmathuLWFIO5odtkPf8130jaMb8LFoq3nz6X6Fn7sy1sTAu9Wi3E2Y2yMKzsvnvJgNNt0Gv0ydiiuAoLnTd7adC1DjiAJYqbCOj71NQwf-B1_1dkqJk7NivPYZXMFzgLD-_22aH9sQLDSZMnprD8knHCLIGPxr-92N4auErybELk6S_x1rVY85DM0yHz4taHpMHmv--8ZfxESmo69OEWdyVq1qSmdY4w-UXS00-aNrTJQhiTXBuTTl1Bju-RD39XHh6LWmLZ4MgV_9rMcCdumP7GJCgkfvfbAVMn73Us5qqkqnGEiUTdb_sSsUo6mk5fWWIWoZEKTymcBKi_BtLrrMBfQJkcWp_eE1X5wtC_HwIpPb7HWhZ8_J7QWYJL4a7x5B8vCCxp_oWDiziIZhGEBHeVUk0ssErJJNvBd93LavzTudS9fH_Hsrfo_Af9BAnS9uuUqsr-o2Xmu761wHYE-3UG0U6VepZ8m8LtUAy_bHH-86FzVqLDaBbJC3oMbvASCS2tOpRQ0FGk0mfEv8A_ZJ1qRgpEkcA-RBgTcnNX7upgPud5YDd5B3HeaJQVxOKyCkYrJQ8D3a9Qws_avxp837WHyQK1M2NpU4ie6phaWBUSxnauqprfF-INm5hyDUaGyWavNXujobpCjkSSix8RGk
+POST {{baseUrl}}/login
 Content-Type: application/json
 Accept: application/json
 
 {
-    "phone" : "+85510305096",
-    "password" : "Admin@2022"   
+    "phone" : "+855963288307",
+    "password" : "Boy@2023"   
 }
 
 ### List all province code to filter shop
@@ -127,4 +127,32 @@ GET {{baseUrl}}/privilege/transaction-history?shop_id=6&filter=today
 Accept: application/json
 Content-Type: application/json
 Authorization: Bearer {{token}}
+
+### Transaction History Filter (if filter today = today), (if filter last 7 day = last_7_day), (if filter last month = last_30_day)
+GET {{baseUrl}}/privilege/generate-mvp-qr?wallet_id=002428&set_amount=200
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+###
+GET {{baseUrl}}/mvp/balance
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+###
+POST {{baseUrl}}/user/wallet/gift-mvp
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{   "sender": 927308932,
+    "receiver": 037435193,
+    "amount": 10,
+    "remark": "abctest",
+    "is_create_template": 0,
+    "template_name": "testtemplate1"
+}
+
+
 

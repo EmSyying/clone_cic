@@ -104,7 +104,16 @@ class GiftMVPSuccessfully extends StatelessWidget {
                                           children: [
                                             RichText(
                                               text: TextSpan(
-                                                text: amount ?? '',
+                                                text: amount != null
+                                                    ? amount!
+                                                            .toLowerCase()
+                                                            .contains("mvp")
+                                                        ? amount!
+                                                            .toLowerCase()
+                                                            .replaceAll(
+                                                                "mvp", "")
+                                                        : amount
+                                                    : "",
                                                 style: Theme.of(context)
                                                     .textTheme
                                                     .headlineMedium!
@@ -115,7 +124,7 @@ class GiftMVPSuccessfully extends StatelessWidget {
                                                     ),
                                                 children: [
                                                   TextSpan(
-                                                    text: ' MVP',
+                                                    text: 'MVP',
                                                     style: Theme.of(context)
                                                         .textTheme
                                                         .headlineMedium!
@@ -181,7 +190,7 @@ class GiftMVPSuccessfully extends StatelessWidget {
                                           summeryLabel(
                                             context,
                                             label: 'Original Amount',
-                                            value: '$originalAmount MVP',
+                                            value: '$originalAmount',
                                           ),
                                           if (remark != 'null' &&
                                               remark != null)

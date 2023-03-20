@@ -92,89 +92,89 @@ class _PrivilegePointScreenState extends State<PrivilegePointScreen> {
               ),
             ),
             Scaffold(
-              // floatingActionButtonLocation: ExpandableFab.location,
-              // floatingActionButton: ExpandableFab(
-              //   expandedFabSize: ExpandableFabSize.regular,
-              //   foregroundColor: Colors.white,
-              //   closeButtonStyle: const ExpandableFabCloseButtonStyle(
-              //       child: Icon(
-              //     Icons.close,
-              //     color: Colors.white,
-              //   )),
-              //   distance: 60,
-              //   childrenOffset: const Offset(12, 9),
-              //   // type: ExpandableFabType.up,
-              //   child: const Icon(
-              //     Icons.add,
-              //     color: Colors.white,
-              //   ),
-              //   key: key,
-              //   overlayStyle: ExpandableFabOverlayStyle(
-              //     blur: 4,
-              //   ),
-              //   onOpen: () {
-              //     debugPrint('onOpen');
-              //   },
-              //   afterOpen: () {
-              //     debugPrint('afterOpen');
-              //   },
-              //   onClose: () {
-              //     debugPrint('onClose');
-              //   },
-              //   afterClose: () {
-              //     debugPrint('afterClose');
-              //   },
-              //   children: [
-              //     FloatingActionButton.small(
-              //       backgroundColor: Colors.white,
-              //       heroTag: null,
-              //       child: SvgPicture.asset('assets/images/qr_icon.svg'),
-              //       onPressed: () {
-              //         final state = key.currentState;
-              //         if (state != null) {
-              //           debugPrint('isOpen:${state.isOpen}');
-              //           state.toggle();
-              //           debugPrint('isOpen:${state.isOpen}');
-              //         }
-              //         try {
-              //           var string = GoRouterState.of(context).location;
+              floatingActionButtonLocation: ExpandableFab.location,
+              floatingActionButton: ExpandableFab(
+                expandedFabSize: ExpandableFabSize.regular,
+                foregroundColor: Colors.white,
+                closeButtonStyle: const ExpandableFabCloseButtonStyle(
+                    child: Icon(
+                  Icons.close,
+                  color: Colors.white,
+                )),
+                distance: 60,
+                childrenOffset: const Offset(12, 9),
+                // type: ExpandableFabType.up,
+                child: const Icon(
+                  Icons.add,
+                  color: Colors.white,
+                ),
+                key: key,
+                overlayStyle: ExpandableFabOverlayStyle(
+                  blur: 4,
+                ),
+                onOpen: () {
+                  debugPrint('onOpen');
+                },
+                afterOpen: () {
+                  debugPrint('afterOpen');
+                },
+                onClose: () {
+                  debugPrint('onClose');
+                },
+                afterClose: () {
+                  debugPrint('afterClose');
+                },
+                children: [
+                  FloatingActionButton.small(
+                    backgroundColor: Colors.white,
+                    heroTag: null,
+                    child: SvgPicture.asset('assets/images/qr_icon.svg'),
+                    onPressed: () {
+                      final state = key.currentState;
+                      if (state != null) {
+                        debugPrint('isOpen:${state.isOpen}');
+                        state.toggle();
+                        debugPrint('isOpen:${state.isOpen}');
+                      }
+                      try {
+                        var string = GoRouterState.of(context).location;
 
-              //           if (_walletController.mvpBalance.value.mvpWalletID !=
-              //               null) {
-              //             context.push(
-              //                 "$string/mvp-qr?mvp-id=${_walletController.mvpBalance.value.mvpWalletID!.toInt()}");
-              //             _privilegeController.onGenerateDynamicLinkMVP(
-              //                 _walletController.mvpBalance.value.mvpWalletID!
-              //                     .toInt());
-              //           }
-              //         } catch (e) {
-              //           debugPrint("Hello ERROR$e");
-              //         }
-              //       },
-              //     ),
-              //     FloatingActionButton.small(
-              //       backgroundColor: Colors.white,
-              //       heroTag: null,
-              //       child: SvgPicture.asset('assets/images/transfer_icon.svg'),
-              //       onPressed: () {
-              //         final state = key.currentState;
+                        if (_walletController.mvpBalance.value.mvpWalletID !=
+                            null) {
+                          context.push(
+                              "$string/mvp-qr?mvp-id=${_walletController.mvpBalance.value.mvpWalletID!.toInt()}");
+                          _privilegeController.onGenerateDynamicLinkMVP(
+                              _walletController.mvpBalance.value.mvpWalletID!
+                                  .toInt());
+                        }
+                      } catch (e) {
+                        debugPrint("Hello ERROR$e");
+                      }
+                    },
+                  ),
+                  FloatingActionButton.small(
+                    backgroundColor: Colors.white,
+                    heroTag: null,
+                    child: SvgPicture.asset('assets/images/transfer_icon.svg'),
+                    onPressed: () {
+                      final state = key.currentState;
 
-              //         if (state != null) {
-              //           debugPrint('isOpen:${state.isOpen}');
-              //           state.toggle();
-              //           debugPrint('isOpen:${state.isOpen}');
-              //         }
-              //         try {
-              //           var string = GoRouterState.of(context).location;
+                      if (state != null) {
+                        debugPrint('isOpen:${state.isOpen}');
+                        state.toggle();
+                        debugPrint('isOpen:${state.isOpen}');
+                      }
+                      try {
+                        var string = GoRouterState.of(context).location;
 
-              //           context.push("$string/gift-mvp-option");
-              //         } catch (e) {
-              //           debugPrint("Hello ERROR$e");
-              //         }
-              //       },
-              //     ),
-              //   ],
-              // ),
+                        context.push("$string/gift-mvp-option");
+                      } catch (e) {
+                        debugPrint("Hello ERROR$e");
+                      }
+                    },
+                  ),
+                ],
+              ),
               backgroundColor: Colors.transparent,
               appBar: AppBar(
                 backgroundColor: Colors.transparent,
