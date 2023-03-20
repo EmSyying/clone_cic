@@ -114,7 +114,8 @@ class _QrCodeScreenState extends State<QrCodeScreen> {
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
-    // double height = MediaQuery.of(context).size.height;
+    double height = MediaQuery.of(context).size.height;
+    debugPrint("height$height");
     return WillPopScope(
       onWillPop: () async => false,
       child: CupertinoScaffold(
@@ -146,8 +147,12 @@ class _QrCodeScreenState extends State<QrCodeScreen> {
                                         alignment: Alignment.center,
                                         children: [
                                           SizedBox(
-                                            height: width * 0.7,
-                                            width: width * 0.7,
+                                            height: Get.height > 600
+                                                ? width * 0.7
+                                                : width * 0.6,
+                                            width: Get.height > 600
+                                                ? width * 0.7
+                                                : width * 0.6,
                                             child: MobileScanner(
                                                 // fit: BoxFit.contain,
                                                 controller: cameraController,
@@ -305,8 +310,12 @@ class _QrCodeScreenState extends State<QrCodeScreen> {
                                           if (captureImage != null &&
                                               isGenerateDynamiclink)
                                             Container(
-                                              height: width * 0.7,
-                                              width: width * 0.7,
+                                              height: Get.height > 600
+                                                  ? width * 0.7
+                                                  : width * 0.6,
+                                              width: Get.height > 600
+                                                  ? width * 0.7
+                                                  : width * 0.6,
                                               decoration: BoxDecoration(
                                                   image: DecorationImage(
                                                 image:
@@ -1047,7 +1056,8 @@ class _QRScannerOverlayState extends State<QRScannerOverlay> {
         : 320.0;
 
     return Padding(
-      padding: EdgeInsets.only(top: Get.height * 0.19),
+      padding: EdgeInsets.only(
+          top: Get.height > 600 ? Get.height * 0.19 : Get.height * 0.185),
       child: Stack(children: [
         Align(
           alignment: Alignment.topCenter,
@@ -1057,8 +1067,8 @@ class _QRScannerOverlayState extends State<QRScannerOverlay> {
 
             // backgroundColor:Colors.red,
             child: SizedBox(
-              width: Get.width * 0.79,
-              height: Get.width * 0.79,
+              width: Get.height > 600 ? Get.width * 0.79 : Get.width * 0.7,
+              height: Get.height > 600 ? Get.width * 0.79 : Get.width * 0.7,
             ),
           ),
         ),
