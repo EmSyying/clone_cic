@@ -1346,20 +1346,45 @@ class PrivilegeController extends GetxController {
     return listTransactionHistoryTemplate;
   }
 
-  ///Delete template TODO Kithya
-  Future<void> deleteTemplate(BuildContext context) async {
+  ///Delete template
+  // Hany
+  final isDeletTemplate = false.obs;
+  Future<void> deleteTemplate(BuildContext context, int? id) async {
+    isDeletTemplate(true);
     try {
-      await apiBaseHelper.onNetworkRequesting(
-          url: 'template',
-          methode: METHODE.delete,
-          isAuthorize: true,
-          body: {
-            'template_id': 4,
-          }).then((response) {
+      await apiBaseHelper
+          .onNetworkRequesting(
+        url: 'template?template_id=$id',
+        methode: METHODE.delete,
+        isAuthorize: true,
+      )
+          .then((response) {
+        debugPrint('delete seccess=====$response');
+        customRouterSnackbar(
+          type: SnackType.done,
+          title: 'Template',
+          description: 'Your template has been deleted Successfully!',
+        );
+
+        isDeletTemplate(false);
+        Future.delayed(const Duration(seconds: 2), () {
+          fetchListTemplate();
+        });
         update();
-      }).onError((ErrorModel error, stackTrace) {});
+      }).onError((ErrorModel error, stackTrace) async {
+        debugPrint('hany test delete====Template=====${error.bodyString}');
+        await customRouterSnackbar(
+            title: 'Template',
+            description: 'Your template has been deleted failed!',
+            type: SnackType.error);
+
+        isDeletTemplate(false);
+      });
     } catch (e) {
+      isDeletTemplate(false);
       debugPrint("====>:$e");
-    } finally {}
+    } finally {
+      isDeletTemplate(false);
+    }
   }
 }
