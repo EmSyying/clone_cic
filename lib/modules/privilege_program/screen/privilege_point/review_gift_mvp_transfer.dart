@@ -197,7 +197,18 @@ class ReviewGiftMVPTransfer extends StatelessWidget {
                             },
                             extra: {
                               'onPressed': () {
-                                context.go('/mymvp');
+                                try {
+                                  final location =
+                                      GoRouterState.of(context).location;
+                                  if (location.contains("/giftmvp")) {
+                                    context.go("/");
+                                  } else {
+                                    context.go('/mymvp');
+                                  }
+                                  debugPrint("location$location");
+                                } catch (e) {
+                                  debugPrint("Routing Error => $e");
+                                }
                               },
                             },
                           );

@@ -17,9 +17,9 @@ import '../../../wallet/controller/wallet_controller.dart';
 import '../../controller/privilege_controller.dart';
 
 class GiftMVPTransferScreen extends StatelessWidget {
-  const GiftMVPTransferScreen({super.key, this.walletNumber, this.amount});
+  const GiftMVPTransferScreen({super.key, this.walletNumber, this.amount = ""});
   final String? walletNumber;
-  final String? amount;
+  final String amount;
   void _showTemplate(BuildContext context) {
     final privilegeCont = Get.find<PrivilegeController>();
     privilegeCont.fetchListTemplate();
@@ -122,14 +122,18 @@ class GiftMVPTransferScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final privilegeController = Get.put(PrivilegeController());
 
-    privilegeController.receiveWalletNumberController.text = walletNumber ?? "";
-    privilegeController.amountgiftMVPController.value.text = amount ?? "";
-    if (walletNumber != null) {
-      privilegeController.inputRecieverWalletChanged(
-          privilegeController.receiveWalletNumberController.text);
-    }
-
     final walletController = Get.put(WalletController());
+    walletController.onFetchMyPoin();
+        if (amount != "") {
+          privilegeController.amountgiftMVPController.value.text = amount;
+        }
+        if (walletNumber != null) {
+          privilegeController.receiveWalletNumberController.text =
+              walletNumber ?? "";
+          privilegeController.inputRecieverWalletChanged(
+              privilegeController.receiveWalletNumberController.text);
+        }
+
     final textStyle = Theme.of(context).textTheme.titleMedium;
     final size = MediaQuery.of(context).size;
     return Scaffold(
@@ -160,9 +164,9 @@ class GiftMVPTransferScreen extends StatelessWidget {
                           horizontal: 20.0, vertical: 20.0),
                       child: CardCurrentPoints(
                         title: 'MVP Balance',
-                        amount:
-                            walletController.mvpBalance.value.mvpAmountFormat ??
-                                '0.00',
+                        amount: walletController
+                                .mvpBalance.value.mvpAmountFormat ??
+                            '0.00',
                       ),
                     ),
                     Container(
@@ -196,7 +200,8 @@ class GiftMVPTransferScreen extends StatelessWidget {
                             inputFormatterList: [
                               FilteringTextInputFormatter.digitsOnly,
                             ],
-                            keyboardType: const TextInputType.numberWithOptions(
+                            keyboardType:
+                                const TextInputType.numberWithOptions(
                               decimal: false,
                               signed: false,
                             ),
@@ -230,10 +235,11 @@ class GiftMVPTransferScreen extends StatelessWidget {
                                 ],
                               ),
                             ),
-                            onChange:
-                                privilegeController.inputRecieverWalletChanged,
+                            onChange: privilegeController
+                                .inputRecieverWalletChanged,
                             errorWidget: privilegeController
-                                        .isGiftMVPVerifyAccountValidate.value &&
+                                        .isGiftMVPVerifyAccountValidate
+                                        .value &&
                                     privilegeController
                                         .receiveWalletNumber.isNotEmpty &&
                                     privilegeController
@@ -305,7 +311,8 @@ class GiftMVPTransferScreen extends StatelessWidget {
                                   style: Theme.of(context)
                                       .textTheme
                                       .titleMedium!
-                                      .copyWith(color: const Color(0xffBDBDBD)),
+                                      .copyWith(
+                                          color: const Color(0xffBDBDBD)),
                                 ),
                               ),
                             ),
@@ -323,22 +330,22 @@ class GiftMVPTransferScreen extends StatelessWidget {
                             child: Row(
                               children: [
                                 Expanded(
-                                  child:
-                                      privilegeController.createTemplate.value
-                                          ? CustomTextFieldNew(
-                                              controller: privilegeController
-                                                  .templateNameController,
-                                              initialValue: privilegeController
-                                                  .templateNameController.text,
-                                              labelText: 'Create Template',
-                                              hintText: 'Create Template',
-                                              onChange: (value) {},
-                                              padding: EdgeInsets.zero,
-                                            )
-                                          : Text(
-                                              'Create Template',
-                                              style: textStyle,
-                                            ),
+                                  child: privilegeController
+                                          .createTemplate.value
+                                      ? CustomTextFieldNew(
+                                          controller: privilegeController
+                                              .templateNameController,
+                                          initialValue: privilegeController
+                                              .templateNameController.text,
+                                          labelText: 'Create Template',
+                                          hintText: 'Create Template',
+                                          onChange: (value) {},
+                                          padding: EdgeInsets.zero,
+                                        )
+                                      : Text(
+                                          'Create Template',
+                                          style: textStyle,
+                                        ),
                                 ),
                                 Platform.isIOS
                                     ? Padding(
@@ -349,7 +356,8 @@ class GiftMVPTransferScreen extends StatelessWidget {
                                                 .createTemplate.value,
                                             onChanged: (value) {
                                               privilegeController
-                                                  .createTemplate.value = value;
+                                                  .createTemplate
+                                                  .value = value;
                                             },
                                             activeColor: AppColor.mainColor),
                                       )
@@ -361,7 +369,8 @@ class GiftMVPTransferScreen extends StatelessWidget {
                                                 .createTemplate.value,
                                             onChanged: (value) {
                                               privilegeController
-                                                  .createTemplate.value = value;
+                                                  .createTemplate
+                                                  .value = value;
                                             },
                                             activeColor: AppColor.mainColor),
                                       ),
@@ -378,11 +387,12 @@ class GiftMVPTransferScreen extends StatelessWidget {
             ),
             Container(
               color: Colors.white,
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 20.0, vertical: 24.0),
+              padding: const EdgeInsets.symmetric(
+                  horizontal: 20.0, vertical: 24.0),
               child: CustomButton(
                 width: double.infinity,
-                backgroundColor: privilegeController.validateMVPAmount.value &&
+                backgroundColor: privilegeController
+                            .validateMVPAmount.value &&
                         privilegeController
                             .isGiftMVPVerifyAccountValidate.value &&
                         privilegeController.receiverWalletName.isNotEmpty &&
@@ -401,8 +411,12 @@ class GiftMVPTransferScreen extends StatelessWidget {
 
                         try {
                           final location = GoRouterState.of(context).location;
-
-                          context.push("$location/review-gift-mvp");
+                          if (location.contains("/giftmvp")) {
+                            context.push("/giftmvp/review-gift-mvp");
+                          } else {
+                            context.push("$location/review-gift-mvp");
+                          }
+                          debugPrint("location$location");
                         } catch (e) {
                           debugPrint("Routing Error => $e");
                         }

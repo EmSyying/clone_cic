@@ -8,6 +8,7 @@ class MVPBalance with _$MVPBalance {
   factory MVPBalance({
     @JsonKey(name: 'mvp_amount') final num? mvpAmount,
     @JsonKey(name: 'mvp_wallet_id') final num? mvpWalletID,
+    @JsonKey(name: 'mvp_wallet_number') final String? mvpWalletNumber,
     @JsonKey(name: 'mvp_amount_format') final String? mvpAmountFormat,
   }) = _MVPBalance;
 
