@@ -312,8 +312,14 @@ class PrivilegeController extends GetxController {
     await apiBaseHelper
         .onNetworkRequesting(
       url: isLocation == false
-          ? 'privilege/global/search?origin=${googleMapCon.currentLatStore.value},${googleMapCon.currentLngStore.value}&queries=$keySearch'
-          : 'privilege/global/search?origin=${googleMapCon.currentLatStore.value},${googleMapCon.currentLngStore.value}&queries=$keySearch&location=true',
+          ? googleMapCon.currentLatStore.value != "" &&
+                  googleMapCon.currentLngStore.value != ""
+              ? 'privilege/global/search?origin=${googleMapCon.currentLatStore.value},${googleMapCon.currentLngStore.value}&queries=$keySearch'
+              : 'privilege/global/search?queries=$keySearch'
+          : googleMapCon.currentLatStore.value != "" &&
+                  googleMapCon.currentLngStore.value != ""
+              ? 'privilege/global/search?origin=${googleMapCon.currentLatStore.value},${googleMapCon.currentLngStore.value}&queries=$keySearch&location=true'
+              : 'privilege/global/search?queries=$keySearch&location=true',
       methode: METHODE.get,
       isAuthorize: true,
     )
@@ -386,15 +392,19 @@ class PrivilegeController extends GetxController {
     debugPrint("INDEX===$index");
     switch (index) {
       case 0:
-        url =
-            'privilege/shop?page=$page&filter=$filterString&origin=${googleMapCon.currentLatStore.value},${googleMapCon.currentLngStore.value}';
+        url = googleMapCon.currentLatStore.value != "" &&
+                googleMapCon.currentLngStore.value != ""
+            ? 'privilege/shop?page=$page&filter=$filterString&origin=${googleMapCon.currentLatStore.value},${googleMapCon.currentLngStore.value}'
+            : 'privilege/shop?page=$page&filter=$filterString';
         break;
       case 1:
         url = "privilege/shop?page=$page&favorite=true&filter=$filterString";
         break;
       default:
-        url =
-            'privilege/shop?page=$page&origin=${googleMapCon.currentLatStore.value},${googleMapCon.currentLngStore.value}';
+        url = googleMapCon.currentLatStore.value != "" &&
+                googleMapCon.currentLngStore.value != ""
+            ? 'privilege/shop?page=$page&origin=${googleMapCon.currentLatStore.value},${googleMapCon.currentLngStore.value}'
+            : 'privilege/shop?page=$page';
         break;
     }
     await apiBaseHelper
@@ -489,8 +499,10 @@ class PrivilegeController extends GetxController {
     isLoadingCategories(true);
     await apiBaseHelper
         .onNetworkRequesting(
-      url:
-          'privilege/category?origin=${googleMapCon.currentLatStore.value},${googleMapCon.currentLngStore.value}',
+      url: googleMapCon.currentLatStore.value != "" &&
+              googleMapCon.currentLngStore.value != ""
+          ? 'privilege/category?origin=${googleMapCon.currentLatStore.value},${googleMapCon.currentLngStore.value}'
+          : 'privilege/category',
       methode: METHODE.get,
       isAuthorize: true,
     )
@@ -570,8 +582,10 @@ class PrivilegeController extends GetxController {
     isLoadingSearchCate(true);
     await apiBaseHelper
         .onNetworkRequesting(
-      url:
-          'privilege/category?term=$keySearch&origin=${googleMapCon.currentLatStore.value},${googleMapCon.currentLngStore.value}',
+      url: googleMapCon.currentLatStore.value != "" &&
+              googleMapCon.currentLngStore.value != ""
+          ? 'privilege/category?term=$keySearch&origin=${googleMapCon.currentLatStore.value},${googleMapCon.currentLngStore.value}'
+          : 'privilege/category?term=$keySearch',
       methode: METHODE.get,
       isAuthorize: true,
     )
@@ -775,8 +789,10 @@ class PrivilegeController extends GetxController {
     debugPrint("catagories id====:$id");
     await apiBaseHelper
         .onNetworkRequesting(
-            url:
-                'privilege/shop-by?category_id=$id&origin=${googleMapCon.currentLatStore.value},${googleMapCon.currentLngStore.value}',
+            url: googleMapCon.currentLatStore.value != "" &&
+                    googleMapCon.currentLngStore.value != ""
+                ? 'privilege/shop-by?category_id=$id&origin=${googleMapCon.currentLatStore.value},${googleMapCon.currentLngStore.value}'
+                : 'privilege/shop-by?category_id=$id',
             methode: METHODE.get,
             isAuthorize: true)
         .then((response) {

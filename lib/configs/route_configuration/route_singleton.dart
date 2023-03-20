@@ -31,7 +31,6 @@ class CICRoute extends MainRoute {
         ],
       );
 
-  @override
   GoRoute privilagePayment({required String? fromWhere}) => GoRoute(
         name: '${fromWhere}PrivilegePayment',
         path: 'privilege-payment/:id',

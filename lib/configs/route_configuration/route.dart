@@ -133,7 +133,7 @@ final router = GoRouter(
                   ],
                 ),
                 CICRoute.instance.transferToMMA(fromWhere: 'HomePage'),
-                CICRoute.instance.privilagePayment(fromWhere: 'HomePage'),
+                // CICRoute.instance.privilagePayment(fromWhere: 'HomePage'),
                 CICRoute.instance.event(fromWhere: 'DashBoard'),
                 GoRoute(
                   path: 'privilege/:tabName',
@@ -1726,7 +1726,7 @@ final router = GoRouter(
         },
       ),
       GoRoute(
-        path: '/privilege-claim/:id',
+        path: '/privilege-payment/:id',
         builder: (_, state) => PaymentDoneScreen(
           key: state.pageKey,
           id: int.tryParse(state.params['id'] ?? '0'),
