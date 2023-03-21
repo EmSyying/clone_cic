@@ -14,7 +14,9 @@ import '../../../../widgets/wallets/custom_stack_dotted_decoration.dart';
 import '../../../setting_modules/screens/sub_setting_screen/contract_terms.dart';
 
 class ReviewGiftMVPTransfer extends StatelessWidget {
-  const ReviewGiftMVPTransfer({super.key});
+  const ReviewGiftMVPTransfer(
+      {super.key, this.receiverName, this.amount, this.receiverWallet});
+  final String? receiverName, amount, receiverWallet;
 
   @override
   Widget build(BuildContext context) {
@@ -104,9 +106,13 @@ class ReviewGiftMVPTransfer extends StatelessWidget {
                           ),
                           CustomCashOutAndTransferAmount(
                             amountCashOutTransfer: FormatNumber.formatNumber(
-                                num.tryParse(privilegeController
-                                        .amountgiftMVPController.value.text) ??
-                                    0),
+                                amount != null
+                                    ? num.parse(amount!)
+                                    : num.tryParse(privilegeController
+                                            .amountgiftMVPController
+                                            .value
+                                            .text) ??
+                                        0),
                             // priController.amountToRedeemDisplay.value,
                             pointTrue: true,
                           ),
@@ -128,7 +134,9 @@ class ReviewGiftMVPTransfer extends StatelessWidget {
                           Column(
                             children: [
                               Text(
-                                privilegeController.receiverWalletName.value,
+                                receiverName ??
+                                    privilegeController
+                                        .receiverWalletName.value,
                                 style: Theme.of(context)
                                     .textTheme
                                     .headlineMedium!
@@ -140,8 +148,9 @@ class ReviewGiftMVPTransfer extends StatelessWidget {
                                 height: 8.0,
                               ),
                               Text(
-                                privilegeController
-                                    .receiveWalletNumberController.text,
+                                receiverWallet ??
+                                    privilegeController
+                                        .receiveWalletNumberController.text,
                                 style: Theme.of(context)
                                     .textTheme
                                     .displayMedium!
@@ -182,7 +191,21 @@ class ReviewGiftMVPTransfer extends StatelessWidget {
                 children: [
                   SlideButton(
                     callback: () async {
-                      await privilegeController.sentMVPGift().then((value) {
+                      debugPrint("Hello world");
+                      if (amount != null) {
+                        privilegeController.createTemplate.value = false;
+                      }
+
+                      await privilegeController
+                          .sentMVPGift(
+                              amount:
+                                  amount != null ? int.parse(amount!) : null,
+                              receiverWallet: receiverWallet != null
+                                  ? int.tryParse(receiverWallet
+                                      .toString()
+                                      .removeAllWhitespace)
+                                  : null)
+                          .then((value) {
                         if (value != null) {
                           context.pushNamed(
                             'GiftMVPSuccessfully',

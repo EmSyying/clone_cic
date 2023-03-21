@@ -45,7 +45,26 @@ class PrivilegeController extends GetxController {
   final isHasStoreMoreLoading = false.obs;
   final storeBranchListPage = 1.obs;
   final numberOfBranch = "".obs;
+  final amountChosenGiftMvpValidateText = "".obs;
+  final amountChosenGiftMvpController = TextEditingController().obs;
+  final isChosenGiftMVPValidate = true.obs;
+
   final googleMapCon = Get.put(GoogleMapsController());
+
+  //validation for chosen give mvp
+  validateChosenGiftMvp(String value) {
+    if (value.isEmpty) {
+      amountChosenGiftMvpValidateText.value = 'Amount required';
+      isChosenGiftMVPValidate.value = false;
+    } else if (num.parse(value) >
+        walletController.mvpBalance.value.mvpAmount!) {
+      amountChosenGiftMvpValidateText.value = 'Not enough balance';
+      isChosenGiftMVPValidate.value = false;
+    } else {
+      isChosenGiftMVPValidate.value = true;
+    }
+  }
+
 //Refreshscreen====F
   Future<void> onRefreshPrivilege() async {
     await onFetchCategories();
@@ -1171,7 +1190,8 @@ class PrivilegeController extends GetxController {
   }
 
   ///Sent Gift MVP
-  Future<ReviewMvpSuccessModel?> sentMVPGift() async {
+  Future<ReviewMvpSuccessModel?> sentMVPGift(
+      {int? receiverWallet, int? amount}) async {
     ReviewMvpSuccessModel? result;
     final sender = walletController.mvpBalance.value.mvpWalletNumber;
     debugPrint('Sender => $sender');
@@ -1181,8 +1201,8 @@ class PrivilegeController extends GetxController {
       url: 'user/wallet/gift-mvp',
       body: {
         'sender': sender, //sender
-        'receiver': receiveWalletNumber.value,
-        'amount': amountgiftMVPController.value.text,
+        'receiver': receiverWallet ?? receiveWalletNumber.value,
+        'amount': amount ?? amountgiftMVPController.value.text,
         'remark': mvpGiftRemark.text,
         'is_create_template': createTemplate.value ? 1 : 0,
         'template_name': templateNameController.text

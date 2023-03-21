@@ -4,19 +4,27 @@ import 'dart:ui';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../../Utils/form_builder/custom_textformfield.dart';
 import '../../../../Utils/helper/custom_appbar_colorswhite.dart';
 import '../../../Utils/form_builder/custom_button.dart';
 import '../../../widgets/custom_menu_holder.dart';
+import '../../wallet/controller/wallet_controller.dart';
+import '../controller/privilege_controller.dart';
 
 class ChooseGiftTemplateScreen extends StatelessWidget {
-  const ChooseGiftTemplateScreen({super.key});
+  const ChooseGiftTemplateScreen(
+      {super.key, this.receiverName, this.receiverWallet, this.imageUrl});
+  final String? receiverName, receiverWallet, imageUrl;
 
   @override
   Widget build(BuildContext context) {
     final txtTheme = Theme.of(context).textTheme;
+    final walletController = Get.put(WalletController());
+    final privilegeController = Get.put(PrivilegeController());
+    walletController.onFetchMyPoin();
     return Scaffold(
       // resizeToAvoidBottomInset: false,
       appBar: CustomAppBarWhiteColor(
@@ -164,12 +172,13 @@ class ChooseGiftTemplateScreen extends StatelessWidget {
                                     color: Colors.white.withOpacity(0.5),
                                   ),
                                   child: Column(
-                                    children: const [
+                                    children: [
                                       Padding(
-                                        padding: EdgeInsets.only(bottom: 2),
+                                        padding:
+                                            const EdgeInsets.only(bottom: 2),
                                         child: Text(
-                                          'Champei Spa',
-                                          style: TextStyle(
+                                          receiverName ?? "",
+                                          style: const TextStyle(
                                             color: Colors.black,
                                             fontSize: 16,
                                             fontWeight: FontWeight.w700,
@@ -177,8 +186,8 @@ class ChooseGiftTemplateScreen extends StatelessWidget {
                                         ),
                                       ),
                                       Text(
-                                        '089 993 338 | MVP',
-                                        style: TextStyle(
+                                        receiverWallet ?? "",
+                                        style: const TextStyle(
                                           color: Color(0xff848F92),
                                           fontSize: 12,
                                           fontWeight: FontWeight.w400,
@@ -200,7 +209,14 @@ class ChooseGiftTemplateScreen extends StatelessWidget {
                               decoration: const BoxDecoration(
                                   color: Colors.white, shape: BoxShape.circle),
                               child: Image.network(
-                                "https://99designs-blog.imgix.net/blog/wp-content/uploads/2017/06/apple.png?auto=format&q=60&fit=max&w=930",
+                                imageUrl ?? "",
+                                errorBuilder: (context, error, stackTrace) =>
+                                    Center(
+                                  child: Icon(
+                                    Icons.error,
+                                    color: Theme.of(context).primaryColor,
+                                  ),
+                                ),
                                 // fit: BoxFit.cover,
                               ),
                             ),
@@ -215,7 +231,13 @@ class ChooseGiftTemplateScreen extends StatelessWidget {
             ),
           ];
         },
-        body: BodyWidget(txtTheme: txtTheme),
+        body: BodyWidget(
+          txtTheme: txtTheme,
+          walletController: walletController,
+          privilegeController: privilegeController,
+          receiverName: receiverName,
+          receiverWallet: receiverWallet,
+        ),
       ),
     );
   }
@@ -376,96 +398,138 @@ class BottomNavigationBarButton extends StatelessWidget {
 }
 
 class BodyWidget extends StatelessWidget {
-  const BodyWidget({
+  BodyWidget({
     super.key,
     required this.txtTheme,
+    this.walletController,
+    this.privilegeController,
+    this.receiverName,
+    this.receiverWallet,
   });
+  final String? receiverName;
+  final String? receiverWallet;
 
   final TextTheme txtTheme;
-
+  final WalletController? walletController;
+  final PrivilegeController? privilegeController;
+  final _formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     TextEditingController mvpBalanceTextController =
         TextEditingController(text: " ");
-    return Container(
-      alignment: Alignment.topCenter,
-      color: Colors.white,
-      child: Column(
-        children: [
-          Expanded(
-            child: SingleChildScrollView(
-              child: Column(
-                children: [
-                  CustomTextFieldNew(
-                    enable: false,
-                    noDisableColor: true,
-                    // isReadOnly: true,
-                    controller: mvpBalanceTextController,
-                    prefix: RichText(
-                      text: TextSpan(
-                        style: txtTheme.bodyMedium!.copyWith(
-                          fontWeight: FontWeight.w400,
-                          color: const Color(0xff848F92),
-                          fontSize: 16,
-                        ),
-                        text: "023532433" " | ",
-                        children: [
-                          TextSpan(
-                            style: txtTheme.bodyMedium!.copyWith(
-                              fontWeight: FontWeight.w700,
-                              color: Colors.black,
-                              fontSize: 16,
-                            ),
-                            text: "1,000",
-                          ),
-                          TextSpan(
-                            style: txtTheme.bodyMedium!.copyWith(
-                                fontSize: 12, color: const Color(0xff848F92)),
-                            text: "  " "MVP",
-                          )
-                        ],
-                      ),
-                    ),
-                    keyboardType: TextInputType.number,
-                    isRequired: false,
-                    // hintText: 'Enter receive number',
-                    onChange: (phone) {},
-                    isValidate: true,
-                    labelText: 'MVP Balance',
-                  ),
-                  CustomTextFieldNew(
-                    suffixIcon: Padding(
-                      padding: const EdgeInsets.only(top: 15, right: 10),
-                      child: Text("MVP",
+    return Obx(
+      () => Container(
+        alignment: Alignment.topCenter,
+        color: Colors.white,
+        child: Column(
+          children: [
+            Expanded(
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    CustomTextFieldNew(
+                      enable: false,
+                      noDisableColor: true,
+                      // isReadOnly: true,
+                      controller: mvpBalanceTextController,
+                      prefix: RichText(
+                        text: TextSpan(
                           style: txtTheme.bodyMedium!.copyWith(
-                              fontWeight: FontWeight.w500,
-                              fontSize: 14,
-                              color: const Color(0xff848F92))),
+                            fontWeight: FontWeight.w400,
+                            color: const Color(0xff848F92),
+                            fontSize: 16,
+                          ),
+                          text:
+                              "${walletController!.mvpBalance.value.mvpWalletNumber}"
+                              " | ",
+                          children: [
+                            TextSpan(
+                              style: txtTheme.bodyMedium!.copyWith(
+                                fontWeight: FontWeight.w700,
+                                color: Colors.black,
+                                fontSize: 16,
+                              ),
+                              text: walletController!
+                                      .mvpBalance.value.mvpAmountFormat ??
+                                  "",
+                            ),
+                            TextSpan(
+                              style: txtTheme.bodyMedium!.copyWith(
+                                  fontSize: 12, color: const Color(0xff848F92)),
+                              text: walletController!
+                                          .mvpBalance.value.mvpAmountFormat !=
+                                      null
+                                  ? ("  " "MVP")
+                                  : "",
+                            )
+                          ],
+                        ),
+                      ),
+                      keyboardType: TextInputType.number,
+                      isRequired: false,
+                      // hintText: 'Enter receive number',
+                      onChange: (phone) {},
+                      isValidate: true,
+                      labelText: 'MVP Balance',
                     ),
-                    enable: true,
-                    isRequired: true,
-                    keyboardType: TextInputType.number,
-                    hintText: 'Amount',
-                    onChange: (phone) {},
-                    isValidate: true,
-                    labelText: 'Amount',
-                  ),
-                  CustomTextFieldNew(
-                    enable: true,
-                    isRequired: false,
-                    keyboardType: TextInputType.text,
-                    hintText: 'Remark',
-                    onChange: (phone) {},
-                    labelText: 'Remark',
-                  ),
-                ],
+                    CustomTextFieldNew(
+                      controller: privilegeController!
+                          .amountChosenGiftMvpController.value,
+                      suffixIcon: Padding(
+                        padding: const EdgeInsets.only(top: 15, right: 10),
+                        child: Text("MVP",
+                            style: txtTheme.bodyMedium!.copyWith(
+                                fontWeight: FontWeight.w500,
+                                fontSize: 14,
+                                color: const Color(0xff848F92))),
+                      ),
+                      enable: true,
+                      isRequired: true,
+                      keyboardType: TextInputType.number,
+                      hintText: 'Amount',
+                      validateText: privilegeController!
+                          .amountChosenGiftMvpValidateText.value,
+                      onChange: (value) {
+                        privilegeController!.validateChosenGiftMvp(value);
+                      },
+                      isValidate:
+                          privilegeController!.isChosenGiftMVPValidate.value,
+                      labelText: 'Amount',
+                    ),
+                    CustomTextFieldNew(
+                      enable: true,
+                      isRequired: false,
+                      keyboardType: TextInputType.text,
+                      hintText: 'Remark',
+                      onChange: (phone) {},
+                      labelText: 'Remark',
+                    ),
+                  ],
+                ),
               ),
             ),
-          ),
-          BottomNavigationBarButton(
-            onPressed: () {},
-          )
-        ],
+            BottomNavigationBarButton(
+              onPressed: () {
+                privilegeController!.validateChosenGiftMvp(privilegeController!
+                    .amountChosenGiftMvpController.value.text);
+                try {
+                  var location = GoRouterState.of(context).location;
+                  final path =
+                      location.replaceAll("?${Uri.parse(location).query}", "");
+                  debugPrint("path$path");
+                  if (privilegeController!.isChosenGiftMVPValidate.value) {
+                    context.push(
+                        "$path/review-gift-mvp?amount=${privilegeController!.amountChosenGiftMvpController.value.text}&receiverWallet=${receiverWallet!.replaceAll(" | MVP", "")}&receiverName=$receiverName");
+                  } else {
+                    FocusManager.instance.primaryFocus?.unfocus();
+                  }
+                } catch (e) {
+                  debugPrint("Hello ERROR$e");
+                }
+              },
+            )
+          ],
+        ),
       ),
     );
   }
