@@ -549,13 +549,44 @@ final router = GoRouter(
                                     ),
                                 routes: [
                                   GoRoute(
-                                    parentNavigatorKey: _rootNavigatorKey,
-                                    path: 'create-template',
-                                    builder: (context, state) =>
-                                        CreateTemplateScreen(
-                                      key: state.pageKey,
-                                    ),
-                                  ),
+                                      parentNavigatorKey: _rootNavigatorKey,
+                                      path: 'create-template',
+                                      builder: (context, state) =>
+                                          CreateTemplateScreen(
+                                            key: state.pageKey,
+                                          ),
+                                      routes: [
+                                        GoRoute(
+                                          path: 'success-screen',
+                                          name: 'SuccessScreenFromMVP',
+                                          parentNavigatorKey: _rootNavigatorKey,
+                                          builder: (_, state) {
+                                            final extras = state.extra
+                                                as Map<String, Object?>?;
+
+                                            return CustomSucessScreen(
+                                              key: state.pageKey,
+                                              appbarTitle: state
+                                                  .queryParams['appbarTitle'],
+                                              title: state.queryParams['title'],
+                                              buttonTitle: state
+                                                  .queryParams['buttonTitle'],
+                                              description: state
+                                                  .queryParams['description'],
+                                              icon: extras?['icon'] as Icon?,
+                                              backgroundColor:
+                                                  extras?['backgroundColor']
+                                                      as Color?,
+                                              onPressedButton:
+                                                  extras?['onPressedButton']
+                                                      as Function()?,
+                                              descriptionPadding:
+                                                  extras?['descriptionPadding']
+                                                      as EdgeInsetsGeometry?,
+                                            );
+                                          },
+                                        ),
+                                      ]),
                                   GoRoute(
                                     parentNavigatorKey: _rootNavigatorKey,
                                     path: 'edit-template',
