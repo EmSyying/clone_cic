@@ -132,7 +132,7 @@ class _GiftMVPFromTemplateScreenState extends State<GiftMVPFromTemplateScreen> {
                                                       .location;
 
                                               context.push(
-                                                  "$string/choosen-template?receiverName=${e.value.name}&receiverWallet=${e.value.walletNumber}&imageUrl=${e.value.image}");
+                                                  "$string/choosen-template?id=${e.value.id}&receiverName=${e.value.name}&receiverWallet=${e.value.walletNumber}&imageUrl=${e.value.image}");
                                             } catch (e) {
                                               debugPrint("Hello ERROR$e");
                                             }

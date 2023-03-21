@@ -1384,7 +1384,8 @@ class PrivilegeController extends GetxController {
   ///Delete template
   // Hany
   final isDeletTemplate = false.obs;
-  Future<void> deleteTemplate(BuildContext context, int? id) async {
+  Future<void> deleteTemplate(BuildContext context, int? id,
+      {bool isFromChosenTemplate = false}) async {
     isDeletTemplate(true);
     try {
       await apiBaseHelper
@@ -1402,9 +1403,12 @@ class PrivilegeController extends GetxController {
         );
 
         isDeletTemplate(false);
-        Future.delayed(const Duration(seconds: 2), () {
-          fetchListTemplate();
-        });
+
+        if (isFromChosenTemplate) {
+          context.pop();
+        }
+        fetchListTemplate();
+
         update();
       }).onError((ErrorModel error, stackTrace) async {
         debugPrint('hany test delete====Template=====${error.bodyString}');

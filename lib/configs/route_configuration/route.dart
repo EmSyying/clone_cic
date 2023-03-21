@@ -293,7 +293,9 @@ final router = GoRouter(
                                         builder: (context, state) =>
                                             ChooseGiftTemplateScreen(
                                             key: state.pageKey,
-                                           
+                                           id:
+                                                state.queryParams["id"] !=null  ? int.parse(state.queryParams["id"]!):null
+                                                    ,
                                             imageUrl:
                                                 state.queryParams["imageUrl"] ??
                                                     "",
@@ -568,7 +570,9 @@ final router = GoRouter(
                                       builder: (context, state) =>
                                           ChooseGiftTemplateScreen(
                                             key: state.pageKey,
-                                           
+                                            id:
+                                                state.queryParams["id"] !=null  ? int.parse(state.queryParams["id"]!):null
+                                                    ,
                                             imageUrl:
                                                 state.queryParams["imageUrl"] ??
                                                     "",
@@ -1061,7 +1065,9 @@ final router = GoRouter(
                                                 builder: (context, state) =>
                                                    ChooseGiftTemplateScreen(
                                             key: state.pageKey,
-                                           
+                                            id:
+                                                state.queryParams["id"] !=null  ? int.parse(state.queryParams["id"]!):null
+                                                    ,
                                             imageUrl:
                                                 state.queryParams["imageUrl"] ??
                                                     "",

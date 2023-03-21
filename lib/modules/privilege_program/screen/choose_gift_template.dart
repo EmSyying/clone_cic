@@ -16,8 +16,13 @@ import '../controller/privilege_controller.dart';
 
 class ChooseGiftTemplateScreen extends StatelessWidget {
   const ChooseGiftTemplateScreen(
-      {super.key, this.receiverName, this.receiverWallet, this.imageUrl});
+      {super.key,
+      this.receiverName,
+      this.receiverWallet,
+      this.imageUrl,
+      this.id});
   final String? receiverName, receiverWallet, imageUrl;
+  final int? id;
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +40,7 @@ class ChooseGiftTemplateScreen extends StatelessWidget {
         backgroundColor: Theme.of(context).primaryColor,
         action: [
           Padding(
-            padding: const EdgeInsets.only(right: 20),
+            padding: const EdgeInsets.only(right: 20 - 8),
             child: CustomFocusedMenuHolder(
               openWithTap: true,
               blurSize: 0,
@@ -80,9 +85,9 @@ class ChooseGiftTemplateScreen extends StatelessWidget {
                     ),
                     onPressed: () {
                       if (Platform.isIOS) {
-                        buildAlertIos(context, txtTheme);
+                        buildAlertIos(context, txtTheme, id);
                       } else {
-                        buildAlertAndroid(context, txtTheme);
+                        buildAlertAndroid(context, txtTheme, id);
                       }
                     },
                     leadingIcon: SvgPicture.asset("assets/images/trash.svg"))
@@ -90,7 +95,10 @@ class ChooseGiftTemplateScreen extends StatelessWidget {
               onPressed: () {
                 debugPrint('Hello');
               },
-              child: SvgPicture.asset("assets/images/more-vertical.svg"),
+              child: Container(
+                  // color: Colors.red,
+                  padding: const EdgeInsets.only(left: 8, right: 8),
+                  child: SvgPicture.asset("assets/images/more-vertical.svg")),
             ),
           ),
         ],
@@ -243,7 +251,7 @@ class ChooseGiftTemplateScreen extends StatelessWidget {
   }
 }
 
-void buildAlertIos(context, TextTheme txtTheme) {
+void buildAlertIos(context, TextTheme txtTheme, int? deleteID) {
   showDialog(
     context: context,
     builder: (BuildContext context) {
@@ -295,6 +303,11 @@ void buildAlertIos(context, TextTheme txtTheme) {
               InkWell(
                   onTap: () {
                     Navigator.pop(context);
+                    if (deleteID != null) {
+                      Get.put(PrivilegeController()).deleteTemplate(
+                          context, deleteID,
+                          isFromChosenTemplate: true);
+                    }
                   },
                   child: Container(
                     padding: const EdgeInsets.all(9),
@@ -329,8 +342,9 @@ void buildAlertIos(context, TextTheme txtTheme) {
   );
 }
 
-void buildAlertAndroid(context, TextTheme txtTheme) {
+void buildAlertAndroid(context, TextTheme txtTheme, int? deleteID) {
   // show the dialog
+  var mainContext = context;
   showDialog(
     context: context,
     builder: (BuildContext context) {
@@ -360,6 +374,11 @@ void buildAlertAndroid(context, TextTheme txtTheme) {
             ),
             onPressed: () {
               Navigator.pop(context);
+              if (deleteID != null) {
+                Get.put(PrivilegeController()).deleteTemplate(
+                    mainContext, deleteID,
+                    isFromChosenTemplate: true);
+              }
             },
           )
         ],
