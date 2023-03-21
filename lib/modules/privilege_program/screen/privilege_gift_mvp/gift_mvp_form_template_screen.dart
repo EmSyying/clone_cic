@@ -32,9 +32,13 @@ class _GiftMVPFromTemplateScreenState extends State<GiftMVPFromTemplateScreen> {
   final priCon = Get.put(PrivilegeController());
   int? id;
   Timer? searchOnStoppedTyping;
+
   @override
   void initState() {
-    priCon.fetchListTemplate('');
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      priCon.fetchListTemplate('');
+    });
+    //
     // priCon.transactionHistoryTemplate(id);
     super.initState();
   }

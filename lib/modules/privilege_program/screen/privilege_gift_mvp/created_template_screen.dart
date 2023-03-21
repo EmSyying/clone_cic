@@ -25,19 +25,31 @@ class CreateTemplateScreen extends StatefulWidget {
 
 class _CreateTemplateScreenState extends State<CreateTemplateScreen> {
   File? image;
+  // XFile? xfile;
+  String getFileExtension(String fileName) {
+    return fileName.split('.').last;
+  }
 
   void selectImage() async {
     final picker = ImagePicker();
-    final file = await picker.pickImage(source: ImageSource.gallery);
-    image = File(file?.path ?? '');
+    final file = await picker.pickImage(
+      source: ImageSource.gallery,
+      imageQuality: 25,
+    );
+    final name = getFileExtension(file!.name);
+    image = File(file.path);
+
+    final bytefile = File(file.path).readAsBytesSync();
+    String base64String = "data:image/$name;base64,${base64Encode(bytefile)}";
     setState(() {});
 
-    final byte = await file?.readAsBytes();
+    // final byte = await file?.readAsBytes();
 
-    final base64Image = base64Encode(byte!);
-    privilegeController.templateImage = base64Image;
+    // final base64Image = base64Encode(byte!);
 
-    debugPrint('Image data for Submit : $base64Image');
+    privilegeController.templateImage = base64String;
+
+    debugPrint('Image data for Submit : $base64String');
   }
 
   final privilegeController = Get.put(PrivilegeController());
@@ -279,13 +291,15 @@ class _CreateTemplateScreenState extends State<CreateTemplateScreen> {
                     right: 20.0,
                     bottom: 30.0,
                   ),
-                  child: privilegeController.isLoadingTemplate.value
+                  child: privilegeController.loadingCreateTemplate.value
                       ? const CustomLoadingButton()
                       : CustomButton(
                           width: double.infinity,
                           onPressed: () async {
                             await privilegeController
-                                .createTemplateChooseTemplateOption(context);
+                                .createTemplateChooseTemplateOption(
+                              context,
+                            );
 
                             debugPrint(
                                 'review numbwer========${privilegeController.receiveAccountname.value}');

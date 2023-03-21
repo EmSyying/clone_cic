@@ -10,6 +10,7 @@ import 'package:go_router/go_router.dart';
 import '../../../Utils/helper/format_Number.dart';
 import '../../../Utils/helper/option_model/option_form.dart';
 
+import '../../../Utils/upload/upload_image_controller.dart';
 import '../../../utils/function/debounc_function.dart';
 import '../../../utils/helper/custom_route_snackbar.dart';
 import '../../../utils/helper/pagination/pagination_model.dart';
@@ -1249,50 +1250,52 @@ class PrivilegeController extends GetxController {
   }
 
   ///Create template with choosing option
-  // final receiverAcount = ''.obs;
+
   final templateName = ''.obs;
-  // final isTemplateToVerifyAccountValidate = true.obs;
-  // final isTemplatedToVerifyAccountValidateMessage = ''.obs;
+
   String templateImage = '';
-  Future<void> createTemplateChooseTemplateOption(BuildContext context) async {
-    debugPrint('DATA Image $templateImage');
-    isLoadingTemplate(true);
+
+  final _uploadImageController = Get.put(UploadImageController());
+  final loadingCreateTemplate = false.obs;
+  Future<void> createTemplateChooseTemplateOption(BuildContext context,
+      {String? extension}) async {
+    // log('data:image/$extension;base64,${templateImage.toString()}');
+    loadingCreateTemplate(true);
     try {
-      await apiBaseHelper.onNetworkRequesting(
-        url: 'create-template',
-        methode: METHODE.post,
-        isAuthorize: true,
+      await _uploadImageController.uploadImage(
+        endPoint: 'create-template',
         body: {
-          'image': 'data:image/png;base64,${templateImage.toString()}',
+          'image': templateImage.toString(),
           'receiver': receiveWalletNumberController.value.text,
           'template_name': templateName.value,
         },
-      ).then((response) {
+      ).then((response) async {
         debugPrint('--------------- Success $response');
-        context.pushNamed('SuccessScreen', queryParams: {
-          'title': 'Success',
-          'description': ''
-        }, extra: {
-          'onPressedButton': () {
-            context.go('/mvp/gift-mvp-option/gift-mvp-template');
-          }
-        });
 
-        //
+        final location = GoRouterState.of(context).location;
+        await fetchListTemplate();
+        if (context.mounted) {
+          context.push(
+            '$location/success-screen?title=Success&description=Template has been created Successfully.',
+            extra: {
+              'onPressedButton': () {
+                context.go('/mymvp/gift-mvp-option/gift-mvp-template');
+              }
+            },
+          );
+        }
 
-        // receiveAccountname.value = response['receiver'];
-        // templateName.value = response['template_name'];
-        isLoadingTemplate(false);
+        loadingCreateTemplate(false);
         update();
       }).onError((ErrorModel error, stackTrace) {
-        debugPrint("=====>:$error");
-        isLoadingTemplate(false);
+        debugPrint("=====>:${error.bodyString}");
+        loadingCreateTemplate(false);
       });
     } catch (e) {
-      isLoadingTemplate(false);
+      loadingCreateTemplate(false);
       debugPrint("=====>:$e");
     } finally {
-      isLoadingTemplate(false);
+      loadingCreateTemplate(false);
     }
   }
 
