@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'dart:ui';
 
+import 'package:cicgreenloan/modules/privilege_program/screen/privilege_gift_mvp/transaction_history_template.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -11,6 +12,7 @@ import '../../../../Utils/form_builder/custom_textformfield.dart';
 import '../../../../Utils/helper/custom_appbar_colorswhite.dart';
 import '../../../Utils/form_builder/custom_button.dart';
 import '../../../widgets/custom_menu_holder.dart';
+import '../../../widgets/privilege/privilege_gift_mvp/custom_pop_up_template_history.dart';
 import '../../wallet/controller/wallet_controller.dart';
 import '../controller/privilege_controller.dart';
 
@@ -66,7 +68,52 @@ class ChooseGiftTemplateScreen extends StatelessWidget {
                         fontWeight: FontWeight.w400,
                       ),
                     ),
-                    onPressed: () {},
+                    onPressed: () async {
+                      await privilegeController
+                          .transactionHistoryTemplate(chosenMVPModel!.id);
+
+                      onShowPopUpTemplateHistory(
+                        id: chosenMVPModel!.id,
+                        titleGiftTemplate: chosenMVPModel!.receiverName,
+                        acountNumGiftTemplate: chosenMVPModel!.receiverWallet,
+                        context,
+                        child: privilegeController
+                                .listTransactionHistoryTemplate.isNotEmpty
+                            ? ListView.separated(
+                                separatorBuilder: (context, index) => Divider(
+                                  color: Colors.grey[400],
+                                  height: 1,
+                                ),
+                                itemCount: privilegeController
+                                    .listTransactionHistoryTemplate.length,
+                                physics: const ScrollPhysics(),
+                                shrinkWrap: true,
+                                itemBuilder: (_, index) =>
+                                    TransactionHistoryTemplate(
+                                  id: privilegeController
+                                      .listTransactionHistoryTemplate[index].id,
+                                  title: privilegeController
+                                      .listTransactionHistoryTemplate[index]
+                                      .walletName,
+                                  // image:
+                                  //     priCon.listTransactionHistoryTemplate[
+                                  //             index]
+                                  //         .image,
+                                  dated: privilegeController
+                                      .listTransactionHistoryTemplate[index]
+                                      .paymentDate,
+                                  amount: privilegeController
+                                      .listTransactionHistoryTemplate[index]
+                                      .amount,
+                                  // amountColorType:
+                                  //     listTransactionHistory[
+                                  //             index]
+                                  //         .amountColorType,
+                                ),
+                              )
+                            : emtyStateTransactionTemplate(context),
+                      );
+                    },
                     leadingIcon: SvgPicture.asset(
                         "assets/images/transaction-history.svg")),
                 CustomFocusedMenuItem(
@@ -79,7 +126,16 @@ class ChooseGiftTemplateScreen extends StatelessWidget {
                         fontWeight: FontWeight.w400,
                       ),
                     ),
-                    onPressed: () {},
+                    onPressed: () {
+                      debugPrint("Hello, world!");
+                      try {
+                        var string = GoRouterState.of(context).location;
+                        context.push("$string/edit-template");
+                        debugPrint("Hello ERRO====R $string");
+                      } catch (e) {
+                        debugPrint("Hello ERRO====R$e");
+                      }
+                    },
                     leadingIcon:
                         SvgPicture.asset("assets/images/edit-pencil.svg")),
                 CustomFocusedMenuItem(
@@ -93,7 +149,7 @@ class ChooseGiftTemplateScreen extends StatelessWidget {
                       ),
                     ),
                     onPressed: () {
-                      if (Platform.isIOS) {
+                      if (!Platform.isIOS) {
                         buildAlertIos(context, txtTheme,
                             chosenMVPModel != null ? chosenMVPModel!.id : 0);
                       } else {
@@ -294,6 +350,42 @@ class ChooseGiftTemplateScreen extends StatelessWidget {
   }
 }
 
+Container emtyStateTransactionTemplate(BuildContext context) {
+  return Container(
+    color: Colors.white,
+    width: double.infinity,
+    padding: const EdgeInsets.only(bottom: 30.0),
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        Image.asset(
+          'assets/images/emptyState.png',
+          width: 180,
+          height: 180,
+        ),
+        Text(
+          'No Transaction History',
+          style: Theme.of(context)
+              .textTheme
+              .headlineMedium!
+              .copyWith(fontWeight: FontWeight.w600),
+        ),
+        const SizedBox(
+          height: 6.0,
+        ),
+        Text(
+          'No Transaction History Here !',
+          style: Theme.of(context)
+              .textTheme
+              .displayMedium!
+              .copyWith(fontWeight: FontWeight.w400),
+          textAlign: TextAlign.center,
+        ),
+      ],
+    ),
+  );
+}
+
 void buildAlertIos(context, TextTheme txtTheme, int? deleteID) {
   showDialog(
     context: context,
@@ -311,7 +403,7 @@ void buildAlertIos(context, TextTheme txtTheme, int? deleteID) {
               )),
         ),
         content: Text(
-          "Are you sure you want to delete this template?",
+          "Are you sure you want to delete \nthis template?",
           style: txtTheme.bodyMedium!.copyWith(
               color: Colors.black, fontSize: 14, fontWeight: FontWeight.w400),
           textAlign: TextAlign.center,
@@ -320,6 +412,7 @@ void buildAlertIos(context, TextTheme txtTheme, int? deleteID) {
           Column(
             children: [
               Divider(
+                height: 1,
                 color: Colors.grey.withOpacity(.5),
               ),
               InkWell(
@@ -327,7 +420,7 @@ void buildAlertIos(context, TextTheme txtTheme, int? deleteID) {
                     Navigator.pop(context);
                   },
                   child: Container(
-                    padding: const EdgeInsets.all(9),
+                    padding: const EdgeInsets.symmetric(vertical: 9),
                     width: double.infinity,
                     child: Center(
                       child: Text(
@@ -341,6 +434,7 @@ void buildAlertIos(context, TextTheme txtTheme, int? deleteID) {
                   )),
 
               Divider(
+                height: 1,
                 color: Colors.grey.withOpacity(.5),
               ),
               InkWell(
@@ -353,7 +447,7 @@ void buildAlertIos(context, TextTheme txtTheme, int? deleteID) {
                     }
                   },
                   child: Container(
-                    padding: const EdgeInsets.all(9),
+                    padding: const EdgeInsets.symmetric(vertical: 9),
                     width: double.infinity,
                     child: Center(
                       child: Text(

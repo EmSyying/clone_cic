@@ -301,6 +301,14 @@ final router = GoRouter(
                                             ),
                                         routes: [
                                           GoRoute(
+                                          parentNavigatorKey: _rootNavigatorKey,
+                                          path: 'edit-template',
+                                          builder: (context, state) =>
+                                              EditTemplateGiftMVP(
+                                            key: state.pageKey,
+                                          ),
+                                        ),
+                                          GoRoute(
                                             parentNavigatorKey:
                                                 _rootNavigatorKey,
                                             path: 'review-gift-mvp',
@@ -599,6 +607,14 @@ final router = GoRouter(
                                                 : null,
                                           ),
                                       routes: [
+                                        GoRoute(
+                                          parentNavigatorKey: _rootNavigatorKey,
+                                          path: 'edit-template',
+                                          builder: (context, state) =>
+                                              EditTemplateGiftMVP(
+                                            key: state.pageKey,
+                                          ),
+                                        ),
                                         GoRoute(
                                           parentNavigatorKey: _rootNavigatorKey,
                                           path: 'review-gift-mvp',
@@ -1088,6 +1104,14 @@ final router = GoRouter(
                                                           : null,
                                                     ),
                                                 routes: [
+                                                  GoRoute(
+                                          parentNavigatorKey: _rootNavigatorKey,
+                                          path: 'edit-template',
+                                          builder: (context, state) =>
+                                              EditTemplateGiftMVP(
+                                            key: state.pageKey,
+                                          ),
+                                        ),
                                                   GoRoute(
                                                     parentNavigatorKey:
                                                         _rootNavigatorKey,
