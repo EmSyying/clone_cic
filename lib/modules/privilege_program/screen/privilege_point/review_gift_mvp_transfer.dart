@@ -236,6 +236,14 @@ class ReviewGiftMVPTransfer extends StatelessWidget {
                               },
                             },
                           );
+                          if (value.message != null || value.message != "") {
+                            debugPrint("value.message==${value.message}");
+                            customRouterSnackbar(
+                                description: value.message ?? "",
+                                suffix: false,
+                                prefix: true);
+                          }
+                          // }
                         } else {
                           customRouterSnackbar(
                             title: 'Error',
