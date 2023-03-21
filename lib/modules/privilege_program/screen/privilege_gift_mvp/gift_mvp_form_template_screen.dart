@@ -16,6 +16,7 @@ import '../../../../widgets/privilege/privilege/custom_formfield_search.dart';
 import '../../../../widgets/privilege/privilege_gift_mvp/custom_card_gift_mvp_form.dart';
 import '../../../../widgets/privilege/privilege_gift_mvp/custom_pop_up_template_history.dart';
 import '../../controller/privilege_controller.dart';
+import '../choose_gift_template.dart';
 
 class GiftMVPFromTemplateScreen extends StatefulWidget {
   // final int? id;
@@ -134,9 +135,19 @@ class _GiftMVPFromTemplateScreenState extends State<GiftMVPFromTemplateScreen> {
                                               var string =
                                                   GoRouterState.of(context)
                                                       .location;
-
+                                              priCon
+                                                  .onClearChosenGiftMVPField();
                                               context.push(
-                                                  "$string/choosen-template?receiverName=${e.value.name}&receiverWallet=${e.value.walletNumber}&imageUrl=${e.value.image}");
+                                                  "$string/choosen-template",
+                                                  extra: ChosenMVPModel(
+                                                    id: e.value.id,
+                                                    imageUrl: e.value.image,
+                                                    defaultImageLetter:
+                                                        e.value.defaultImage,
+                                                    receiverName: e.value.name,
+                                                    receiverWallet:
+                                                        e.value.walletNumber,
+                                                  ));
                                             } catch (e) {
                                               debugPrint("Hello ERROR$e");
                                             }

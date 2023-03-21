@@ -51,6 +51,11 @@ class PrivilegeController extends GetxController {
   final isChosenGiftMVPValidate = true.obs;
 
   final googleMapCon = Get.put(GoogleMapsController());
+  onClearChosenGiftMVPField() {
+    amountChosenGiftMvpController.value.clear();
+    mvpGiftRemark.clear();
+    update();
+  }
 
   //validation for chosen give mvp
   validateChosenGiftMvp(String value) {
@@ -1194,7 +1199,7 @@ class PrivilegeController extends GetxController {
 
   ///Sent Gift MVP
   Future<ReviewMvpSuccessModel?> sentMVPGift(
-      {int? receiverWallet, int? amount}) async {
+      {int? receiverWallet, double? amount}) async {
     ReviewMvpSuccessModel? result;
     final sender = walletController.mvpBalance.value.mvpWalletNumber;
     debugPrint('Sender => $sender');
@@ -1365,7 +1370,8 @@ class PrivilegeController extends GetxController {
   ///Delete template
   // Hany
   final isDeletTemplate = false.obs;
-  Future<void> deleteTemplate(BuildContext context, int? id) async {
+  Future<void> deleteTemplate(BuildContext context, int? id,
+      {bool isFromChosenTemplate = false}) async {
     isDeletTemplate(true);
     try {
       await apiBaseHelper
@@ -1383,9 +1389,12 @@ class PrivilegeController extends GetxController {
         );
 
         isDeletTemplate(false);
-        Future.delayed(const Duration(seconds: 2), () {
-          fetchListTemplate();
-        });
+
+        if (isFromChosenTemplate) {
+          context.pop();
+        }
+        fetchListTemplate();
+
         update();
       }).onError((ErrorModel error, stackTrace) async {
         debugPrint('hany test delete====Template=====${error.bodyString}');

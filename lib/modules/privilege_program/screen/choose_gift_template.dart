@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'dart:ui';
 
+import 'package:cicgreenloan/modules/privilege_program/screen/privilege_gift_mvp/transaction_history_template.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -11,13 +12,28 @@ import '../../../../Utils/form_builder/custom_textformfield.dart';
 import '../../../../Utils/helper/custom_appbar_colorswhite.dart';
 import '../../../Utils/form_builder/custom_button.dart';
 import '../../../widgets/custom_menu_holder.dart';
+import '../../../widgets/privilege/privilege_gift_mvp/custom_pop_up_template_history.dart';
 import '../../wallet/controller/wallet_controller.dart';
 import '../controller/privilege_controller.dart';
 
+class ChosenMVPModel {
+  final String? receiverName, receiverWallet, imageUrl, defaultImageLetter;
+  final int? id;
+  ChosenMVPModel({
+    this.receiverName,
+    this.receiverWallet,
+    this.imageUrl,
+    this.defaultImageLetter,
+    this.id,
+  });
+}
+
 class ChooseGiftTemplateScreen extends StatelessWidget {
-  const ChooseGiftTemplateScreen(
-      {super.key, this.receiverName, this.receiverWallet, this.imageUrl});
-  final String? receiverName, receiverWallet, imageUrl;
+  const ChooseGiftTemplateScreen({
+    super.key,
+    this.chosenMVPModel,
+  });
+  final ChosenMVPModel? chosenMVPModel;
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +51,7 @@ class ChooseGiftTemplateScreen extends StatelessWidget {
         backgroundColor: Theme.of(context).primaryColor,
         action: [
           Padding(
-            padding: const EdgeInsets.only(right: 20),
+            padding: const EdgeInsets.only(right: 0),
             child: CustomFocusedMenuHolder(
               openWithTap: true,
               blurSize: 0,
@@ -52,7 +68,52 @@ class ChooseGiftTemplateScreen extends StatelessWidget {
                         fontWeight: FontWeight.w400,
                       ),
                     ),
-                    onPressed: () {},
+                    onPressed: () async {
+                      await privilegeController
+                          .transactionHistoryTemplate(chosenMVPModel!.id);
+
+                      onShowPopUpTemplateHistory(
+                        id: chosenMVPModel!.id,
+                        titleGiftTemplate: chosenMVPModel!.receiverName,
+                        acountNumGiftTemplate: chosenMVPModel!.receiverWallet,
+                        context,
+                        child: privilegeController
+                                .listTransactionHistoryTemplate.isNotEmpty
+                            ? ListView.separated(
+                                separatorBuilder: (context, index) => Divider(
+                                  color: Colors.grey[400],
+                                  height: 1,
+                                ),
+                                itemCount: privilegeController
+                                    .listTransactionHistoryTemplate.length,
+                                physics: const ScrollPhysics(),
+                                shrinkWrap: true,
+                                itemBuilder: (_, index) =>
+                                    TransactionHistoryTemplate(
+                                  id: privilegeController
+                                      .listTransactionHistoryTemplate[index].id,
+                                  title: privilegeController
+                                      .listTransactionHistoryTemplate[index]
+                                      .walletName,
+                                  // image:
+                                  //     priCon.listTransactionHistoryTemplate[
+                                  //             index]
+                                  //         .image,
+                                  dated: privilegeController
+                                      .listTransactionHistoryTemplate[index]
+                                      .paymentDate,
+                                  amount: privilegeController
+                                      .listTransactionHistoryTemplate[index]
+                                      .amount,
+                                  // amountColorType:
+                                  //     listTransactionHistory[
+                                  //             index]
+                                  //         .amountColorType,
+                                ),
+                              )
+                            : emtyStateTransactionTemplate(context),
+                      );
+                    },
                     leadingIcon: SvgPicture.asset(
                         "assets/images/transaction-history.svg")),
                 CustomFocusedMenuItem(
@@ -65,7 +126,16 @@ class ChooseGiftTemplateScreen extends StatelessWidget {
                         fontWeight: FontWeight.w400,
                       ),
                     ),
-                    onPressed: () {},
+                    onPressed: () {
+                      debugPrint("Hello, world!");
+                      try {
+                        var string = GoRouterState.of(context).location;
+                        context.push("$string/edit-template");
+                        debugPrint("Hello ERRO====R $string");
+                      } catch (e) {
+                        debugPrint("Hello ERRO====R$e");
+                      }
+                    },
                     leadingIcon:
                         SvgPicture.asset("assets/images/edit-pencil.svg")),
                 CustomFocusedMenuItem(
@@ -79,10 +149,12 @@ class ChooseGiftTemplateScreen extends StatelessWidget {
                       ),
                     ),
                     onPressed: () {
-                      if (Platform.isIOS) {
-                        buildAlertIos(context, txtTheme);
+                      if (!Platform.isIOS) {
+                        buildAlertIos(context, txtTheme,
+                            chosenMVPModel != null ? chosenMVPModel!.id : 0);
                       } else {
-                        buildAlertAndroid(context, txtTheme);
+                        buildAlertAndroid(context, txtTheme,
+                            chosenMVPModel != null ? chosenMVPModel!.id : 0);
                       }
                     },
                     leadingIcon: SvgPicture.asset("assets/images/trash.svg"))
@@ -90,7 +162,16 @@ class ChooseGiftTemplateScreen extends StatelessWidget {
               onPressed: () {
                 debugPrint('Hello');
               },
-              child: SvgPicture.asset("assets/images/more-vertical.svg"),
+              child: Container(
+                  width: 50,
+                  height: 50,
+                  decoration: const BoxDecoration(
+                    shape: BoxShape.circle,
+                  ),
+                  // padding: const EdgeInsets.only(left: 8, right: 8),
+                  child: Center(
+                      child:
+                          SvgPicture.asset("assets/images/more-vertical.svg"))),
             ),
           ),
         ],
@@ -177,8 +258,10 @@ class ChooseGiftTemplateScreen extends StatelessWidget {
                                         padding:
                                             const EdgeInsets.only(bottom: 2),
                                         child: Text(
-                                          receiverName ?? "",
-                                          style: const TextStyle(
+                                          chosenMVPModel != null
+                                              ? chosenMVPModel!.receiverName!
+                                              : "",
+                                          style: txtTheme.bodyMedium!.copyWith(
                                             color: Colors.black,
                                             fontSize: 16,
                                             fontWeight: FontWeight.w700,
@@ -186,9 +269,11 @@ class ChooseGiftTemplateScreen extends StatelessWidget {
                                         ),
                                       ),
                                       Text(
-                                        receiverWallet ?? "",
-                                        style: const TextStyle(
-                                          color: Color(0xff848F92),
+                                        chosenMVPModel != null
+                                            ? chosenMVPModel!.receiverWallet!
+                                            : "",
+                                        style: txtTheme.bodyMedium!.copyWith(
+                                          color: const Color(0xff848F92),
                                           fontSize: 12,
                                           fontWeight: FontWeight.w400,
                                         ),
@@ -206,19 +291,39 @@ class ChooseGiftTemplateScreen extends StatelessWidget {
                               height: 75,
                               width: 75,
                               clipBehavior: Clip.hardEdge,
-                              decoration: const BoxDecoration(
-                                  color: Colors.white, shape: BoxShape.circle),
-                              child: Image.network(
-                                imageUrl ?? "",
-                                errorBuilder: (context, error, stackTrace) =>
-                                    Center(
-                                  child: Icon(
-                                    Icons.error,
-                                    color: Theme.of(context).primaryColor,
-                                  ),
-                                ),
-                                // fit: BoxFit.cover,
-                              ),
+                              decoration: BoxDecoration(
+                                  color: chosenMVPModel != null
+                                      ? chosenMVPModel!.defaultImageLetter != ""
+                                          ? Colors.grey[300]
+                                          : Colors.white
+                                      : Colors.white,
+                                  shape: BoxShape.circle),
+                              child: chosenMVPModel == null
+                                  ? const SizedBox()
+                                  : chosenMVPModel!.defaultImageLetter != ""
+                                      ? Center(
+                                          child: Text(
+                                            chosenMVPModel!.defaultImageLetter
+                                                .toString(),
+                                            style:
+                                                txtTheme.bodyMedium!.copyWith(
+                                              fontSize: 25,
+                                            ),
+                                          ),
+                                        )
+                                      : Image.network(
+                                          chosenMVPModel!.imageUrl ?? "",
+                                          errorBuilder:
+                                              (context, error, stackTrace) =>
+                                                  Center(
+                                            child: Icon(
+                                              Icons.error,
+                                              color: Theme.of(context)
+                                                  .primaryColor,
+                                            ),
+                                          ),
+                                          // fit: BoxFit.cover,
+                                        ),
                             ),
                           ),
                         ],
@@ -235,15 +340,53 @@ class ChooseGiftTemplateScreen extends StatelessWidget {
           txtTheme: txtTheme,
           walletController: walletController,
           privilegeController: privilegeController,
-          receiverName: receiverName,
-          receiverWallet: receiverWallet,
+          receiverName:
+              chosenMVPModel != null ? chosenMVPModel!.receiverName : "",
+          receiverWallet:
+              chosenMVPModel != null ? chosenMVPModel!.receiverWallet : "",
         ),
       ),
     );
   }
 }
 
-void buildAlertIos(context, TextTheme txtTheme) {
+Container emtyStateTransactionTemplate(BuildContext context) {
+  return Container(
+    color: Colors.white,
+    width: double.infinity,
+    padding: const EdgeInsets.only(bottom: 30.0),
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        Image.asset(
+          'assets/images/emptyState.png',
+          width: 180,
+          height: 180,
+        ),
+        Text(
+          'No Transaction History',
+          style: Theme.of(context)
+              .textTheme
+              .headlineMedium!
+              .copyWith(fontWeight: FontWeight.w600),
+        ),
+        const SizedBox(
+          height: 6.0,
+        ),
+        Text(
+          'No Transaction History Here !',
+          style: Theme.of(context)
+              .textTheme
+              .displayMedium!
+              .copyWith(fontWeight: FontWeight.w400),
+          textAlign: TextAlign.center,
+        ),
+      ],
+    ),
+  );
+}
+
+void buildAlertIos(context, TextTheme txtTheme, int? deleteID) {
   showDialog(
     context: context,
     builder: (BuildContext context) {
@@ -260,7 +403,7 @@ void buildAlertIos(context, TextTheme txtTheme) {
               )),
         ),
         content: Text(
-          "Are you sure you want to delete this template?",
+          "Are you sure you want to delete \nthis template?",
           style: txtTheme.bodyMedium!.copyWith(
               color: Colors.black, fontSize: 14, fontWeight: FontWeight.w400),
           textAlign: TextAlign.center,
@@ -269,6 +412,7 @@ void buildAlertIos(context, TextTheme txtTheme) {
           Column(
             children: [
               Divider(
+                height: 1,
                 color: Colors.grey.withOpacity(.5),
               ),
               InkWell(
@@ -276,7 +420,7 @@ void buildAlertIos(context, TextTheme txtTheme) {
                     Navigator.pop(context);
                   },
                   child: Container(
-                    padding: const EdgeInsets.all(9),
+                    padding: const EdgeInsets.symmetric(vertical: 9),
                     width: double.infinity,
                     child: Center(
                       child: Text(
@@ -290,14 +434,20 @@ void buildAlertIos(context, TextTheme txtTheme) {
                   )),
 
               Divider(
+                height: 1,
                 color: Colors.grey.withOpacity(.5),
               ),
               InkWell(
                   onTap: () {
                     Navigator.pop(context);
+                    if (deleteID != null) {
+                      Get.put(PrivilegeController()).deleteTemplate(
+                          context, deleteID,
+                          isFromChosenTemplate: true);
+                    }
                   },
                   child: Container(
-                    padding: const EdgeInsets.all(9),
+                    padding: const EdgeInsets.symmetric(vertical: 9),
                     width: double.infinity,
                     child: Center(
                       child: Text(
@@ -329,8 +479,9 @@ void buildAlertIos(context, TextTheme txtTheme) {
   );
 }
 
-void buildAlertAndroid(context, TextTheme txtTheme) {
+void buildAlertAndroid(context, TextTheme txtTheme, int? deleteID) {
   // show the dialog
+  var mainContext = context;
   showDialog(
     context: context,
     builder: (BuildContext context) {
@@ -360,6 +511,11 @@ void buildAlertAndroid(context, TextTheme txtTheme) {
             ),
             onPressed: () {
               Navigator.pop(context);
+              if (deleteID != null) {
+                Get.put(PrivilegeController()).deleteTemplate(
+                    mainContext, deleteID,
+                    isFromChosenTemplate: true);
+              }
             },
           )
         ],
@@ -499,9 +655,12 @@ class BodyWidget extends StatelessWidget {
                     CustomTextFieldNew(
                       enable: true,
                       isRequired: false,
+                      controller: privilegeController!.mvpGiftRemark,
                       keyboardType: TextInputType.text,
                       hintText: 'Remark',
-                      onChange: (phone) {},
+                      onChange: (phone) {
+                        privilegeController!.update();
+                      },
                       labelText: 'Remark',
                     ),
                   ],
