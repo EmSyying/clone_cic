@@ -49,7 +49,7 @@ class _MVPTransactionHistoryState extends State<MVPTransactionHistory> {
     'Today',
     'Last 7 Day',
     'Last 30 Day',
-    'Custom Period',
+    // 'Custom Period',
   ];
 
   int selectedIndex = 0;
@@ -472,11 +472,11 @@ class _MVPTransactionHistoryState extends State<MVPTransactionHistory> {
                                                               FontWeight.w700,
                                                         ),
                                                   ),
-                                                  GestureDetector(
-                                                    onTap: () {},
-                                                    child: SvgPicture.asset(
-                                                        'assets/images/searchicon.svg'),
-                                                  ),
+                                                  // GestureDetector(
+                                                  //   onTap: () {},
+                                                  //   child: SvgPicture.asset(
+                                                  //       'assets/images/searchicon.svg'),
+                                                  // ),
                                                 ],
                                               ),
                                             ),
