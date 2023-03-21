@@ -292,20 +292,13 @@ final router = GoRouter(
                                         path: 'choosen-template',
                                         builder: (context, state) =>
                                             ChooseGiftTemplateScreen(
-                                            key: state.pageKey,
-                                           id:
-                                                state.queryParams["id"] !=null  ? int.parse(state.queryParams["id"]!):null
-                                                    ,
-                                            imageUrl:
-                                                state.queryParams["imageUrl"] ??
-                                                    "",
-                                            receiverName: state.queryParams[
-                                                    "receiverName"] ??
-                                                "",
-                                            receiverWallet: state.queryParams[
-                                                    "receiverWallet"] ??
-                                                "",
-                                          ),
+                                              key: state.pageKey,
+                                              chosenMVPModel:
+                                                  state.extra != null
+                                                      ? state.extra
+                                                          as ChosenMVPModel
+                                                      : null,
+                                            ),
                                         routes: [
                                           GoRoute(
                                             parentNavigatorKey:
@@ -601,18 +594,9 @@ final router = GoRouter(
                                       builder: (context, state) =>
                                           ChooseGiftTemplateScreen(
                                             key: state.pageKey,
-                                            id:
-                                                state.queryParams["id"] !=null  ? int.parse(state.queryParams["id"]!):null
-                                                    ,
-                                            imageUrl:
-                                                state.queryParams["imageUrl"] ??
-                                                    "",
-                                            receiverName: state.queryParams[
-                                                    "receiverName"] ??
-                                                "",
-                                            receiverWallet: state.queryParams[
-                                                    "receiverWallet"] ??
-                                                "",
+                                            chosenMVPModel: state.extra != null
+                                                ? state.extra as ChosenMVPModel
+                                                : null,
                                           ),
                                       routes: [
                                         GoRoute(
@@ -1094,21 +1078,15 @@ final router = GoRouter(
                                                     _rootNavigatorKey,
                                                 path: 'choosen-template',
                                                 builder: (context, state) =>
-                                                   ChooseGiftTemplateScreen(
-                                            key: state.pageKey,
-                                            id:
-                                                state.queryParams["id"] !=null  ? int.parse(state.queryParams["id"]!):null
-                                                    ,
-                                            imageUrl:
-                                                state.queryParams["imageUrl"] ??
-                                                    "",
-                                            receiverName: state.queryParams[
-                                                    "receiverName"] ??
-                                                "",
-                                            receiverWallet: state.queryParams[
-                                                    "receiverWallet"] ??
-                                                "",
-                                          ),
+                                                    ChooseGiftTemplateScreen(
+                                                      key: state.pageKey,
+                                                      chosenMVPModel: state
+                                                                  .extra !=
+                                                              null
+                                                          ? state.extra
+                                                              as ChosenMVPModel
+                                                          : null,
+                                                    ),
                                                 routes: [
                                                   GoRoute(
                                                     parentNavigatorKey:

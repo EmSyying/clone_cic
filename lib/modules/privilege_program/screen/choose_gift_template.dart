@@ -14,15 +14,24 @@ import '../../../widgets/custom_menu_holder.dart';
 import '../../wallet/controller/wallet_controller.dart';
 import '../controller/privilege_controller.dart';
 
-class ChooseGiftTemplateScreen extends StatelessWidget {
-  const ChooseGiftTemplateScreen(
-      {super.key,
-      this.receiverName,
-      this.receiverWallet,
-      this.imageUrl,
-      this.id});
-  final String? receiverName, receiverWallet, imageUrl;
+class ChosenMVPModel {
+  final String? receiverName, receiverWallet, imageUrl, defaultImageLetter;
   final int? id;
+  ChosenMVPModel({
+    this.receiverName,
+    this.receiverWallet,
+    this.imageUrl,
+    this.defaultImageLetter,
+    this.id,
+  });
+}
+
+class ChooseGiftTemplateScreen extends StatelessWidget {
+  const ChooseGiftTemplateScreen({
+    super.key,
+    this.chosenMVPModel,
+  });
+  final ChosenMVPModel? chosenMVPModel;
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +49,7 @@ class ChooseGiftTemplateScreen extends StatelessWidget {
         backgroundColor: Theme.of(context).primaryColor,
         action: [
           Padding(
-            padding: const EdgeInsets.only(right: 20 - 8),
+            padding: const EdgeInsets.only(right: 0),
             child: CustomFocusedMenuHolder(
               openWithTap: true,
               blurSize: 0,
@@ -85,9 +94,11 @@ class ChooseGiftTemplateScreen extends StatelessWidget {
                     ),
                     onPressed: () {
                       if (Platform.isIOS) {
-                        buildAlertIos(context, txtTheme, id);
+                        buildAlertIos(context, txtTheme,
+                            chosenMVPModel != null ? chosenMVPModel!.id : 0);
                       } else {
-                        buildAlertAndroid(context, txtTheme, id);
+                        buildAlertAndroid(context, txtTheme,
+                            chosenMVPModel != null ? chosenMVPModel!.id : 0);
                       }
                     },
                     leadingIcon: SvgPicture.asset("assets/images/trash.svg"))
@@ -96,9 +107,15 @@ class ChooseGiftTemplateScreen extends StatelessWidget {
                 debugPrint('Hello');
               },
               child: Container(
-                  // color: Colors.red,
-                  padding: const EdgeInsets.only(left: 8, right: 8),
-                  child: SvgPicture.asset("assets/images/more-vertical.svg")),
+                  width: 50,
+                  height: 50,
+                  decoration: const BoxDecoration(
+                    shape: BoxShape.circle,
+                  ),
+                  // padding: const EdgeInsets.only(left: 8, right: 8),
+                  child: Center(
+                      child:
+                          SvgPicture.asset("assets/images/more-vertical.svg"))),
             ),
           ),
         ],
@@ -185,8 +202,10 @@ class ChooseGiftTemplateScreen extends StatelessWidget {
                                         padding:
                                             const EdgeInsets.only(bottom: 2),
                                         child: Text(
-                                          receiverName ?? "",
-                                          style: const TextStyle(
+                                          chosenMVPModel != null
+                                              ? chosenMVPModel!.receiverName!
+                                              : "",
+                                          style: txtTheme.bodyMedium!.copyWith(
                                             color: Colors.black,
                                             fontSize: 16,
                                             fontWeight: FontWeight.w700,
@@ -194,9 +213,11 @@ class ChooseGiftTemplateScreen extends StatelessWidget {
                                         ),
                                       ),
                                       Text(
-                                        receiverWallet ?? "",
-                                        style: const TextStyle(
-                                          color: Color(0xff848F92),
+                                        chosenMVPModel != null
+                                            ? chosenMVPModel!.receiverWallet!
+                                            : "",
+                                        style: txtTheme.bodyMedium!.copyWith(
+                                          color: const Color(0xff848F92),
                                           fontSize: 12,
                                           fontWeight: FontWeight.w400,
                                         ),
@@ -214,19 +235,39 @@ class ChooseGiftTemplateScreen extends StatelessWidget {
                               height: 75,
                               width: 75,
                               clipBehavior: Clip.hardEdge,
-                              decoration: const BoxDecoration(
-                                  color: Colors.white, shape: BoxShape.circle),
-                              child: Image.network(
-                                imageUrl ?? "",
-                                errorBuilder: (context, error, stackTrace) =>
-                                    Center(
-                                  child: Icon(
-                                    Icons.error,
-                                    color: Theme.of(context).primaryColor,
-                                  ),
-                                ),
-                                // fit: BoxFit.cover,
-                              ),
+                              decoration: BoxDecoration(
+                                  color: chosenMVPModel != null
+                                      ? chosenMVPModel!.defaultImageLetter != ""
+                                          ? Colors.grey[300]
+                                          : Colors.white
+                                      : Colors.white,
+                                  shape: BoxShape.circle),
+                              child: chosenMVPModel == null
+                                  ? const SizedBox()
+                                  : chosenMVPModel!.defaultImageLetter != ""
+                                      ? Center(
+                                          child: Text(
+                                            chosenMVPModel!.defaultImageLetter
+                                                .toString(),
+                                            style:
+                                                txtTheme.bodyMedium!.copyWith(
+                                              fontSize: 25,
+                                            ),
+                                          ),
+                                        )
+                                      : Image.network(
+                                          chosenMVPModel!.imageUrl ?? "",
+                                          errorBuilder:
+                                              (context, error, stackTrace) =>
+                                                  Center(
+                                            child: Icon(
+                                              Icons.error,
+                                              color: Theme.of(context)
+                                                  .primaryColor,
+                                            ),
+                                          ),
+                                          // fit: BoxFit.cover,
+                                        ),
                             ),
                           ),
                         ],
@@ -243,8 +284,10 @@ class ChooseGiftTemplateScreen extends StatelessWidget {
           txtTheme: txtTheme,
           walletController: walletController,
           privilegeController: privilegeController,
-          receiverName: receiverName,
-          receiverWallet: receiverWallet,
+          receiverName:
+              chosenMVPModel != null ? chosenMVPModel!.receiverName : "",
+          receiverWallet:
+              chosenMVPModel != null ? chosenMVPModel!.receiverWallet : "",
         ),
       ),
     );
@@ -518,9 +561,12 @@ class BodyWidget extends StatelessWidget {
                     CustomTextFieldNew(
                       enable: true,
                       isRequired: false,
+                      controller: privilegeController!.mvpGiftRemark,
                       keyboardType: TextInputType.text,
                       hintText: 'Remark',
-                      onChange: (phone) {},
+                      onChange: (phone) {
+                        privilegeController!.update();
+                      },
                       labelText: 'Remark',
                     ),
                   ],

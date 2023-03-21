@@ -51,6 +51,11 @@ class PrivilegeController extends GetxController {
   final isChosenGiftMVPValidate = true.obs;
 
   final googleMapCon = Get.put(GoogleMapsController());
+  onClearChosenGiftMVPField() {
+    amountChosenGiftMvpController.value.clear();
+    mvpGiftRemark.clear();
+    update();
+  }
 
   //validation for chosen give mvp
   validateChosenGiftMvp(String value) {
@@ -1193,7 +1198,7 @@ class PrivilegeController extends GetxController {
 
   ///Sent Gift MVP
   Future<ReviewMvpSuccessModel?> sentMVPGift(
-      {int? receiverWallet, int? amount}) async {
+      {int? receiverWallet, double? amount}) async {
     ReviewMvpSuccessModel? result;
     final sender = walletController.mvpBalance.value.mvpWalletNumber;
     debugPrint('Sender => $sender');

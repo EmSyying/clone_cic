@@ -199,7 +199,7 @@ class ReviewGiftMVPTransfer extends StatelessWidget {
                       await privilegeController
                           .sentMVPGift(
                               amount:
-                                  amount != null ? int.parse(amount!) : null,
+                                  amount != null ? double.parse(amount!) : null,
                               receiverWallet: receiverWallet != null
                                   ? int.tryParse(receiverWallet
                                       .toString()
@@ -236,7 +236,7 @@ class ReviewGiftMVPTransfer extends StatelessWidget {
                               },
                             },
                           );
-                          if (value.message != null || value.message != "") {
+                          if (value.message != null && value.message != "") {
                             debugPrint("value.message==${value.message}");
                             customRouterSnackbar(
                                 description: value.message ?? "",
