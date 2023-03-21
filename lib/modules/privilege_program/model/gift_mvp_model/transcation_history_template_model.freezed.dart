@@ -23,6 +23,14 @@ TransactionHisotryTemplateModel _$TransactionHisotryTemplateModelFromJson(
 mixin _$TransactionHisotryTemplateModel {
   @JsonKey(name: "id")
   int? get id => throw _privateConstructorUsedError;
+  @JsonKey(name: "template_name")
+  String? get templateName => throw _privateConstructorUsedError;
+  @JsonKey(name: "wallet_number")
+  String? get walletNumber => throw _privateConstructorUsedError;
+  @JsonKey(name: "image")
+  String? get image => throw _privateConstructorUsedError;
+  @JsonKey(name: "default_image")
+  String? get defaultImage => throw _privateConstructorUsedError;
   @JsonKey(name: "wallet_name")
   String? get walletName => throw _privateConstructorUsedError;
   @JsonKey(name: "amount")
@@ -46,6 +54,10 @@ abstract class $TransactionHisotryTemplateModelCopyWith<$Res> {
   @useResult
   $Res call(
       {@JsonKey(name: "id") int? id,
+      @JsonKey(name: "template_name") String? templateName,
+      @JsonKey(name: "wallet_number") String? walletNumber,
+      @JsonKey(name: "image") String? image,
+      @JsonKey(name: "default_image") String? defaultImage,
       @JsonKey(name: "wallet_name") String? walletName,
       @JsonKey(name: "amount") String? amount,
       @JsonKey(name: "payment_date") String? paymentDate});
@@ -66,6 +78,10 @@ class _$TransactionHisotryTemplateModelCopyWithImpl<$Res,
   @override
   $Res call({
     Object? id = freezed,
+    Object? templateName = freezed,
+    Object? walletNumber = freezed,
+    Object? image = freezed,
+    Object? defaultImage = freezed,
     Object? walletName = freezed,
     Object? amount = freezed,
     Object? paymentDate = freezed,
@@ -75,6 +91,22 @@ class _$TransactionHisotryTemplateModelCopyWithImpl<$Res,
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as int?,
+      templateName: freezed == templateName
+          ? _value.templateName
+          : templateName // ignore: cast_nullable_to_non_nullable
+              as String?,
+      walletNumber: freezed == walletNumber
+          ? _value.walletNumber
+          : walletNumber // ignore: cast_nullable_to_non_nullable
+              as String?,
+      image: freezed == image
+          ? _value.image
+          : image // ignore: cast_nullable_to_non_nullable
+              as String?,
+      defaultImage: freezed == defaultImage
+          ? _value.defaultImage
+          : defaultImage // ignore: cast_nullable_to_non_nullable
+              as String?,
       walletName: freezed == walletName
           ? _value.walletName
           : walletName // ignore: cast_nullable_to_non_nullable
@@ -102,6 +134,10 @@ abstract class _$$_TransactionHisotryTemplateModelCopyWith<$Res>
   @useResult
   $Res call(
       {@JsonKey(name: "id") int? id,
+      @JsonKey(name: "template_name") String? templateName,
+      @JsonKey(name: "wallet_number") String? walletNumber,
+      @JsonKey(name: "image") String? image,
+      @JsonKey(name: "default_image") String? defaultImage,
       @JsonKey(name: "wallet_name") String? walletName,
       @JsonKey(name: "amount") String? amount,
       @JsonKey(name: "payment_date") String? paymentDate});
@@ -121,6 +157,10 @@ class __$$_TransactionHisotryTemplateModelCopyWithImpl<$Res>
   @override
   $Res call({
     Object? id = freezed,
+    Object? templateName = freezed,
+    Object? walletNumber = freezed,
+    Object? image = freezed,
+    Object? defaultImage = freezed,
     Object? walletName = freezed,
     Object? amount = freezed,
     Object? paymentDate = freezed,
@@ -130,6 +170,22 @@ class __$$_TransactionHisotryTemplateModelCopyWithImpl<$Res>
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as int?,
+      templateName: freezed == templateName
+          ? _value.templateName
+          : templateName // ignore: cast_nullable_to_non_nullable
+              as String?,
+      walletNumber: freezed == walletNumber
+          ? _value.walletNumber
+          : walletNumber // ignore: cast_nullable_to_non_nullable
+              as String?,
+      image: freezed == image
+          ? _value.image
+          : image // ignore: cast_nullable_to_non_nullable
+              as String?,
+      defaultImage: freezed == defaultImage
+          ? _value.defaultImage
+          : defaultImage // ignore: cast_nullable_to_non_nullable
+              as String?,
       walletName: freezed == walletName
           ? _value.walletName
           : walletName // ignore: cast_nullable_to_non_nullable
@@ -152,6 +208,10 @@ class _$_TransactionHisotryTemplateModel
     implements _TransactionHisotryTemplateModel {
   _$_TransactionHisotryTemplateModel(
       {@JsonKey(name: "id") this.id,
+      @JsonKey(name: "template_name") this.templateName,
+      @JsonKey(name: "wallet_number") this.walletNumber,
+      @JsonKey(name: "image") this.image,
+      @JsonKey(name: "default_image") this.defaultImage,
       @JsonKey(name: "wallet_name") this.walletName,
       @JsonKey(name: "amount") this.amount,
       @JsonKey(name: "payment_date") this.paymentDate});
@@ -164,6 +224,18 @@ class _$_TransactionHisotryTemplateModel
   @JsonKey(name: "id")
   final int? id;
   @override
+  @JsonKey(name: "template_name")
+  final String? templateName;
+  @override
+  @JsonKey(name: "wallet_number")
+  final String? walletNumber;
+  @override
+  @JsonKey(name: "image")
+  final String? image;
+  @override
+  @JsonKey(name: "default_image")
+  final String? defaultImage;
+  @override
   @JsonKey(name: "wallet_name")
   final String? walletName;
   @override
@@ -175,7 +247,7 @@ class _$_TransactionHisotryTemplateModel
 
   @override
   String toString() {
-    return 'TransactionHisotryTemplateModel(id: $id, walletName: $walletName, amount: $amount, paymentDate: $paymentDate)';
+    return 'TransactionHisotryTemplateModel(id: $id, templateName: $templateName, walletNumber: $walletNumber, image: $image, defaultImage: $defaultImage, walletName: $walletName, amount: $amount, paymentDate: $paymentDate)';
   }
 
   @override
@@ -184,6 +256,13 @@ class _$_TransactionHisotryTemplateModel
         (other.runtimeType == runtimeType &&
             other is _$_TransactionHisotryTemplateModel &&
             (identical(other.id, id) || other.id == id) &&
+            (identical(other.templateName, templateName) ||
+                other.templateName == templateName) &&
+            (identical(other.walletNumber, walletNumber) ||
+                other.walletNumber == walletNumber) &&
+            (identical(other.image, image) || other.image == image) &&
+            (identical(other.defaultImage, defaultImage) ||
+                other.defaultImage == defaultImage) &&
             (identical(other.walletName, walletName) ||
                 other.walletName == walletName) &&
             (identical(other.amount, amount) || other.amount == amount) &&
@@ -193,8 +272,8 @@ class _$_TransactionHisotryTemplateModel
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, id, walletName, amount, paymentDate);
+  int get hashCode => Object.hash(runtimeType, id, templateName, walletNumber,
+      image, defaultImage, walletName, amount, paymentDate);
 
   @JsonKey(ignore: true)
   @override
@@ -216,6 +295,10 @@ abstract class _TransactionHisotryTemplateModel
     implements TransactionHisotryTemplateModel {
   factory _TransactionHisotryTemplateModel(
           {@JsonKey(name: "id") final int? id,
+          @JsonKey(name: "template_name") final String? templateName,
+          @JsonKey(name: "wallet_number") final String? walletNumber,
+          @JsonKey(name: "image") final String? image,
+          @JsonKey(name: "default_image") final String? defaultImage,
           @JsonKey(name: "wallet_name") final String? walletName,
           @JsonKey(name: "amount") final String? amount,
           @JsonKey(name: "payment_date") final String? paymentDate}) =
@@ -227,6 +310,18 @@ abstract class _TransactionHisotryTemplateModel
   @override
   @JsonKey(name: "id")
   int? get id;
+  @override
+  @JsonKey(name: "template_name")
+  String? get templateName;
+  @override
+  @JsonKey(name: "wallet_number")
+  String? get walletNumber;
+  @override
+  @JsonKey(name: "image")
+  String? get image;
+  @override
+  @JsonKey(name: "default_image")
+  String? get defaultImage;
   @override
   @JsonKey(name: "wallet_name")
   String? get walletName;

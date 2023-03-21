@@ -17,7 +17,17 @@ import '../../../../Utils/helper/custom_appbar_colorswhite.dart';
 import '../../controller/privilege_controller.dart';
 
 class CreateTemplateScreen extends StatefulWidget {
-  const CreateTemplateScreen({super.key});
+  final int? templatId;
+  final String? templateImg;
+  final String? recieverWalletNumber;
+  final String? templateName;
+  const CreateTemplateScreen({
+    super.key,
+    this.templatId,
+    this.templateImg,
+    this.recieverWalletNumber,
+    this.templateName,
+  });
 
   @override
   State<CreateTemplateScreen> createState() => _CreateTemplateScreenState();
@@ -60,13 +70,32 @@ class _CreateTemplateScreenState extends State<CreateTemplateScreen> {
     super.dispose();
   }
 
+  _initValue() {
+    if (widget.templatId != null) {
+      debugPrint('Update');
+
+      privilegeController.receiveWalletNumberController.text =
+          widget.recieverWalletNumber ?? '';
+      privilegeController.templatRecieverNameController.text =
+          widget.templateName ?? '';
+      privilegeController.inputRecieverWalletChanged(
+          privilegeController.receiveWalletNumberController.text);
+    }
+  }
+
+  @override
+  void initState() {
+    _initValue();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBarWhiteColor(
         context: context,
         elevation: 0,
-        title: 'Create Template',
+        title: widget.templatId == null ? 'Create Template' : 'Edit Template',
         colorTitle: true,
         backgroundColor: Theme.of(context).primaryColor,
         leading: IconButton(
@@ -188,9 +217,14 @@ class _CreateTemplateScreenState extends State<CreateTemplateScreen> {
                                           image!,
                                           fit: BoxFit.cover,
                                         )
-                                      : SvgPicture.asset(
-                                          'assets/images/privilege/image_template.svg',
-                                        ),
+                                      : widget.templateImg != null
+                                          ? Image.network(
+                                              widget.templateImg!,
+                                              fit: BoxFit.cover,
+                                            )
+                                          : SvgPicture.asset(
+                                              'assets/images/privilege/image_template.svg',
+                                            ),
                                 ),
                               ],
                             ),
@@ -215,6 +249,7 @@ class _CreateTemplateScreenState extends State<CreateTemplateScreen> {
                   child: Column(
                     children: [
                       CustomTextFieldNew(
+                        enable: widget.templatId == null,
                         padding:
                             const EdgeInsets.only(left: 20, top: 20, right: 20),
                         initialValue: privilegeController
@@ -272,6 +307,8 @@ class _CreateTemplateScreenState extends State<CreateTemplateScreen> {
                               ? 10
                               : 0),
                       CustomTextFieldNew(
+                        controller:
+                            privilegeController.templatRecieverNameController,
                         keyboardType: TextInputType.name,
                         hintText: 'Template Name',
                         onChange: (name) {
@@ -279,7 +316,8 @@ class _CreateTemplateScreenState extends State<CreateTemplateScreen> {
                         },
                         isValidate: true,
                         labelText: 'Template Name',
-                        initialValue: privilegeController.templateName.value,
+                        initialValue: privilegeController
+                            .templatRecieverNameController.text,
                       ),
                     ],
                   ),
@@ -296,10 +334,15 @@ class _CreateTemplateScreenState extends State<CreateTemplateScreen> {
                       : CustomButton(
                           width: double.infinity,
                           onPressed: () async {
-                            await privilegeController
-                                .createTemplateChooseTemplateOption(
-                              context,
-                            );
+                            if (widget.templatId != null) {
+                              await privilegeController.updatedTemplate(
+                                  context, widget.templatId!);
+                            } else {
+                              await privilegeController
+                                  .createTemplateChooseTemplateOption(
+                                context,
+                              );
+                            }
 
                             debugPrint(
                                 'review numbwer========${privilegeController.receiveAccountname.value}');

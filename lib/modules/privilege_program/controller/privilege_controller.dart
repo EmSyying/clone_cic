@@ -1129,6 +1129,7 @@ class PrivilegeController extends GetxController {
     mvpGiftRemark.clear();
     receiveWalletNumberController.clear();
     templateNameController.clear();
+    templatRecieverNameController.clear();
     createTemplate(false);
   }
 
@@ -1270,11 +1271,9 @@ class PrivilegeController extends GetxController {
   }
 
   ///Create template with choosing option
-
   final templateName = ''.obs;
-
+  final templatRecieverNameController = TextEditingController();
   String templateImage = '';
-
   final _uploadImageController = Get.put(UploadImageController());
   final loadingCreateTemplate = false.obs;
   Future<void> createTemplateChooseTemplateOption(BuildContext context,
@@ -1292,11 +1291,13 @@ class PrivilegeController extends GetxController {
       ).then((response) async {
         debugPrint('--------------- Success $response');
 
-        final location = GoRouterState.of(context).location;
-        await fetchListTemplate();
         if (context.mounted) {
-          context.push(
-            '$location/success-screen?title=Success&description=Template has been created Successfully.',
+          context.pushNamed(
+            'SuccessScreen',
+            queryParams: {
+              'title': 'Success',
+              'description': 'Template has been created Successfully'
+            },
             extra: {
               'onPressedButton': () {
                 context.go('/mymvp/gift-mvp-option/gift-mvp-template');
@@ -1304,7 +1305,6 @@ class PrivilegeController extends GetxController {
             },
           );
         }
-
         loadingCreateTemplate(false);
         update();
       }).onError((ErrorModel error, stackTrace) {
@@ -1317,28 +1317,6 @@ class PrivilegeController extends GetxController {
     } finally {
       loadingCreateTemplate(false);
     }
-  }
-
-  ///Update Template
-  Future<void> updateTemplate(BuildContext context) async {
-    try {
-      await apiBaseHelper.onNetworkRequesting(
-          url: 'template',
-          methode: METHODE.patch,
-          isAuthorize: true,
-          body: {
-            'template_id': 4,
-            'wallet_number': '946674133',
-            'template_name': 'Testing'
-
-            ///name optional
-          }).then((response) {
-        debugPrint("------------Success");
-        update();
-      }).onError((ErrorModel error, stackTrace) {});
-    } catch (e) {
-      debugPrint("====>:$e");
-    } finally {}
   }
 
   ///Transaction on template
@@ -1423,6 +1401,55 @@ class PrivilegeController extends GetxController {
       debugPrint("====>:$e");
     } finally {
       isDeletTemplate(false);
+    }
+  }
+
+  //Updated or Edite Template Gift MVP
+  final isLoadingUpdatedTemplate = false.obs;
+
+  Future<void> updatedTemplate(BuildContext context, int templateId) async {
+    loadingCreateTemplate(true);
+    try {
+      await apiBaseHelper.onNetworkRequesting(
+          url: 'template',
+          methode: METHODE.post,
+          isAuthorize: true,
+          body: {
+            'template_id': templateId,
+            'template_name': templatRecieverNameController.text,
+            'wallet_number': receiveWalletNumberController.value.text,
+            // 'image': templateImage.toString(),
+          }).then((value) async {
+        await fetchListTemplate();
+        if (context.mounted) {
+          context.pushNamed(
+            'SuccessScreen',
+            queryParams: {
+              'title': 'Success',
+              'description': 'Template has been edited Successfully'
+            },
+            extra: {
+              'onPressedButton': () {
+                context.go('/mymvp/gift-mvp-option/gift-mvp-template');
+              }
+            },
+          );
+        }
+        loadingCreateTemplate(false);
+      }).onError((ErrorModel error, stackTrace) {
+        final message = error.bodyString['message'];
+        customRouterSnackbar(
+          title: 'Fialed...!',
+          description: '$message Templated Updated Failed...!',
+          type: SnackType.error,
+        );
+        loadingCreateTemplate(false);
+      });
+    } catch (e) {
+      loadingCreateTemplate(false);
+      debugPrint('errror == $e');
+    } finally {
+      loadingCreateTemplate(false);
     }
   }
 }

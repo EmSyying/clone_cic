@@ -153,6 +153,7 @@ class _GiftMVPFromTemplateScreenState extends State<GiftMVPFromTemplateScreen> {
                                                     context, id = e.value.id);
                                               },
                                               onTapEdit: () {
+                                                //TODO
                                                 context.pop();
                                                 try {
                                                   var string =
@@ -160,7 +161,7 @@ class _GiftMVPFromTemplateScreenState extends State<GiftMVPFromTemplateScreen> {
                                                           .location;
 
                                                   context.push(
-                                                      "$string/edit-template");
+                                                      "$string/create-template?templatId=${e.value.id}&recieverWalletNumber=${e.value.walletNumberNoFormat}&templateName=${e.value.name}&templateImg=${e.value.image}");
                                                   debugPrint(
                                                       "Hello ERRO====R $string");
                                                 } catch (e) {
@@ -212,10 +213,14 @@ class _GiftMVPFromTemplateScreenState extends State<GiftMVPFromTemplateScreen> {
                                                                 .listTransactionHistoryTemplate[
                                                                     index]
                                                                 .walletName,
-                                                            // image:
-                                                            //     priCon.listTransactionHistoryTemplate[
-                                                            //             index]
-                                                            //         .image,
+                                                            image: priCon
+                                                                .listTransactionHistoryTemplate[
+                                                                    index]
+                                                                .image,
+                                                            defaultImage: priCon
+                                                                .listTransactionHistoryTemplate[
+                                                                    index]
+                                                                .defaultImage,
                                                             dated: priCon
                                                                 .listTransactionHistoryTemplate[
                                                                     index]
@@ -224,10 +229,6 @@ class _GiftMVPFromTemplateScreenState extends State<GiftMVPFromTemplateScreen> {
                                                                 .listTransactionHistoryTemplate[
                                                                     index]
                                                                 .amount,
-                                                            // amountColorType:
-                                                            //     listTransactionHistory[
-                                                            //             index]
-                                                            //         .amountColorType,
                                                           ),
                                                         )
                                                       : emtyStateTransactionTemplate(

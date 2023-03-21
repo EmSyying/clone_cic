@@ -75,45 +75,54 @@ class TransactionStore extends StatelessWidget {
           //   //   '',
           //   // ),
           // ),
-          Padding(
-            padding:
-                const EdgeInsets.only(left: 12, top: 16, bottom: 16, right: 14),
-            child: SizedBox(
-              height: 48,
-              width: 48,
-              child: CircleAvatar(
-                backgroundColor: Colors.white,
-                backgroundImage: NetworkImage(
-                  image ?? "",
-                ),
+          const SizedBox(
+            width: 14,
+          ),
+          Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(12),
+              color: Colors.white,
+              border: Border.all(
+                width: .9,
+                color: const Color(0xfff2f2f2),
               ),
             ),
+            clipBehavior: Clip.antiAlias,
+            height: 52,
+            width: 52,
+            padding: const EdgeInsets.all(5),
+            child: Image.network(image ?? ''),
           ),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              SizedBox(
-                width: MediaQuery.of(context).size.width * 0.6,
-                child: Text(
-                  '$title',
-                  style: Theme.of(context).textTheme.displayMedium!.copyWith(
-                        fontSize: 14,
-                        fontWeight: FontWeight.w700,
-                      ),
+          const SizedBox(
+            width: 12,
+          ),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                SizedBox(
+                  width: MediaQuery.of(context).size.width * 0.6,
+                  child: Text(
+                    '$title',
+                    style: Theme.of(context).textTheme.displayMedium!.copyWith(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w700,
+                        ),
+                  ),
                 ),
-              ),
-              const SizedBox(
-                height: 8,
-              ),
-              Text(
-                '$content',
-                style: Theme.of(context).textTheme.titleSmall!.copyWith(
-                    fontSize: 12,
-                    fontWeight: FontWeight.w500,
-                    color: Colors.grey),
-              ),
-            ],
+                const SizedBox(
+                  height: 8,
+                ),
+                Text(
+                  '$content',
+                  style: Theme.of(context).textTheme.titleSmall!.copyWith(
+                      fontSize: 12,
+                      fontWeight: FontWeight.w500,
+                      color: Colors.grey),
+                ),
+              ],
+            ),
           ),
         ],
       ),

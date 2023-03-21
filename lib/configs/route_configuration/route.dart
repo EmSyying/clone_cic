@@ -285,6 +285,15 @@ final router = GoRouter(
                                       builder: (context, state) =>
                                           CreateTemplateScreen(
                                         key: state.pageKey,
+                                        templatId: int.tryParse(
+                                            state.queryParams['templatId'] ??
+                                                ''),
+                                        recieverWalletNumber: state.queryParams[
+                                            'recieverWalletNumber'],
+                                        templateName:
+                                            state.queryParams['templateName'],
+                                        templateImg:
+                                            state.queryParams['templateImg'],
                                       ),
                                     ),
                                     GoRoute(
@@ -292,18 +301,17 @@ final router = GoRouter(
                                         path: 'choosen-template',
                                         builder: (context, state) =>
                                             ChooseGiftTemplateScreen(
-                                            key: state.pageKey,
-                                           
-                                            imageUrl:
-                                                state.queryParams["imageUrl"] ??
-                                                    "",
-                                            receiverName: state.queryParams[
-                                                    "receiverName"] ??
-                                                "",
-                                            receiverWallet: state.queryParams[
-                                                    "receiverWallet"] ??
-                                                "",
-                                          ),
+                                              key: state.pageKey,
+                                              imageUrl: state.queryParams[
+                                                      "imageUrl"] ??
+                                                  "",
+                                              receiverName: state.queryParams[
+                                                      "receiverName"] ??
+                                                  "",
+                                              receiverWallet: state.queryParams[
+                                                      "receiverWallet"] ??
+                                                  "",
+                                            ),
                                         routes: [
                                           GoRoute(
                                             parentNavigatorKey:
@@ -552,6 +560,16 @@ final router = GoRouter(
                                       builder: (context, state) =>
                                           CreateTemplateScreen(
                                             key: state.pageKey,
+                                            templatId: int.tryParse(state
+                                                    .queryParams['templatId'] ??
+                                                ''),
+                                            recieverWalletNumber:
+                                                state.queryParams[
+                                                    'recieverWalletNumber'],
+                                            templateName: state
+                                                .queryParams['templateName'],
+                                            templateImg: state
+                                                .queryParams['templateImg'],
                                           ),
                                       routes: [
                                         GoRoute(
@@ -599,7 +617,6 @@ final router = GoRouter(
                                       builder: (context, state) =>
                                           ChooseGiftTemplateScreen(
                                             key: state.pageKey,
-                                           
                                             imageUrl:
                                                 state.queryParams["imageUrl"] ??
                                                     "",
@@ -1083,6 +1100,17 @@ final router = GoRouter(
                                               builder: (context, state) =>
                                                   CreateTemplateScreen(
                                                 key: state.pageKey,
+                                                templatId: int.tryParse(
+                                                    state.queryParams[
+                                                            'templatId'] ??
+                                                        ''),
+                                                recieverWalletNumber:
+                                                    state.queryParams[
+                                                        'recieverWalletNumber'],
+                                                templateName: state.queryParams[
+                                                    'templateName'],
+                                                templateImg: state
+                                                    .queryParams['templateImg'],
                                               ),
                                             ),
                                             GoRoute(
@@ -1090,19 +1118,21 @@ final router = GoRouter(
                                                     _rootNavigatorKey,
                                                 path: 'choosen-template',
                                                 builder: (context, state) =>
-                                                   ChooseGiftTemplateScreen(
-                                            key: state.pageKey,
-                                           
-                                            imageUrl:
-                                                state.queryParams["imageUrl"] ??
-                                                    "",
-                                            receiverName: state.queryParams[
-                                                    "receiverName"] ??
-                                                "",
-                                            receiverWallet: state.queryParams[
-                                                    "receiverWallet"] ??
-                                                "",
-                                          ),
+                                                    ChooseGiftTemplateScreen(
+                                                      key: state.pageKey,
+                                                      imageUrl:
+                                                          state.queryParams[
+                                                                  "imageUrl"] ??
+                                                              "",
+                                                      receiverName: state
+                                                                  .queryParams[
+                                                              "receiverName"] ??
+                                                          "",
+                                                      receiverWallet: state
+                                                                  .queryParams[
+                                                              "receiverWallet"] ??
+                                                          "",
+                                                    ),
                                                 routes: [
                                                   GoRoute(
                                                     parentNavigatorKey:

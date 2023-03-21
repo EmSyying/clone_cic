@@ -1,5 +1,5 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 
 class TransactionHistoryTemplate extends StatelessWidget {
   final String? dated;
@@ -7,6 +7,7 @@ class TransactionHistoryTemplate extends StatelessWidget {
   final String? image;
   final String? title;
   final String? amountColorType;
+  final String? defaultImage;
   final int? id;
   const TransactionHistoryTemplate({
     super.key,
@@ -16,6 +17,7 @@ class TransactionHistoryTemplate extends StatelessWidget {
     this.title,
     this.amountColorType,
     this.id,
+    this.defaultImage,
   });
 
   @override
@@ -38,12 +40,21 @@ class TransactionHistoryTemplate extends StatelessWidget {
               )
             ],
           ),
+          clipBehavior: Clip.antiAlias,
           alignment: Alignment.center,
-          child: SvgPicture.asset(
-            //'assets/images/privilege/transfer_icon.svg',
-            image ?? '',
-            color: Colors.pink,
-          ),
+          child: image != null
+              ? CachedNetworkImage(
+                  imageUrl: image ?? '',
+                  fit: BoxFit.cover,
+                )
+              : Text(
+                  defaultImage ?? ' ',
+                  style: Theme.of(context).textTheme.displayMedium!.copyWith(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w700,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                ),
         ),
         const SizedBox(
           width: 10.0,
