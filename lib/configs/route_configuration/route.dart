@@ -288,13 +288,42 @@ final router = GoRouter(
                                       ),
                                     ),
                                     GoRoute(
-                                      parentNavigatorKey: _rootNavigatorKey,
-                                      path: 'choosen-template',
-                                      builder: (context, state) =>
-                                          ChooseGiftTemplateScreen(
-                                        key: state.pageKey,
-                                      ),
-                                    ),
+                                        parentNavigatorKey: _rootNavigatorKey,
+                                        path: 'choosen-template',
+                                        builder: (context, state) =>
+                                            ChooseGiftTemplateScreen(
+                                            key: state.pageKey,
+                                           
+                                            imageUrl:
+                                                state.queryParams["imageUrl"] ??
+                                                    "",
+                                            receiverName: state.queryParams[
+                                                    "receiverName"] ??
+                                                "",
+                                            receiverWallet: state.queryParams[
+                                                    "receiverWallet"] ??
+                                                "",
+                                          ),
+                                        routes: [
+                                          GoRoute(
+                                            parentNavigatorKey:
+                                                _rootNavigatorKey,
+                                            path: 'review-gift-mvp',
+                                            builder: (context, state) =>
+                                                ReviewGiftMVPTransfer(
+                                              key: state.pageKey,
+                                              amount:
+                                                  state.queryParams["amount"] ??
+                                                      "",
+                                              receiverWallet: state.queryParams[
+                                                      "receiverWallet"] ??
+                                                  "",
+                                              receiverName: state.queryParams[
+                                                      "receiverName"] ??
+                                                  "",
+                                            ),
+                                          ),
+                                        ]),
                                   ],
                                 ),
                               ]),
@@ -565,13 +594,41 @@ final router = GoRouter(
                                     ),
                                   ),
                                   GoRoute(
-                                    parentNavigatorKey: _rootNavigatorKey,
-                                    path: 'choosen-template',
-                                    builder: (context, state) =>
-                                        ChooseGiftTemplateScreen(
-                                      key: state.pageKey,
-                                    ),
-                                  ),
+                                      parentNavigatorKey: _rootNavigatorKey,
+                                      path: 'choosen-template',
+                                      builder: (context, state) =>
+                                          ChooseGiftTemplateScreen(
+                                            key: state.pageKey,
+                                           
+                                            imageUrl:
+                                                state.queryParams["imageUrl"] ??
+                                                    "",
+                                            receiverName: state.queryParams[
+                                                    "receiverName"] ??
+                                                "",
+                                            receiverWallet: state.queryParams[
+                                                    "receiverWallet"] ??
+                                                "",
+                                          ),
+                                      routes: [
+                                        GoRoute(
+                                          parentNavigatorKey: _rootNavigatorKey,
+                                          path: 'review-gift-mvp',
+                                          builder: (context, state) =>
+                                              ReviewGiftMVPTransfer(
+                                            key: state.pageKey,
+                                            amount:
+                                                state.queryParams["amount"] ??
+                                                    "",
+                                            receiverWallet: state.queryParams[
+                                                    "receiverWallet"] ??
+                                                "",
+                                            receiverName: state.queryParams[
+                                                    "receiverName"] ??
+                                                "",
+                                          ),
+                                        ),
+                                      ]),
                                 ]),
                           ])
                     ]),
@@ -1029,14 +1086,45 @@ final router = GoRouter(
                                               ),
                                             ),
                                             GoRoute(
-                                              parentNavigatorKey:
-                                                  _rootNavigatorKey,
-                                              path: 'choosen-template',
-                                              builder: (context, state) =>
-                                                  ChooseGiftTemplateScreen(
-                                                key: state.pageKey,
-                                              ),
-                                            ),
+                                                parentNavigatorKey:
+                                                    _rootNavigatorKey,
+                                                path: 'choosen-template',
+                                                builder: (context, state) =>
+                                                   ChooseGiftTemplateScreen(
+                                            key: state.pageKey,
+                                           
+                                            imageUrl:
+                                                state.queryParams["imageUrl"] ??
+                                                    "",
+                                            receiverName: state.queryParams[
+                                                    "receiverName"] ??
+                                                "",
+                                            receiverWallet: state.queryParams[
+                                                    "receiverWallet"] ??
+                                                "",
+                                          ),
+                                                routes: [
+                                                  GoRoute(
+                                                    parentNavigatorKey:
+                                                        _rootNavigatorKey,
+                                                    path: 'review-gift-mvp',
+                                                    builder: (context, state) =>
+                                                        ReviewGiftMVPTransfer(
+                                                      key: state.pageKey,
+                                                      amount: state.queryParams[
+                                                              "amount"] ??
+                                                          "",
+                                                      receiverWallet: state
+                                                                  .queryParams[
+                                                              "receiverWallet"] ??
+                                                          "",
+                                                      receiverName: state
+                                                                  .queryParams[
+                                                              "receiverName"] ??
+                                                          "",
+                                                    ),
+                                                  ),
+                                                ]),
                                           ]),
                                     ])
                               ])
