@@ -112,7 +112,10 @@ class CustomTextFieldNew extends StatelessWidget {
                     text: TextSpan(
                       text: labelText,
                       style: enable
-                          ? Theme.of(context).textTheme.titleMedium
+                          ? Theme.of(context).textTheme.titleMedium!.copyWith(
+                              color: const Color(0xff0A0B09),
+                              fontWeight: FontWeight.w500,
+                              fontSize: 14.0)
                           : Theme.of(context)
                               .textTheme
                               .titleMedium!
@@ -143,7 +146,11 @@ class CustomTextFieldNew extends StatelessWidget {
               //     : labelText,
               hintText: isRequired ? hintText : hintText,
               labelStyle: Theme.of(context).textTheme.titleMedium,
-              hintStyle: Theme.of(context).textTheme.titleMedium,
+              hintStyle: Theme.of(context).textTheme.titleMedium!.copyWith(
+                    color: Colors.grey,
+                    fontSize: 14.0,
+                    fontWeight: FontWeight.w400,
+                  ),
               focusedBorder: initialValue != ''
                   ? OutlineInputBorder(
                       borderSide: BorderSide(color: Colors.grey[500]!),

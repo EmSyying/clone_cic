@@ -209,37 +209,42 @@ class _CreateTemplateScreenState extends State<CreateTemplateScreen> {
                             child: Stack(
                               alignment: Alignment.center,
                               children: [
-                                Container(
-                                  clipBehavior: Clip.antiAlias,
-                                  width: 88.0,
-                                  height: 88.0,
-                                  decoration: BoxDecoration(
-                                    color: widget.color == null
-                                        ? Colors.white
-                                        : Color(int.parse(widget.color!)),
-                                    shape: BoxShape.circle,
-                                  ),
-                                  child: image != null
-                                      ? Image.file(
-                                          image!,
-                                          fit: BoxFit.cover,
-                                        )
-                                      : widget.templateImg != null
-                                          ? Image.network(
-                                              widget.templateImg ?? "",
-                                              fit: BoxFit.cover,
-                                            )
-                                          : Center(
-                                              child: Text(
-                                                widget.defaultImage ?? "",
-                                                style: Theme.of(context)
-                                                    .textTheme
-                                                    .bodyMedium!
-                                                    .copyWith(
-                                                      fontSize: 25,
-                                                    ),
+                                GestureDetector(
+                                  onTap: () {
+                                    selectImage();
+                                  },
+                                  child: Container(
+                                    clipBehavior: Clip.antiAlias,
+                                    width: 88.0,
+                                    height: 88.0,
+                                    decoration: BoxDecoration(
+                                      color: widget.color == null
+                                          ? Colors.white
+                                          : Color(int.parse(widget.color!)),
+                                      shape: BoxShape.circle,
+                                    ),
+                                    child: image != null
+                                        ? Image.file(
+                                            image!,
+                                            fit: BoxFit.cover,
+                                          )
+                                        : widget.templateImg != null
+                                            ? Image.network(
+                                                widget.templateImg ?? "",
+                                                fit: BoxFit.cover,
+                                              )
+                                            : Center(
+                                                child: Text(
+                                                  widget.defaultImage ?? "",
+                                                  style: Theme.of(context)
+                                                      .textTheme
+                                                      .bodyMedium!
+                                                      .copyWith(
+                                                        fontSize: 25,
+                                                      ),
+                                                ),
                                               ),
-                                            ),
+                                  ),
                                 ),
                               ],
                             ),
