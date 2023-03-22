@@ -88,20 +88,20 @@ class CiCLineChart extends StatelessWidget {
         //   print("x${args.position.dx}");
         //   print("y${args.position.dy}");
         // },
-        onTrackballPositionChanging: (TrackballArgs args) {
-          if (dataAfterSplit.isNotEmpty) {
-            // args.chartPointInfo.label = 'Custom Text';
-            debugPrint(
-                "${year[splitIndex] == args.chartPointInfo.chartDataPoint!.x}${args.chartPointInfo.chartDataPoint!.x}");
-            if (year[splitIndex].toString().contains(
-                    args.chartPointInfo.chartDataPoint!.x.toString()) &&
-                _isDialogShowing != true) {
-              debugPrint("args${args.chartPointInfo.chartDataPoint!.x}");
-              _isDialogShowing = true;
-              showDialogSplit(context);
-            }
-          }
-        },
+        // onTrackballPositionChanging: (TrackballArgs args) {
+        //   if (dataAfterSplit.isNotEmpty) {
+        //     // args.chartPointInfo.label = 'Custom Text';
+        //     debugPrint(
+        //         "${year[splitIndex] == args.chartPointInfo.chartDataPoint!.x}${args.chartPointInfo.chartDataPoint!.x}");
+        //     if (year[splitIndex].toString().contains(
+        //             args.chartPointInfo.chartDataPoint!.x.toString()) &&
+        //         _isDialogShowing != true) {
+        //       debugPrint("args${args.chartPointInfo.chartDataPoint!.x}");
+        //       _isDialogShowing = true;
+        //       showDialogSplit(context);
+        //     }
+        //   }
+        // },
         onSelectionChanged: (SelectionArgs args) {
           debugPrint(
               " dataList[args.pointIndex].date;${dataList[args.pointIndex].date}");
@@ -124,30 +124,30 @@ class CiCLineChart extends StatelessWidget {
           majorGridLines: const MajorGridLines(
             dashArray: [10],
           ),
-          plotBands: [
-            if (dataAfterSplit.isNotEmpty)
-              PlotBand(
-                text: "Share Split 9-1",
-                textStyle: Theme.of(context).textTheme.titleSmall!.copyWith(
-                      color: Theme.of(context).primaryColor,
-                      fontSize: 12,
-                    ),
-                textAngle: 0,
-                // sizeType: DateTimeIntervalType.years,
-                verticalTextAlignment: TextAnchor.start,
-                horizontalTextPadding: "-16%",
-                // dashArray: const [2, 6],
-                isVisible: true,
+          plotBands: const [
+            // if (dataAfterSplit.isNotEmpty)
+            //   PlotBand(
+            //     text: "Share Split 9-1",
+            //     textStyle: Theme.of(context).textTheme.titleSmall!.copyWith(
+            //           color: Theme.of(context).primaryColor,
+            //           fontSize: 12,
+            //         ),
+            //     textAngle: 0,
+            //     // sizeType: DateTimeIntervalType.years,
+            //     verticalTextAlignment: TextAnchor.start,
+            //     horizontalTextPadding: "-16%",
+            //     // dashArray: const [2, 6],
+            //     isVisible: true,
 
-                start: splitIndex,
-                end: splitIndex,
+            //     start: splitIndex,
+            //     end: splitIndex,
 
-                // associatedAxisStart: DateTime.utc(2022),
+            //     // associatedAxisStart: DateTime.utc(2022),
 
-                // associatedAxisEnd: DateTime.utc(2022),
-                borderWidth: 2,
-                borderColor: Theme.of(context).primaryColor,
-              )
+            //     // associatedAxisEnd: DateTime.utc(2022),
+            //     borderWidth: 2,
+            //     borderColor: Theme.of(context).primaryColor,
+            //   )
           ],
         ),
         // primaryXAxis: NumericAxis(
