@@ -300,7 +300,10 @@ class ChooseGiftTemplateScreen extends StatelessWidget {
                                   shape: BoxShape.circle),
                               child: chosenMVPModel == null
                                   ? const SizedBox()
-                                  : chosenMVPModel!.defaultImageLetter != ""
+                                  : chosenMVPModel!.defaultImageLetter !=
+                                              null &&
+                                          chosenMVPModel!.defaultImageLetter !=
+                                              ''
                                       ? Center(
                                           child: Text(
                                             chosenMVPModel!.defaultImageLetter

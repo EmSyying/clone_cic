@@ -1427,7 +1427,7 @@ class PrivilegeController extends GetxController {
             'template_id': templateId,
             'template_name': templatRecieverNameController.text,
             'wallet_number': receiveWalletNumberController.value.text,
-            // 'image': templateImage.toString(),
+            'image': templateImage.toString(),
           }).then((value) async {
         await fetchListTemplate();
         if (context.mounted) {

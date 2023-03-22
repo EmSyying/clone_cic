@@ -302,33 +302,22 @@ final router = GoRouter(
                                         builder: (context, state) =>
                                             ChooseGiftTemplateScreen(
                                               key: state.pageKey,
-<<<<<<< HEAD
-                                              imageUrl: state.queryParams[
-                                                      "imageUrl"] ??
-                                                  "",
-                                              receiverName: state.queryParams[
-                                                      "receiverName"] ??
-                                                  "",
-                                              receiverWallet: state.queryParams[
-                                                      "receiverWallet"] ??
-                                                  "",
-=======
                                               chosenMVPModel:
                                                   state.extra != null
                                                       ? state.extra
                                                           as ChosenMVPModel
                                                       : null,
->>>>>>> refs/remotes/origin/dev
                                             ),
                                         routes: [
                                           GoRoute(
-                                          parentNavigatorKey: _rootNavigatorKey,
-                                          path: 'edit-template',
-                                          builder: (context, state) =>
-                                              EditTemplateGiftMVP(
-                                            key: state.pageKey,
+                                            parentNavigatorKey:
+                                                _rootNavigatorKey,
+                                            path: 'edit-template',
+                                            builder: (context, state) =>
+                                                EditTemplateGiftMVP(
+                                              key: state.pageKey,
+                                            ),
                                           ),
-                                        ),
                                           GoRoute(
                                             parentNavigatorKey:
                                                 _rootNavigatorKey,
@@ -633,21 +622,9 @@ final router = GoRouter(
                                       builder: (context, state) =>
                                           ChooseGiftTemplateScreen(
                                             key: state.pageKey,
-<<<<<<< HEAD
-                                            imageUrl:
-                                                state.queryParams["imageUrl"] ??
-                                                    "",
-                                            receiverName: state.queryParams[
-                                                    "receiverName"] ??
-                                                "",
-                                            receiverWallet: state.queryParams[
-                                                    "receiverWallet"] ??
-                                                "",
-=======
                                             chosenMVPModel: state.extra != null
                                                 ? state.extra as ChosenMVPModel
                                                 : null,
->>>>>>> refs/remotes/origin/dev
                                           ),
                                       routes: [
                                         GoRoute(
@@ -1150,37 +1127,23 @@ final router = GoRouter(
                                                 builder: (context, state) =>
                                                     ChooseGiftTemplateScreen(
                                                       key: state.pageKey,
-<<<<<<< HEAD
-                                                      imageUrl:
-                                                          state.queryParams[
-                                                                  "imageUrl"] ??
-                                                              "",
-                                                      receiverName: state
-                                                                  .queryParams[
-                                                              "receiverName"] ??
-                                                          "",
-                                                      receiverWallet: state
-                                                                  .queryParams[
-                                                              "receiverWallet"] ??
-                                                          "",
-=======
                                                       chosenMVPModel: state
                                                                   .extra !=
                                                               null
                                                           ? state.extra
                                                               as ChosenMVPModel
                                                           : null,
->>>>>>> refs/remotes/origin/dev
                                                     ),
                                                 routes: [
                                                   GoRoute(
-                                          parentNavigatorKey: _rootNavigatorKey,
-                                          path: 'edit-template',
-                                          builder: (context, state) =>
-                                              EditTemplateGiftMVP(
-                                            key: state.pageKey,
-                                          ),
-                                        ),
+                                                    parentNavigatorKey:
+                                                        _rootNavigatorKey,
+                                                    path: 'edit-template',
+                                                    builder: (context, state) =>
+                                                        EditTemplateGiftMVP(
+                                                      key: state.pageKey,
+                                                    ),
+                                                  ),
                                                   GoRoute(
                                                     parentNavigatorKey:
                                                         _rootNavigatorKey,
