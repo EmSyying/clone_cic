@@ -1191,7 +1191,8 @@ class PrivilegeController extends GetxController {
   void inputRecieverWalletChanged(String value) {
     receiveWalletNumber.value = value.removeAllWhitespace;
     _inputWalletDebounce.listener(() async {
-      await verifyWallet(value.removeAllWhitespace).then((res) {
+      await validateMVPaccount(value.removeAllWhitespace).then((res) {
+        receiveWalletNumber.value = value.removeAllWhitespace;
         isGiftMVPVerifyAccountValidate.value = res != null;
         receiverWalletName.value = res ?? '';
         debugPrint(
@@ -1199,6 +1200,45 @@ class PrivilegeController extends GetxController {
       });
     });
     update();
+  }
+
+  ///Check if our account is able to sent to him/her
+  final isVerifying = false.obs;
+  Future<String?> validateMVPaccount(String reciever) async {
+    isVerifying.value = true;
+    final sender = walletController.mvpBalance.value.mvpWalletNumber;
+    String? eligibleReciverName;
+
+    if (reciever.isNotEmpty) {
+      await apiBaseHelper.onNetworkRequesting(
+        methode: METHODE.post,
+        isAuthorize: true,
+        url: 'user/wallet/validation-gift-mvp',
+        body: {
+          'sender': sender,
+          'receiver': reciever,
+        },
+      ).then(
+        (value) {
+          eligibleReciverName = value['wallet_name'];
+          // isGiftMVPVerifyAccountValidateMessage(
+          //     error.bodyString['message'] ?? '');
+        },
+      ).onError(
+        (ErrorModel error, _) {
+          debugPrint('Error => ${error.bodyString}');
+
+          isGiftMVPVerifyAccountValidateMessage(
+              error.bodyString['message'] ?? '');
+        },
+      );
+    } else {
+      isGiftMVPVerifyAccountValidateMessage(
+          'Please input reciever wallet number.');
+    }
+
+    isVerifying.value = false;
+    return eligibleReciverName;
   }
 
   ///Sent Gift MVP
