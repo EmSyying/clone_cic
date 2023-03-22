@@ -75,48 +75,163 @@ class ChooseGiftTemplateScreen extends StatelessWidget {
                     onPressed: () async {
                       await privilegeController
                           .transactionHistoryTemplate(chosenMVPModel!.id);
+                      // ignore: use_build_context_synchronously
+                      showModalBottomSheet(
+                        context: context,
+                        isScrollControlled: true,
+                        // expand: false,
+                        backgroundColor: Colors.transparent,
+                        builder: (context) => DraggableScrollableSheet(
+                          initialChildSize: 0.64,
+                          minChildSize: 0.2,
+                          maxChildSize: 0.9,
+                          builder: (context, scrollController) {
+                            return ClipRRect(
+                              clipBehavior: Clip.hardEdge,
+                              borderRadius: const BorderRadius.only(
+                                  topLeft: Radius.circular(10),
+                                  topRight: Radius.circular(10)),
+                              child: Stack(
+                                children: [
+                                  Container(
+                                      color: Colors.white,
+                                      child: ListView.separated(
+                                        controller: scrollController,
+                                        separatorBuilder: (context, index) =>
+                                            Divider(
+                                          color: Colors.grey[400],
+                                          height: 1,
+                                        ),
+                                        itemCount: privilegeController
+                                            .listTransactionHistoryTemplate
+                                            .length,
+                                        itemBuilder: (_, index) =>
+                                            TransactionHistoryTemplate(
+                                          id: privilegeController
+                                              .listTransactionHistoryTemplate[
+                                                  index]
+                                              .id,
+                                          title: privilegeController
+                                              .listTransactionHistoryTemplate[
+                                                  index]
+                                              .walletName,
+                                          image: privilegeController
+                                              .listTransactionHistoryTemplate[
+                                                  index]
+                                              .image,
+                                          dated: privilegeController
+                                              .listTransactionHistoryTemplate[
+                                                  index]
+                                              .paymentDate,
+                                          amount: privilegeController
+                                              .listTransactionHistoryTemplate[
+                                                  index]
+                                              .amount,
+                                          // amountColorType:
+                                          //     listTransactionHistory[
+                                          //             index]
+                                          //         .amountColorType,
+                                        ),
+                                        //   title: Text('Item $index'),
+                                        // )
+                                      )
 
-                      onShowPopUpTemplateHistory(
-                        id: chosenMVPModel!.id,
-                        titleGiftTemplate: chosenMVPModel!.receiverName,
-                        acountNumGiftTemplate: chosenMVPModel!.receiverWallet,
-                        context,
-                        child: privilegeController
-                                .listTransactionHistoryTemplate.isNotEmpty
-                            ? ListView.separated(
-                                separatorBuilder: (context, index) => Divider(
-                                  color: Colors.grey[400],
-                                  height: 1,
-                                ),
-                                itemCount: privilegeController
-                                    .listTransactionHistoryTemplate.length,
-                                physics: const ScrollPhysics(),
-                                shrinkWrap: true,
-                                itemBuilder: (_, index) =>
-                                    TransactionHistoryTemplate(
-                                  id: privilegeController
-                                      .listTransactionHistoryTemplate[index].id,
-                                  title: privilegeController
-                                      .listTransactionHistoryTemplate[index]
-                                      .walletName,
-                                  // image:
-                                  //     priCon.listTransactionHistoryTemplate[
-                                  //             index]
-                                  //         .image,
-                                  dated: privilegeController
-                                      .listTransactionHistoryTemplate[index]
-                                      .paymentDate,
-                                  amount: privilegeController
-                                      .listTransactionHistoryTemplate[index]
-                                      .amount,
-                                  // amountColorType:
-                                  //     listTransactionHistory[
-                                  //             index]
-                                  //         .amountColorType,
-                                ),
-                              )
-                            : emtyStateTransactionTemplate(context),
+                                      // ListView.builder(
+                                      //   controller: scrollController,
+                                      //   itemBuilder: (context, index) {
+                                      //     return ListTile(
+                                      //       title: Text('Item $index'),
+                                      //     );
+                                      //   },
+                                      //   itemCount: 20,
+                                      // ),
+                                      ),
+                                  Container(
+                                    decoration: const BoxDecoration(
+                                        color: Colors.white,
+                                        borderRadius: BorderRadius.only(
+                                            topLeft: Radius.circular(10),
+                                            topRight: Radius.circular(10))),
+                                    child: Column(
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: [
+                                        Container(
+                                          margin:
+                                              const EdgeInsets.only(top: 10),
+                                          width: 50,
+                                          height: 5,
+                                          decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(10.0),
+                                              color: Colors.grey[300]),
+                                        ),
+                                        const SizedBox(
+                                          height: 10.0,
+                                        ),
+                                        //Header Card Gift Template
+                                        Padding(
+                                          padding: const EdgeInsets.symmetric(
+                                              horizontal: 20.0, vertical: 10.0),
+                                          child: headerCardGiftTemplate(
+                                            context,
+                                            titleGiftTemplate: chosenMVPModel !=
+                                                    null
+                                                ? chosenMVPModel!.receiverName
+                                                : "",
+                                            acountNumGiftTemplate:
+                                                chosenMVPModel != null
+                                                    ? chosenMVPModel!
+                                                        .receiverWallet
+                                                    : "",
+                                            id: chosenMVPModel != null
+                                                ? chosenMVPModel!.id
+                                                : 0,
+                                          ),
+                                        ),
+                                        Padding(
+                                          padding: const EdgeInsets.symmetric(
+                                              vertical: 14.0, horizontal: 20.0),
+                                          child: Align(
+                                            alignment: Alignment.centerLeft,
+                                            child: Text(
+                                              'Transaction History',
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .displayMedium!
+                                                  .copyWith(
+                                                      fontSize: 16,
+                                                      fontWeight:
+                                                          FontWeight.w500,
+                                                      color: const Color(
+                                                          0xff848F92)),
+                                            ),
+                                          ),
+                                        ),
+                                        Divider(
+                                          //thickness: 1.2,
+                                          color: Colors.grey[400],
+                                          height: 1,
+                                        ),
+                                      ],
+                                    ),
+                                  )
+                                ],
+                              ),
+                            );
+                          },
+                        ),
                       );
+                      // ignore: use_build_context_synchronously
+                      // onShowPopUpTemplateHistory(
+                      //   id: chosenMVPModel!.id,
+                      //   titleGiftTemplate: chosenMVPModel!.receiverName,
+                      //   acountNumGiftTemplate: chosenMVPModel!.receiverWallet,
+                      //   context,
+                      //   child: privilegeController
+                      //           .listTransactionHistoryTemplate.isNotEmpty
+                      //       ?
+                      //       : emtyStateTransactionTemplate(context),
+                      // );
                     },
                     leadingIcon: SvgPicture.asset(
                         "assets/images/transaction-history.svg")),
@@ -328,6 +443,25 @@ class ChooseGiftTemplateScreen extends StatelessWidget {
                                         )
                                       : Image.network(
                                           chosenMVPModel!.imageUrl ?? "",
+                                          loadingBuilder: (context, child,
+                                              loadingProgress) {
+                                            if (loadingProgress == null) {
+                                              return child;
+                                            }
+
+                                            return Center(
+                                              child: CircularProgressIndicator(
+                                                value: loadingProgress
+                                                            .expectedTotalBytes !=
+                                                        null
+                                                    ? loadingProgress
+                                                            .cumulativeBytesLoaded /
+                                                        loadingProgress
+                                                            .expectedTotalBytes!
+                                                    : null,
+                                              ),
+                                            );
+                                          },
                                           errorBuilder:
                                               (context, error, stackTrace) =>
                                                   Center(
