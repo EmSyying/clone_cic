@@ -284,7 +284,7 @@ class ChooseGiftTemplateScreen extends StatelessWidget {
                               ),
                             ),
                           ),
-                          //Test
+                          //Testing
                           //upload Profile
                           Align(
                             alignment: Alignment.topCenter,
