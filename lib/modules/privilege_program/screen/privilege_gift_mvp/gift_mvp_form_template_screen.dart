@@ -164,7 +164,6 @@ class _GiftMVPFromTemplateScreenState extends State<GiftMVPFromTemplateScreen> {
                                                     context, id = e.value.id);
                                               },
                                               onTapEdit: () {
-                                                //TODO
                                                 context.pop();
                                                 try {
                                                   var string =
@@ -181,9 +180,8 @@ class _GiftMVPFromTemplateScreenState extends State<GiftMVPFromTemplateScreen> {
                                                 }
                                               },
                                               onTapHistory: () async {
-                                                context.pop(context);
+                                                // context.pop(context);
                                                 //header template history
-
                                                 await priCon
                                                     .transactionHistoryTemplate(
                                                         e.value.id);
