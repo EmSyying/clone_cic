@@ -11,6 +11,8 @@ import 'package:go_router/go_router.dart';
 import '../../../../Utils/form_builder/custom_textformfield.dart';
 import '../../../../Utils/helper/custom_appbar_colorswhite.dart';
 import '../../../Utils/form_builder/custom_button.dart';
+import '../../../Utils/helper/texfield_format_currency/decimal_textinput_format.dart';
+import '../../../Utils/helper/texfield_format_currency/format_value_onchange.dart';
 import '../../../widgets/custom_menu_holder.dart';
 import '../../../widgets/privilege/privilege_gift_mvp/custom_pop_up_template_history.dart';
 import '../../wallet/controller/wallet_controller.dart';
@@ -19,12 +21,14 @@ import '../controller/privilege_controller.dart';
 class ChosenMVPModel {
   final String? receiverName, receiverWallet, imageUrl, defaultImageLetter;
   final int? id;
+  final String? color;
   ChosenMVPModel({
     this.receiverName,
     this.receiverWallet,
     this.imageUrl,
     this.defaultImageLetter,
     this.id,
+    this.color,
   });
 }
 
@@ -130,7 +134,11 @@ class ChooseGiftTemplateScreen extends StatelessWidget {
                       debugPrint("Hello, world!");
                       try {
                         var string = GoRouterState.of(context).location;
-                        context.push("$string/edit-template");
+                        if (chosenMVPModel != null) {
+                          context.push(
+                              "$string/create-template?templatId=${chosenMVPModel!.id}&recieverWalletNumber=${chosenMVPModel!.receiverWallet}&templateName=${chosenMVPModel!.receiverName}&templateImg=${chosenMVPModel!.imageUrl}");
+                        }
+
                         debugPrint("Hello ERRO====R $string");
                       } catch (e) {
                         debugPrint("Hello ERRO====R$e");
@@ -288,13 +296,16 @@ class ChooseGiftTemplateScreen extends StatelessWidget {
                           Align(
                             alignment: Alignment.topCenter,
                             child: Container(
-                              height: 75,
-                              width: 75,
+                              width: 88.0,
+                              height: 88.0,
                               clipBehavior: Clip.hardEdge,
                               decoration: BoxDecoration(
                                   color: chosenMVPModel != null
                                       ? chosenMVPModel!.defaultImageLetter != ""
-                                          ? Colors.grey[300]
+                                          ? chosenMVPModel!.color != null
+                                              ? Color(int.parse(
+                                                  chosenMVPModel!.color!))
+                                              : Colors.grey[200]
                                           : Colors.white
                                       : Colors.white,
                                   shape: BoxShape.circle),
@@ -325,7 +336,7 @@ class ChooseGiftTemplateScreen extends StatelessWidget {
                                                   .primaryColor,
                                             ),
                                           ),
-                                          // fit: BoxFit.cover,
+                                          fit: BoxFit.cover,
                                         ),
                             ),
                           ),
@@ -644,13 +655,23 @@ class BodyWidget extends StatelessWidget {
                       ),
                       enable: true,
                       isRequired: true,
-                      keyboardType: TextInputType.number,
+                      keyboardType:
+                          const TextInputType.numberWithOptions(decimal: true),
                       hintText: 'Amount',
                       validateText: privilegeController!
                           .amountChosenGiftMvpValidateText.value,
                       onChange: (value) {
-                        privilegeController!.validateChosenGiftMvp(value);
+                        formatValueOnchange(
+                            value: value,
+                            controller: privilegeController!
+                                .amountChosenGiftMvpController.value);
+                        privilegeController!
+                            .validateChosenGiftMvp(value.replaceAll(",", ""));
+                        // privilegeController.update();
                       },
+                      inputFormatterList: [
+                        DecimalTextInputFormatter(decimalRange: 2),
+                      ],
                       isValidate:
                           privilegeController!.isChosenGiftMVPValidate.value,
                       labelText: 'Amount',

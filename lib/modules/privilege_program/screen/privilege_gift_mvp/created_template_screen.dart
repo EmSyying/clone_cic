@@ -21,12 +21,16 @@ class CreateTemplateScreen extends StatefulWidget {
   final String? templateImg;
   final String? recieverWalletNumber;
   final String? templateName;
+  final String? defaultImage;
+  final String? color;
   const CreateTemplateScreen({
     super.key,
     this.templatId,
     this.templateImg,
     this.recieverWalletNumber,
     this.templateName,
+    this.defaultImage,
+    this.color,
   });
 
   @override
@@ -73,9 +77,10 @@ class _CreateTemplateScreenState extends State<CreateTemplateScreen> {
   _initValue() {
     if (widget.templatId != null) {
       debugPrint('Update');
-
-      privilegeController.receiveWalletNumberController.text =
-          widget.recieverWalletNumber ?? '';
+      var wallet = widget.recieverWalletNumber ?? '';
+      wallet = wallet.replaceAll(" | MVP", "");
+      debugPrint("wallet==$wallet");
+      privilegeController.receiveWalletNumberController.text = wallet;
       privilegeController.templatRecieverNameController.text =
           widget.templateName ?? '';
       privilegeController.inputRecieverWalletChanged(
@@ -208,8 +213,10 @@ class _CreateTemplateScreenState extends State<CreateTemplateScreen> {
                                   clipBehavior: Clip.antiAlias,
                                   width: 88.0,
                                   height: 88.0,
-                                  decoration: const BoxDecoration(
-                                    color: Colors.white,
+                                  decoration: BoxDecoration(
+                                    color: widget.color == null
+                                        ? Colors.white
+                                        : Color(int.parse(widget.color!)),
                                     shape: BoxShape.circle,
                                   ),
                                   child: image != null
@@ -219,11 +226,19 @@ class _CreateTemplateScreenState extends State<CreateTemplateScreen> {
                                         )
                                       : widget.templateImg != null
                                           ? Image.network(
-                                              widget.templateImg!,
+                                              widget.templateImg ?? "",
                                               fit: BoxFit.cover,
                                             )
-                                          : SvgPicture.asset(
-                                              'assets/images/privilege/image_template.svg',
+                                          : Center(
+                                              child: Text(
+                                                widget.defaultImage ?? "",
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .bodyMedium!
+                                                    .copyWith(
+                                                      fontSize: 25,
+                                                    ),
+                                              ),
                                             ),
                                 ),
                               ],
@@ -249,6 +264,7 @@ class _CreateTemplateScreenState extends State<CreateTemplateScreen> {
                   child: Column(
                     children: [
                       CustomTextFieldNew(
+                        noDisableColor: widget.templatId != null,
                         enable: widget.templatId == null,
                         padding:
                             const EdgeInsets.only(left: 20, top: 20, right: 20),
@@ -267,7 +283,7 @@ class _CreateTemplateScreenState extends State<CreateTemplateScreen> {
                           decimal: false,
                           signed: false,
                         ),
-                        isRequired: true,
+                        isRequired: widget.templatId == null,
                         labelText: 'Receiver Wallet Number',
                         hintText: 'Receiver Wallet Number',
                         onChange:
@@ -335,6 +351,7 @@ class _CreateTemplateScreenState extends State<CreateTemplateScreen> {
                           width: double.infinity,
                           onPressed: () async {
                             if (widget.templatId != null) {
+                              debugPrint("Hello ID ${widget.templatId}");
                               await privilegeController.updatedTemplate(
                                   context, widget.templatId!);
                             } else {

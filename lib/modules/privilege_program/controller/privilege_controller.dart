@@ -52,6 +52,7 @@ class PrivilegeController extends GetxController {
 
   final googleMapCon = Get.put(GoogleMapsController());
   onClearChosenGiftMVPField() {
+    isChosenGiftMVPValidate(true);
     amountChosenGiftMvpController.value.clear();
     mvpGiftRemark.clear();
     update();
@@ -62,10 +63,13 @@ class PrivilegeController extends GetxController {
     if (value.isEmpty) {
       amountChosenGiftMvpValidateText.value = 'Amount required';
       isChosenGiftMVPValidate.value = false;
-    } else if (num.parse(value) >
+    } else if (double.parse(value) >
         walletController.mvpBalance.value.mvpAmount!) {
       amountChosenGiftMvpValidateText.value = 'Not enough balance';
       isChosenGiftMVPValidate.value = false;
+    } else if (double.parse(value) == 0.00) {
+      isChosenGiftMVPValidate.value = false;
+      amountChosenGiftMvpValidateText.value = 'Must greater than zero';
     } else {
       isChosenGiftMVPValidate.value = true;
     }
@@ -1185,9 +1189,9 @@ class PrivilegeController extends GetxController {
 
   //textfield onChanged
   void inputRecieverWalletChanged(String value) {
-    receiveWalletNumber.value = value;
+    receiveWalletNumber.value = value.removeAllWhitespace;
     _inputWalletDebounce.listener(() async {
-      await verifyWallet(value).then((res) {
+      await verifyWallet(value.removeAllWhitespace).then((res) {
         isGiftMVPVerifyAccountValidate.value = res != null;
         receiverWalletName.value = res ?? '';
         debugPrint(
@@ -1418,17 +1422,22 @@ class PrivilegeController extends GetxController {
 
   Future<void> updatedTemplate(BuildContext context, int templateId) async {
     loadingCreateTemplate(true);
+    var body = {
+      'template_id': templateId,
+      'template_name': templatRecieverNameController.text,
+      'wallet_number':
+          receiveWalletNumberController.value.text.removeAllWhitespace,
+      'image': templateImage.toString(),
+    };
+    debugPrint("BODY$body");
     try {
-      await apiBaseHelper.onNetworkRequesting(
-          url: 'template',
-          methode: METHODE.post,
-          isAuthorize: true,
-          body: {
-            'template_id': templateId,
-            'template_name': templatRecieverNameController.text,
-            'wallet_number': receiveWalletNumberController.value.text,
-            'image': templateImage.toString(),
-          }).then((value) async {
+      await apiBaseHelper
+          .onNetworkRequesting(
+              url: 'template',
+              methode: METHODE.post,
+              isAuthorize: true,
+              body: body)
+          .then((value) async {
         await fetchListTemplate();
         if (context.mounted) {
           context.pushNamed(

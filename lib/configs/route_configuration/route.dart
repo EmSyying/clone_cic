@@ -46,7 +46,6 @@ import '../../modules/privilege_program/screen/mvp_qr.dart';
 import '../../modules/privilege_program/screen/privilege/mvp_transaction_history.dart';
 import '../../modules/privilege_program/screen/privilege/privilage_store.dart';
 import '../../modules/privilege_program/screen/privilege_gift_mvp/created_template_screen.dart';
-import '../../modules/privilege_program/screen/privilege_gift_mvp/edit_template_gift_mvp.dart';
 import '../../modules/privilege_program/screen/privilege_gift_mvp/gift_mvp_form_template_screen.dart';
 import '../../modules/privilege_program/screen/privilege_point/gift_mvp_option.dart';
 import '../../modules/privilege_program/screen/privilege_point/gift_mvp_successfully.dart';
@@ -312,10 +311,21 @@ final router = GoRouter(
                                           GoRoute(
                                             parentNavigatorKey:
                                                 _rootNavigatorKey,
-                                            path: 'edit-template',
+                                            path: 'create-template',
                                             builder: (context, state) =>
-                                                EditTemplateGiftMVP(
+                                                CreateTemplateScreen(
                                               key: state.pageKey,
+                                              templatId: int.tryParse(
+                                                  state.queryParams[
+                                                          'templatId'] ??
+                                                      ''),
+                                              recieverWalletNumber:
+                                                  state.queryParams[
+                                                      'recieverWalletNumber'],
+                                              templateName: state
+                                                  .queryParams['templateName'],
+                                              templateImg: state
+                                                  .queryParams['templateImg'],
                                             ),
                                           ),
                                           GoRoute(
@@ -610,10 +620,18 @@ final router = GoRouter(
                                       ]),
                                   GoRoute(
                                     parentNavigatorKey: _rootNavigatorKey,
-                                    path: 'edit-template',
+                                    path: 'create-template',
                                     builder: (context, state) =>
-                                        EditTemplateGiftMVP(
+                                        CreateTemplateScreen(
                                       key: state.pageKey,
+                                      templatId: int.tryParse(
+                                          state.queryParams['templatId'] ?? ''),
+                                      recieverWalletNumber: state
+                                          .queryParams['recieverWalletNumber'],
+                                      templateName:
+                                          state.queryParams['templateName'],
+                                      templateImg:
+                                          state.queryParams['templateImg'],
                                     ),
                                   ),
                                   GoRoute(
@@ -629,10 +647,20 @@ final router = GoRouter(
                                       routes: [
                                         GoRoute(
                                           parentNavigatorKey: _rootNavigatorKey,
-                                          path: 'edit-template',
+                                          path: 'create-template',
                                           builder: (context, state) =>
-                                              EditTemplateGiftMVP(
+                                              CreateTemplateScreen(
                                             key: state.pageKey,
+                                            templatId: int.tryParse(state
+                                                    .queryParams['templatId'] ??
+                                                ''),
+                                            recieverWalletNumber:
+                                                state.queryParams[
+                                                    'recieverWalletNumber'],
+                                            templateName: state
+                                                .queryParams['templateName'],
+                                            templateImg: state
+                                                .queryParams['templateImg'],
                                           ),
                                         ),
                                         GoRoute(
@@ -1138,10 +1166,23 @@ final router = GoRouter(
                                                   GoRoute(
                                                     parentNavigatorKey:
                                                         _rootNavigatorKey,
-                                                    path: 'edit-template',
+                                                    path: 'create-template',
                                                     builder: (context, state) =>
-                                                        EditTemplateGiftMVP(
+                                                        CreateTemplateScreen(
                                                       key: state.pageKey,
+                                                      templatId: int.tryParse(
+                                                          state.queryParams[
+                                                                  'templatId'] ??
+                                                              ''),
+                                                      recieverWalletNumber: state
+                                                              .queryParams[
+                                                          'recieverWalletNumber'],
+                                                      templateName:
+                                                          state.queryParams[
+                                                              'templateName'],
+                                                      templateImg:
+                                                          state.queryParams[
+                                                              'templateImg'],
                                                     ),
                                                   ),
                                                   GoRoute(
