@@ -812,32 +812,35 @@ class PrivilegeController extends GetxController {
   ////function onFetch categorh item
   final shopCategoryItemList = <PrivilegeShopModel>[].obs;
   final isLoadingCateItem = false.obs;
-  final shopCategoryItem = PrivilegeShopModel().obs;
+  final shopCategoryItem = PrivilegeDataModel().obs;
+  final pageNumber = 1.obs;
+  final isLoadingMoreItem = false.obs;
   Future<List<PrivilegeShopModel>> onFetchCategoryItem(int? id) async {
-    isLoadingCateItem(true);
-    debugPrint("catagories id====:$id");
+    if (pageNumber.value == 1) {
+      isLoadingCateItem(true);
+    }
+    debugPrint("page number id====:${pageNumber.value}");
     await apiBaseHelper
         .onNetworkRequesting(
             url: googleMapCon.currentLatStore.value != "" &&
                     googleMapCon.currentLngStore.value != ""
-                ? 'privilege/shop-by?category_id=$id&origin=${googleMapCon.currentLatStore.value},${googleMapCon.currentLngStore.value}'
-                : 'privilege/shop-by?category_id=$id',
+                ? 'privilege/shop-by?category_id=$id&origin=${googleMapCon.currentLatStore.value},${googleMapCon.currentLngStore.value}&page=${pageNumber.value}'
+                : 'privilege/shop-by?category_id=$id&page=${pageNumber.value}',
             methode: METHODE.get,
             isAuthorize: true)
         .then((response) {
       debugPrint("Shop Categories item:$response");
-      // var responeJson = jsonDecode(response['data']);
-      shopCategoryItemList.clear();
-      // debugPrint("category item===:$responeJson");
-      response['data'].map((e) {
-        shopCategoryItem.value = PrivilegeShopModel.fromJson(e);
-        shopCategoryItemList.add(shopCategoryItem.value);
-      }).toList();
+      shopCategoryItem.value = PrivilegeDataModel.fromJson(response);
+      if (!shopCategoryItemList.contains(shopCategoryItem.value)) {
+        shopCategoryItemList.addAll(shopCategoryItem.value.data!);
+      }
       isLoadingCateItem(false);
-      debugPrint("category item===add=:${shopCategoryItemList.length}");
+      isLoadingMoreItem(false);
+      // debugPrint("category item===add=:${shopCategoryItemList.length}");
     }).onError((ErrorModel errorModel, stackTrace) {
       debugPrint("category item===error");
       isLoadingCateItem(false);
+      isLoadingMoreItem(false);
     });
 
     return shopCategoryItemList;

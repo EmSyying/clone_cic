@@ -563,6 +563,14 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  flutter_expandable_fab:
+    dependency: "direct main"
+    description:
+      name: flutter_expandable_fab
+      sha256: c3d0999c72d900a759249368427c6dc1fcff23d3bf8e082cafd9877c709738d9
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.7.1"
   flutter_image_compress:
     dependency: "direct main"
     description:
@@ -1231,11 +1239,12 @@ packages:
   mobile_scanner:
     dependency: "direct main"
     description:
-      name: mobile_scanner
-      sha256: "531725451c7506f4c57b4720da1fe33a1394cdf9d4a5075a3a2dd51e21113928"
-      url: "https://pub.dev"
-    source: hosted
-    version: "2.1.0"
+      path: "."
+      ref: master
+      resolved-ref: aef9ea1b8fd2a4aab8fee7df681e06a72dd53d93
+      url: "https://github.com/umkithya/mobile_scanner_pro.git"
+    source: git
+    version: "0.0.1"
   modal_bottom_sheet:
     dependency: "direct main"
     description:

@@ -115,6 +115,8 @@ class _PrivilegeSeeAllScreenState extends State<PrivilegeSeeAllScreen> {
                                         onTapCatego: () {
                                           final titleName = seeall.value.name
                                               ?.replaceAll('&', '%26');
+                                          priCon.shopCategoryItemList.clear();
+                                          priCon.pageNumber.value = 1;
                                           context.push(
                                             '/privilege/all-store/privilege-item-category?tabTitle=$titleName&id=${seeall.value.id}',
                                           );
