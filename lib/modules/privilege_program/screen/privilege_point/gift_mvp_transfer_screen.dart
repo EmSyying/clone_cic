@@ -3,7 +3,6 @@ import 'dart:io';
 import 'package:cicgreenloan/utils/helper/color.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
@@ -16,15 +15,52 @@ import '../../../../widgets/privilege/privilege_gift_mvp/custom_card_gift_mvp_fo
 import '../../../wallet/controller/wallet_controller.dart';
 import '../../controller/privilege_controller.dart';
 
-class GiftMVPTransferScreen extends StatelessWidget {
+class GiftMVPTransferScreen extends StatefulWidget {
   const GiftMVPTransferScreen({super.key, this.walletNumber, this.amount = ""});
   final String? walletNumber;
   final String amount;
+
+  @override
+  State<GiftMVPTransferScreen> createState() => _GiftMVPTransferScreenState();
+}
+
+class _GiftMVPTransferScreenState extends State<GiftMVPTransferScreen> {
+  void _initialData() {
+    walletController.onFetchMyPoin();
+    if (widget.amount != "") {
+      privilegeController.amountgiftMVPController.value.text = widget.amount;
+      privilegeController.amountValidator();
+    }
+    if (widget.walletNumber != null) {
+      privilegeController.receiveWalletNumberController.text =
+          widget.walletNumber ?? "";
+      privilegeController.inputRecieverWalletChanged(
+          privilegeController.receiveWalletNumberController.text);
+    }
+
+    // debugPrint('Success => ${widget.walletNumber} => ${widget.amount}');
+    if (widget.walletNumber == null && widget.amount == '') {
+      debugPrint('Clear form Work');
+      privilegeController.clearGiftMVPForm();
+    }
+  }
+
+  bool get enableAccountNumber =>
+      widget.walletNumber == null || widget.walletNumber == '';
+  bool get enableAmount => widget.amount == '';
+
+  @override
+  void initState() {
+    _initialData();
+    super.initState();
+  }
+
+  final privilegeController = Get.put(PrivilegeController());
+  final walletController = Get.put(WalletController());
+
   void _showTemplate(BuildContext context) {
-    final privilegeCont = Get.find<PrivilegeController>();
-    privilegeCont.fetchListTemplate();
+    privilegeController.fetchListTemplate();
     showModalBottomSheet(
-      useSafeArea: true,
       backgroundColor: Colors.transparent,
       context: context,
       isScrollControlled: true,
@@ -40,75 +76,97 @@ class GiftMVPTransferScreen extends StatelessWidget {
               color: Colors.transparent,
             ),
           ),
-          DraggableScrollableSheet(
-            snap: true,
-            snapSizes: const [0.5, 1],
-            initialChildSize: 0.5,
-            maxChildSize: 1,
-            minChildSize: 0.5,
-            builder: (BuildContext context, ScrollController scrollController) {
-              return Container(
-                clipBehavior: Clip.antiAlias,
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                child: Column(
-                  children: [
-                    CustomAppBarWhiteColor(
-                      context: context,
-                      elevation: 0,
-                      title: 'Choose Template',
-                      // colorTitle: true,
-                      // backgroundColor: Theme.of(context).primaryColor,
-                      leading: IconButton(
-                        icon: _icon,
-                        color: Colors.black,
-                        onPressed: () {
-                          context.pop();
-                        },
-                      ),
+          SizedBox(
+            width: double.infinity,
+            height: double.infinity,
+            child: SafeArea(
+              bottom: false,
+              child: DraggableScrollableSheet(
+                expand: false,
+                snap: true,
+                snapSizes: const [0.5, .95],
+                initialChildSize: 0.5,
+                maxChildSize: .95,
+                minChildSize: 0.5,
+                builder:
+                    (BuildContext context, ScrollController scrollController) {
+                  return Container(
+                    clipBehavior: Clip.antiAlias,
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(10),
                     ),
-                    const Divider(
-                      height: 0,
-                    ),
-                    Expanded(
-                      child: Obx(
-                        () => privilegeCont.isLoadingTemplate.value
-                            ? const Center(child: CircularProgressIndicator())
-                            : ListView.builder(
-                                controller: scrollController,
-                                itemCount:
-                                    privilegeCont.listGiftTemplate.length,
-                                itemBuilder: (BuildContext context, int index) {
-                                  final item =
-                                      privilegeCont.listGiftTemplate[index];
-                                  return GestureDetector(
-                                    onTap: () {
-                                      privilegeCont
-                                              .receiveWalletNumberController
-                                              .text =
-                                          item.walletNumberNoFormat ?? '';
-                                      privilegeCont.inputRecieverWalletChanged(
-                                          privilegeCont
-                                              .receiveWalletNumberController
-                                              .text);
-                                      Navigator.pop(context);
+                    child: Column(
+                      children: [
+                        CustomAppBarWhiteColor(
+                          context: context,
+
+                          elevation: 0,
+                          title: 'Choose Template',
+                          // colorTitle: true,
+                          // backgroundColor: Theme.of(context).primaryColor,
+                          leading: IconButton(
+                            icon: _icon,
+                            color: Colors.black,
+                            onPressed: () {
+                              context.pop();
+                            },
+                          ),
+                        ),
+                        const Divider(
+                          height: 0,
+                        ),
+                        Expanded(
+                          child: Obx(
+                            () => privilegeController.isLoadingTemplate.value
+                                ? const Center(
+                                    child: CircularProgressIndicator())
+                                : ListView.separated(
+                                    padding: const EdgeInsets.all(20),
+                                    controller: scrollController,
+                                    itemCount: privilegeController
+                                        .listGiftTemplate.length,
+                                    itemBuilder:
+                                        (BuildContext context, int index) {
+                                      final item = privilegeController
+                                          .listGiftTemplate[index];
+                                      return GestureDetector(
+                                        onTap: () {
+                                          privilegeController
+                                                  .receiveWalletNumberController
+                                                  .text =
+                                              item.walletNumberNoFormat ?? '';
+                                          privilegeController
+                                              .inputRecieverWalletChanged(
+                                                  privilegeController
+                                                      .receiveWalletNumberController
+                                                      .text);
+                                          privilegeController
+                                              .createTemplate.value = true;
+                                          privilegeController
+                                              .templateNameController
+                                              .text = item.name ?? '';
+                                          Navigator.pop(context);
+                                        },
+                                        child: CustomCardGiftMVPForm(
+                                          id: item.id,
+                                          acountName: item.name,
+                                          accountNumber: item.walletNumber,
+                                          imageAccount: item.image,
+                                        ),
+                                      );
                                     },
-                                    child: CustomCardGiftMVPForm(
-                                      id: item.id,
-                                      acountName: item.name,
-                                      accountNumber: item.walletNumber,
-                                    ),
-                                  );
-                                },
-                              ),
-                      ),
+                                    separatorBuilder: (context, index) =>
+                                        const SizedBox(height: 20),
+                                  ),
+                          ),
+                        ),
+                      ],
                     ),
-                  ],
-                ),
-              );
-            },
+                  );
+                },
+              ),
+            ),
           ),
         ],
       ),
@@ -118,22 +176,9 @@ class GiftMVPTransferScreen extends StatelessWidget {
   Icon get _icon => Platform.isIOS
       ? const Icon(Icons.arrow_back_ios)
       : const Icon(Icons.arrow_back);
+
   @override
   Widget build(BuildContext context) {
-    final privilegeController = Get.put(PrivilegeController());
-
-    final walletController = Get.put(WalletController());
-    walletController.onFetchMyPoin();
-        if (amount != "") {
-          privilegeController.amountgiftMVPController.value.text = amount;
-        }
-        if (walletNumber != null) {
-          privilegeController.receiveWalletNumberController.text =
-              walletNumber ?? "";
-          privilegeController.inputRecieverWalletChanged(
-              privilegeController.receiveWalletNumberController.text);
-        }
-
     final textStyle = Theme.of(context).textTheme.titleMedium;
     final size = MediaQuery.of(context).size;
     return Scaffold(
@@ -148,7 +193,6 @@ class GiftMVPTransferScreen extends StatelessWidget {
           color: Colors.white,
           onPressed: () {
             context.pop();
-            privilegeController.clearGiftMVPForm();
           },
         ),
       ),
@@ -164,9 +208,9 @@ class GiftMVPTransferScreen extends StatelessWidget {
                           horizontal: 20.0, vertical: 20.0),
                       child: CardCurrentPoints(
                         title: 'MVP Balance',
-                        amount: walletController
-                                .mvpBalance.value.mvpAmountFormat ??
-                            '0.00',
+                        amount:
+                            walletController.mvpBalance.value.mvpAmountFormat ??
+                                '0.00',
                       ),
                     ),
                     Container(
@@ -187,6 +231,7 @@ class GiftMVPTransferScreen extends StatelessWidget {
                             height: 10.0,
                           ),
                           CustomTextFieldNew(
+                            enable: enableAccountNumber,
                             padding: const EdgeInsets.only(
                                 left: 20, top: 20, right: 20),
                             initialValue: privilegeController
@@ -197,17 +242,16 @@ class GiftMVPTransferScreen extends StatelessWidget {
                                 .isGiftMVPVerifyAccountValidateMessage.value,
                             controller: privilegeController
                                 .receiveWalletNumberController,
-                            inputFormatterList: [
-                              FilteringTextInputFormatter.digitsOnly,
+                            inputFormatterList: const [
+                              // AccountNumberFormatter(),
                             ],
-                            keyboardType:
-                                const TextInputType.numberWithOptions(
+                            keyboardType: const TextInputType.numberWithOptions(
                               decimal: false,
                               signed: false,
                             ),
                             isRequired: true,
-                            labelText: 'Receiver Wallet Number',
-                            hintText: 'Receiver Wallet Number',
+                            labelText: 'Receiver MVP Wallet Number',
+                            hintText: 'Receiver MVP Wallet Number',
                             suffixIcon: Padding(
                               padding: const EdgeInsets.all(8.0),
                               child: Row(
@@ -235,11 +279,10 @@ class GiftMVPTransferScreen extends StatelessWidget {
                                 ],
                               ),
                             ),
-                            onChange: privilegeController
-                                .inputRecieverWalletChanged,
+                            onChange:
+                                privilegeController.inputRecieverWalletChanged,
                             errorWidget: privilegeController
-                                        .isGiftMVPVerifyAccountValidate
-                                        .value &&
+                                        .isGiftMVPVerifyAccountValidate.value &&
                                     privilegeController
                                         .receiveWalletNumber.isNotEmpty &&
                                     privilegeController
@@ -275,6 +318,7 @@ class GiftMVPTransferScreen extends StatelessWidget {
                           Focus(
                             onFocusChange: (value) {},
                             child: CustomTextFieldNew(
+                              enable: enableAmount,
                               initialValue: privilegeController
                                   .amountgiftMVPController.value.text,
                               padding: const EdgeInsets.only(
@@ -311,8 +355,7 @@ class GiftMVPTransferScreen extends StatelessWidget {
                                   style: Theme.of(context)
                                       .textTheme
                                       .titleMedium!
-                                      .copyWith(
-                                          color: const Color(0xffBDBDBD)),
+                                      .copyWith(color: const Color(0xffBDBDBD)),
                                 ),
                               ),
                             ),
@@ -330,22 +373,22 @@ class GiftMVPTransferScreen extends StatelessWidget {
                             child: Row(
                               children: [
                                 Expanded(
-                                  child: privilegeController
-                                          .createTemplate.value
-                                      ? CustomTextFieldNew(
-                                          controller: privilegeController
-                                              .templateNameController,
-                                          initialValue: privilegeController
-                                              .templateNameController.text,
-                                          labelText: 'Create Template',
-                                          hintText: 'Create Template',
-                                          onChange: (value) {},
-                                          padding: EdgeInsets.zero,
-                                        )
-                                      : Text(
-                                          'Create Template',
-                                          style: textStyle,
-                                        ),
+                                  child:
+                                      privilegeController.createTemplate.value
+                                          ? CustomTextFieldNew(
+                                              controller: privilegeController
+                                                  .templateNameController,
+                                              initialValue: privilegeController
+                                                  .templateNameController.text,
+                                              labelText: 'Create Template',
+                                              hintText: 'Create Template',
+                                              onChange: (value) {},
+                                              padding: EdgeInsets.zero,
+                                            )
+                                          : Text(
+                                              'Create Template',
+                                              style: textStyle,
+                                            ),
                                 ),
                                 Platform.isIOS
                                     ? Padding(
@@ -356,8 +399,7 @@ class GiftMVPTransferScreen extends StatelessWidget {
                                                 .createTemplate.value,
                                             onChanged: (value) {
                                               privilegeController
-                                                  .createTemplate
-                                                  .value = value;
+                                                  .createTemplate.value = value;
                                             },
                                             activeColor: AppColor.mainColor),
                                       )
@@ -369,8 +411,7 @@ class GiftMVPTransferScreen extends StatelessWidget {
                                                 .createTemplate.value,
                                             onChanged: (value) {
                                               privilegeController
-                                                  .createTemplate
-                                                  .value = value;
+                                                  .createTemplate.value = value;
                                             },
                                             activeColor: AppColor.mainColor),
                                       ),
@@ -387,12 +428,11 @@ class GiftMVPTransferScreen extends StatelessWidget {
             ),
             Container(
               color: Colors.white,
-              padding: const EdgeInsets.symmetric(
-                  horizontal: 20.0, vertical: 24.0),
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 20.0, vertical: 24.0),
               child: CustomButton(
                 width: double.infinity,
-                backgroundColor: privilegeController
-                            .validateMVPAmount.value &&
+                backgroundColor: privilegeController.validateMVPAmount.value &&
                         privilegeController
                             .isGiftMVPVerifyAccountValidate.value &&
                         privilegeController.receiverWalletName.isNotEmpty &&
