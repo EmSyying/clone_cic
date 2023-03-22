@@ -85,6 +85,7 @@ class ChooseGiftTemplateScreen extends StatelessWidget {
                           initialChildSize: 0.64,
                           minChildSize: 0.2,
                           maxChildSize: 0.9,
+                          expand: false,
                           builder: (context, scrollController) {
                             return ClipRRect(
                               clipBehavior: Clip.hardEdge,
