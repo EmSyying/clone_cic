@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -10,6 +11,7 @@ class CustomCardGiftMVPForm extends StatelessWidget {
   final String? acountName;
   final String? accountNumber;
   final String? imageAccount;
+  final String? defaultImage;
   final GestureTapCallback? onTapHistory;
   final GestureTapCallback? onTapEdit;
   final GestureTapCallback? onTapDeleted;
@@ -23,6 +25,7 @@ class CustomCardGiftMVPForm extends StatelessWidget {
     this.onTapEdit,
     this.onTapDeleted,
     this.id,
+    this.defaultImage,
   });
 
   @override
@@ -49,17 +52,28 @@ class CustomCardGiftMVPForm extends StatelessWidget {
             decoration: BoxDecoration(
               shape: BoxShape.circle,
               color: Colors.blueAccent.withOpacity(0.1),
-              image: DecorationImage(
-                image: NetworkImage(
-                  imageAccount ?? '',
-                ),
-                fit: BoxFit.cover,
-              ),
+              // image: DecorationImage(
+              //   image: NetworkImage(
+              //     imageAccount ?? '',
+              //   ),
+              //   fit: BoxFit.cover,
+              // ),
             ),
             alignment: Alignment.center,
-            // child: Image.network(
-            //   imageAccount ?? '',
-            // ),
+            clipBehavior: Clip.antiAlias,
+            child: imageAccount != null
+                ? CachedNetworkImage(
+                    imageUrl: imageAccount ?? '',
+                    fit: BoxFit.cover,
+                  )
+                : Text(
+                    defaultImage ?? ' ',
+                    style: Theme.of(context).textTheme.displayMedium!.copyWith(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w700,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                  ),
           ),
           const SizedBox(
             width: 14.0,

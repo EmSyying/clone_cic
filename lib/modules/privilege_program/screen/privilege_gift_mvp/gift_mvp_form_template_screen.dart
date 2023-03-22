@@ -3,6 +3,7 @@
 import 'dart:async';
 import 'dart:io';
 
+import 'package:cicgreenloan/modules/privilege_program/model/gift_mvp_model/template_gift_mvp_model.dart';
 import 'package:cicgreenloan/modules/privilege_program/screen/privilege_gift_mvp/transaction_history_template.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -158,11 +159,15 @@ class _GiftMVPFromTemplateScreenState extends State<GiftMVPFromTemplateScreen> {
                                               accountNumber:
                                                   e.value.walletNumber,
                                               imageAccount: e.value.image,
+                                              defaultImage:
+                                                  e.value.defaultImage,
                                               onTapDeleted: () async {
                                                 context.pop();
 
                                                 await priCon.deleteTemplate(
-                                                    context, id = e.value.id);
+                                                  context,
+                                                  id = e.value.id,
+                                                );
                                               },
                                               onTapEdit: () {
                                                 context.pop();
@@ -181,7 +186,6 @@ class _GiftMVPFromTemplateScreenState extends State<GiftMVPFromTemplateScreen> {
                                                 }
                                               },
                                               onTapHistory: () async {
-                                                // context.pop(context);
                                                 //header template history
                                                 await priCon
                                                     .transactionHistoryTemplate(
@@ -200,150 +204,10 @@ class _GiftMVPFromTemplateScreenState extends State<GiftMVPFromTemplateScreen> {
                                                     expand: false,
                                                     builder: (context,
                                                         scrollController) {
-                                                      return ClipRRect(
-                                                        clipBehavior:
-                                                            Clip.hardEdge,
-                                                        borderRadius:
-                                                            const BorderRadius
-                                                                    .only(
-                                                                topLeft: Radius
-                                                                    .circular(
-                                                                        10),
-                                                                topRight: Radius
-                                                                    .circular(
-                                                                        10)),
-                                                        child: Stack(
-                                                          children: [
-                                                            Container(
-                                                              color:
-                                                                  Colors.white,
-                                                              child: priCon
-                                                                      .listTransactionHistoryTemplate
-                                                                      .isNotEmpty
-                                                                  ? ListView
-                                                                      .separated(
-                                                                      controller:
-                                                                          scrollController,
-                                                                      separatorBuilder:
-                                                                          (context, index) =>
-                                                                              Divider(
-                                                                        color: Colors
-                                                                            .grey[400],
-                                                                        height:
-                                                                            1,
-                                                                      ),
-                                                                      itemCount: priCon
-                                                                          .listTransactionHistoryTemplate
-                                                                          .length,
-                                                                      itemBuilder:
-                                                                          (_, index) =>
-                                                                              TransactionHistoryTemplate(
-                                                                        id: priCon
-                                                                            .listTransactionHistoryTemplate[index]
-                                                                            .id,
-                                                                        title: priCon
-                                                                            .listTransactionHistoryTemplate[index]
-                                                                            .walletName,
-                                                                        image: priCon
-                                                                            .listTransactionHistoryTemplate[index]
-                                                                            .image,
-                                                                        dated: priCon
-                                                                            .listTransactionHistoryTemplate[index]
-                                                                            .paymentDate,
-                                                                        amount: priCon
-                                                                            .listTransactionHistoryTemplate[index]
-                                                                            .amount,
-                                                                      ),
-                                                                    )
-                                                                  : emtyStateTransactionTemplate(
-                                                                      context),
-                                                            ),
-                                                            Container(
-                                                              decoration: const BoxDecoration(
-                                                                  color: Colors
-                                                                      .white,
-                                                                  borderRadius: BorderRadius.only(
-                                                                      topLeft: Radius
-                                                                          .circular(
-                                                                              10),
-                                                                      topRight:
-                                                                          Radius.circular(
-                                                                              10))),
-                                                              child: Column(
-                                                                mainAxisSize:
-                                                                    MainAxisSize
-                                                                        .min,
-                                                                children: [
-                                                                  Container(
-                                                                    margin: const EdgeInsets
-                                                                            .only(
-                                                                        top:
-                                                                            10),
-                                                                    width: 50,
-                                                                    height: 5,
-                                                                    decoration: BoxDecoration(
-                                                                        borderRadius:
-                                                                            BorderRadius.circular(
-                                                                                10.0),
-                                                                        color: Colors
-                                                                            .grey[300]),
-                                                                  ),
-                                                                  const SizedBox(
-                                                                    height:
-                                                                        10.0,
-                                                                  ),
-                                                                  //Header Card Gift Template
-                                                                  Padding(
-                                                                    padding: const EdgeInsets
-                                                                            .symmetric(
-                                                                        horizontal:
-                                                                            20.0,
-                                                                        vertical:
-                                                                            10.0),
-                                                                    child:
-                                                                        headerCardGiftTemplate(
-                                                                      context,
-                                                                      id: e
-                                                                          .value
-                                                                          .id,
-                                                                      titleGiftTemplate: e
-                                                                          .value
-                                                                          .name,
-                                                                      acountNumGiftTemplate: e
-                                                                          .value
-                                                                          .walletNumber,
-                                                                    ),
-                                                                  ),
-                                                                  Padding(
-                                                                    padding: const EdgeInsets
-                                                                            .symmetric(
-                                                                        vertical:
-                                                                            14.0,
-                                                                        horizontal:
-                                                                            20.0),
-                                                                    child:
-                                                                        Align(
-                                                                      alignment:
-                                                                          Alignment
-                                                                              .centerLeft,
-                                                                      child:
-                                                                          Text(
-                                                                        'Transaction History',
-                                                                        style: Theme.of(context).textTheme.displayMedium!.copyWith(
-                                                                            fontSize:
-                                                                                16,
-                                                                            fontWeight:
-                                                                                FontWeight.w500,
-                                                                            color: const Color(0xff848F92)),
-                                                                      ),
-                                                                    ),
-                                                                  ),
-                                                                ],
-                                                              ),
-                                                            )
-                                                          ],
-                                                        ),
-                                                      );
+                                                      return containPopTransactionHistory(
+                                                          scrollController,
+                                                          context,
+                                                          e);
                                                     },
                                                   ),
                                                 );
@@ -385,6 +249,95 @@ class _GiftMVPFromTemplateScreenState extends State<GiftMVPFromTemplateScreen> {
           ),
         )
       ],
+    );
+  }
+
+  ClipRRect containPopTransactionHistory(ScrollController scrollController,
+      BuildContext context, MapEntry<int, TemplateGiftMVPModel> e) {
+    return ClipRRect(
+      clipBehavior: Clip.hardEdge,
+      borderRadius: const BorderRadius.only(
+          topLeft: Radius.circular(10), topRight: Radius.circular(10)),
+      child: Stack(
+        children: [
+          Container(
+            color: Colors.white,
+            child: priCon.listTransactionHistoryTemplate.isNotEmpty
+                ? ListView.separated(
+                    controller: scrollController,
+                    separatorBuilder: (context, index) => Divider(
+                      color: Colors.grey[400],
+                      height: 1,
+                    ),
+                    itemCount: priCon.listTransactionHistoryTemplate.length,
+                    itemBuilder: (_, index) => TransactionHistoryTemplate(
+                      id: priCon.listTransactionHistoryTemplate[index].id,
+                      title: priCon
+                          .listTransactionHistoryTemplate[index].walletName,
+                      image: priCon.listTransactionHistoryTemplate[index].image,
+                      defaultImage: priCon
+                          .listTransactionHistoryTemplate[index].defaultImage,
+                      dated: priCon
+                          .listTransactionHistoryTemplate[index].paymentDate,
+                      amount:
+                          priCon.listTransactionHistoryTemplate[index].amount,
+                    ),
+                  )
+                : emtyStateTransactionTemplate(context),
+          ),
+          Container(
+            decoration: const BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(10),
+                    topRight: Radius.circular(10))),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Container(
+                  margin: const EdgeInsets.only(top: 10),
+                  width: 50,
+                  height: 5,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10.0),
+                      color: Colors.grey[300]),
+                ),
+                const SizedBox(
+                  height: 10.0,
+                ),
+                //Header Card Gift Template
+                Padding(
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 20.0, vertical: 10.0),
+                  child: headerCardGiftTemplate(
+                    context,
+                    id: e.value.id,
+                    titleGiftTemplate: e.value.name,
+                    acountNumGiftTemplate: e.value.walletNumber,
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(
+                      vertical: 14.0, horizontal: 20.0),
+                  child: Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      'Transaction History',
+                      style: Theme.of(context)
+                          .textTheme
+                          .displayMedium!
+                          .copyWith(
+                              fontSize: 16,
+                              fontWeight: FontWeight.w500,
+                              color: const Color(0xff848F92)),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          )
+        ],
+      ),
     );
   }
 
