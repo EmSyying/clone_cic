@@ -819,7 +819,6 @@ class PrivilegeController extends GetxController {
     if (pageNumber.value == 1) {
       isLoadingCateItem(true);
     }
-    debugPrint("page number id====:${pageNumber.value}");
     await apiBaseHelper
         .onNetworkRequesting(
             url: googleMapCon.currentLatStore.value != "" &&
@@ -831,6 +830,7 @@ class PrivilegeController extends GetxController {
         .then((response) {
       debugPrint("Shop Categories item:$response");
       shopCategoryItem.value = PrivilegeDataModel.fromJson(response);
+      // ignore: iterable_contains_unrelated_type
       if (!shopCategoryItemList.contains(shopCategoryItem.value)) {
         shopCategoryItemList.addAll(shopCategoryItem.value.data!);
       }
