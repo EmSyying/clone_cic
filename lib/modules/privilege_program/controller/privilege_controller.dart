@@ -649,10 +649,6 @@ class PrivilegeController extends GetxController {
       {String? location, int? categoryId, int? page}) async {
     if (page == 1) {
       isLoadingCategoryFilter(true);
-      isLoadingResultSearch.value = false;
-    } else {
-      isLoadingResultSearch.value = true;
-      isLoadingCategoryFilter(false);
     }
 
     try {
@@ -671,24 +667,17 @@ class PrivilegeController extends GetxController {
           categoryFilterList.addAll(categoryFilterModel.value.data!);
         }
 
+        isLoadingResultSearch(false);
+        isLoadingCategoryFilter(false);
+
         shopModelList.clear();
-        // categoryFilterList.clear();
-        // responseJson.map((e) {
-        //   shopModel.value = PrivilegeShopModel.fromJson(e);
-        //   categoryFilterList.add(shopModel.value);
-        //   shopModelList.add(shopModel.value);
-        // }).toList();
       }).onError((ErrorModel errorModel, stackTrace) {
-        // if (page == 1) {
-        //   isLoadingCategoryFilter(true);
-        //   isLoadingResultSearch.value = false;
-        // } else {
-        //   isLoadingResultSearch.value = true;
-        //   isLoadingCategoryFilter(false);
-        // }
+        isLoadingResultSearch(false);
+        isLoadingCategoryFilter(false);
       });
     } catch (ex) {
-      //
+      isLoadingResultSearch(false);
+      isLoadingCategoryFilter(false);
     } finally {
       isLoadingCategoryFilter(false);
       isLoadingResultSearch(false);

@@ -228,7 +228,7 @@ class _PrivilegeFiltersState extends State<PrivilegeFilters> {
                             left: 15.0, right: 20.0, bottom: 25.0, top: 20.0),
                         child: CustomButton(
                           title:
-                              'Show Result ${privilegeController.selectedCategFil.isNotEmpty || privilegeController.locationCodeList.isNotEmpty ? "(${privilegeController.categoryFilterList.length})" : ''}',
+                              'Show Result ${privilegeController.selectedCategFil.isNotEmpty || privilegeController.locationCodeList.isNotEmpty ? "(${privilegeController.categoryFilterModel.value.meta!.total})" : ''}',
                           isDisable:
                               // privilegeController
                               //             .isLoadingCategoryFilter.value ==

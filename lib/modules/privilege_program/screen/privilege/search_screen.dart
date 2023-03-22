@@ -149,8 +149,10 @@ class _SearchScreenState extends State<SearchScreen> {
                               if (privilegController
                                       .categoryFilterModel.value.links!.next !=
                                   null) {
+                                privilegController.isLoadingResultSearch(true);
                                 privilegController
                                     .pageNoForSearchResult.value++;
+
                                 privilegController
                                     .onFilterByCategoriesByLocation(
                                         categoryId:
