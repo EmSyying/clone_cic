@@ -1368,7 +1368,6 @@ class PrivilegeController extends GetxController {
   final isLoadingTransactionTemplate = false.obs;
   Future<List<TransactionHisotryTemplateModel>> transactionHistoryTemplate(
       int? id) async {
-    listTransactionHistoryTemplate.clear();
     isLoadingTransactionTemplate(true);
 
     try {
@@ -1382,7 +1381,7 @@ class PrivilegeController extends GetxController {
         debugPrint('response========200===Template history=======$response');
         var responseJson = response['data'];
         debugPrint('responseJson templated history:===${responseJson!}');
-        // listTransactionHistoryTemplate.clear();
+        listTransactionHistoryTemplate.clear();
         responseJson.map((e) {
           listTransactionHistoryTemplate.add(
             TransactionHisotryTemplateModel.fromJson(e),
@@ -1452,26 +1451,27 @@ class PrivilegeController extends GetxController {
   //Updated or Edite Template Gift MVP
   Future<void> updatedTemplate(BuildContext context, int templateId) async {
     loadingCreateTemplate(true);
-    debugPrint('Imagae Name : ${templateImage.toString()}');
-    debugPrint('Template Name : ${templatRecieverNameController.text}');
-    try {
-      await apiBaseHelper.onNetworkRequesting(
-        url: 'template',
-        methode: METHODE.post,
-        isAuthorize: true,
-        body: {
-          'template_id': templateId,
-          'wallet_number':
-              receiveWalletNumberController.value.text.removeAllWhitespace,
-          'template_name': templateName.value,
-          'image': templateImage.toString(),
-        },
-      ).then((value) async {
+    // debugPrint('Imagae Name : ${templateImage.toString()}');
+    // debugPrint('Template Name : ${templatRecieverNameController.text}');
+
+    await _uploadImageController.uploadImage(
+      endPoint: 'template',
+      body: {
+        'template_id': templateId,
+        'wallet_number':
+            receiveWalletNumberController.value.text.removeAllWhitespace,
+        'template_name': templateName.value,
+        'image': templateImage.toString(),
+      },
+    ).then((value) async {
+      debugPrint("id updated templated value====== $value");
+
+      if (context.mounted) {
         context.pushNamed(
           'SuccessScreen',
           queryParams: {
             'title': 'Success',
-            'description': 'Template has been edited Successfully'
+            'description': 'Template has been created Successfully'
           },
           extra: {
             'onPressedButton': () {
@@ -1479,23 +1479,19 @@ class PrivilegeController extends GetxController {
             }
           },
         );
-        listGiftTemplate.clear();
-        fetchListTemplate();
-        loadingCreateTemplate(false);
-      }).onError((ErrorModel error, stackTrace) {
-        final message = error.bodyString['message'];
-        customRouterSnackbar(
-          title: 'Fialed...!',
-          description: '$message Templated Updated Failed...!',
-          type: SnackType.error,
-        );
-        loadingCreateTemplate(false);
-      });
-    } catch (e) {
+      }
+      listGiftTemplate.clear();
+      fetchListTemplate();
       loadingCreateTemplate(false);
-      debugPrint('errror == $e');
-    } finally {
+    }).onError((ErrorModel error, stackTrace) {
+      final message = error.bodyString['message'];
+      debugPrint("id updated templated error====== $message");
+      customRouterSnackbar(
+        title: 'Fialed...!',
+        description: '$message Templated Updated Failed...!',
+        type: SnackType.error,
+      );
       loadingCreateTemplate(false);
-    }
+    });
   }
 }

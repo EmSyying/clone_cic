@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 import 'dart:ui';
 
+import 'package:cicgreenloan/Utils/function/format_account_number.dart';
 import 'package:cicgreenloan/Utils/helper/custom_loading_button.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -92,6 +93,7 @@ class _CreateTemplateScreenState extends State<CreateTemplateScreen> {
   void initState() {
     // debugPrint(
     //     'Image : ${widget.templateImg} => ${widget.templateImg.runtimeType}');
+
     _initValue();
     super.initState();
   }
@@ -286,6 +288,7 @@ class _CreateTemplateScreenState extends State<CreateTemplateScreen> {
                             privilegeController.receiveWalletNumberController,
                         inputFormatterList: [
                           FilteringTextInputFormatter.digitsOnly,
+                          AccountNumberFormatter()
                         ],
                         keyboardType: const TextInputType.numberWithOptions(
                           decimal: false,
@@ -359,8 +362,6 @@ class _CreateTemplateScreenState extends State<CreateTemplateScreen> {
                           width: double.infinity,
                           onPressed: () async {
                             if (widget.templatId != null) {
-                              debugPrint(
-                                  "id updated templated====== ${widget.templatId}");
                               await privilegeController.updatedTemplate(
                                   context, widget.templatId!);
                             } else {

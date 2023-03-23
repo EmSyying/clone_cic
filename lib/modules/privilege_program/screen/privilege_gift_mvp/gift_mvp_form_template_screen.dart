@@ -154,62 +154,69 @@ class _GiftMVPFromTemplateScreenState extends State<GiftMVPFromTemplateScreen> {
                                             }
                                           },
                                           child: CustomCardGiftMVPForm(
-                                              id: e.value.id,
-                                              acountName: e.value.name,
-                                              accountNumber:
-                                                  e.value.walletNumber,
-                                              imageAccount: e.value.image,
-                                              defaultImage:
-                                                  e.value.defaultImage,
-                                              onTapDeleted: () {
-                                                priCon.deleteTemplate(
-                                                  context,
-                                                  id = e.value.id,
-                                                );
-                                                // priCon.isDeletTemplate.value;
-                                              },
-                                              onTapEdit: () {
-                                                try {
-                                                  var string =
-                                                      GoRouterState.of(context)
-                                                          .location;
+                                            id: e.value.id,
+                                            acountName: e.value.name,
+                                            accountNumber: e.value.walletNumber,
+                                            imageAccount: e.value.image,
+                                            defaultImage: e.value.defaultImage,
+                                            onTapDeleted: () {
+                                              priCon.deleteTemplate(
+                                                context,
+                                                id = e.value.id,
+                                              );
+                                              // priCon.isDeletTemplate.value;
+                                            },
+                                            onTapEdit: () {
+                                              try {
+                                                var string =
+                                                    GoRouterState.of(context)
+                                                        .location;
 
-                                                  context.push(
-                                                      "$string/create-template?templatId=${e.value.id}&recieverWalletNumber=${e.value.walletNumberNoFormat}&templateName=${e.value.name}${e.value.image != null ? '&templateImg=${e.value.image}' : ''}${e.value.defaultImage != null ? '&defaultImage=${e.value.defaultImage}' : ''}");
-                                                  debugPrint(
-                                                      "Hello ERRO====R $string");
-                                                } catch (e) {
-                                                  debugPrint(
-                                                      "Hello ERRO====R$e");
-                                                }
-                                              },
-                                              onTapHistory: () async {
-                                                //header template history
-                                                await priCon
-                                                    .transactionHistoryTemplate(
-                                                        e.value.id);
-                                                showModalBottomSheet(
-                                                  context: context,
-                                                  isScrollControlled: true,
-                                                  // expand: false,
-                                                  backgroundColor:
-                                                      Colors.transparent,
-                                                  builder: (context) =>
-                                                      DraggableScrollableSheet(
-                                                    initialChildSize: 0.64,
-                                                    minChildSize: 0.2,
-                                                    maxChildSize: 0.9,
-                                                    expand: false,
-                                                    builder: (context,
-                                                        scrollController) {
-                                                      return containPopTransactionHistory(
-                                                          scrollController,
-                                                          context,
-                                                          e);
-                                                    },
-                                                  ),
-                                                );
-                                              }),
+                                                context.push(
+                                                    "$string/create-template?templatId=${e.value.id}&recieverWalletNumber=${e.value.walletNumberNoFormat}&templateName=${e.value.name}${e.value.image != null ? '&templateImg=${e.value.image}' : ''}${e.value.defaultImage != null ? '&defaultImage=${e.value.defaultImage}' : ''}");
+                                                debugPrint(
+                                                    "Hello ERRO====R $string");
+                                              } catch (e) {
+                                                debugPrint("Hello ERRO====R$e");
+                                              }
+                                            },
+                                            onTapHistory: () {
+                                              //header template history
+                                              priCon.transactionHistoryTemplate(
+                                                  e.value.id);
+                                              showModalBottomSheet(
+                                                context: context,
+                                                isScrollControlled: true,
+                                                shape:
+                                                    const RoundedRectangleBorder(
+                                                  borderRadius:
+                                                      BorderRadius.only(
+                                                          topLeft:
+                                                              Radius.circular(
+                                                                  14),
+                                                          topRight:
+                                                              Radius.circular(
+                                                                  14)),
+                                                ),
+                                                // expand: false,
+                                                backgroundColor: Colors.white,
+                                                builder: (context) =>
+                                                    DraggableScrollableSheet(
+                                                  initialChildSize: 0.64,
+                                                  minChildSize: 0.2,
+                                                  maxChildSize: 0.9,
+                                                  expand: false,
+                                                  builder: (context,
+                                                      scrollController) {
+                                                    return containPopTransactionHistory(
+                                                        scrollController,
+                                                        context,
+                                                        e);
+                                                  },
+                                                ),
+                                              );
+                                            },
+                                          ),
                                         ),
                                       ),
                                     )
@@ -250,128 +257,114 @@ class _GiftMVPFromTemplateScreenState extends State<GiftMVPFromTemplateScreen> {
     );
   }
 
-  ClipRRect containPopTransactionHistory(ScrollController scrollController,
+  containPopTransactionHistory(ScrollController scrollController,
       BuildContext context, MapEntry<int, TemplateGiftMVPModel> e) {
-    return ClipRRect(
-      clipBehavior: Clip.hardEdge,
-      borderRadius: const BorderRadius.only(
-          topLeft: Radius.circular(10), topRight: Radius.circular(10)),
-      child: Stack(
-        children: [
-          Container(
-            color: Colors.white,
-            child: priCon.listTransactionHistoryTemplate.isNotEmpty
-                ? ListView.separated(
-                    controller: scrollController,
-                    separatorBuilder: (context, index) => Divider(
-                      color: Colors.grey[400],
-                      height: 1,
-                    ),
-                    itemCount: priCon.listTransactionHistoryTemplate.length,
-                    itemBuilder: (_, index) => TransactionHistoryTemplate(
-                      id: priCon.listTransactionHistoryTemplate[index].id,
-                      title: priCon
-                          .listTransactionHistoryTemplate[index].walletName,
-                      image: priCon.listTransactionHistoryTemplate[index].image,
-                      defaultImage: priCon
-                          .listTransactionHistoryTemplate[index].defaultImage,
-                      dated: priCon
-                          .listTransactionHistoryTemplate[index].paymentDate,
-                      amount:
-                          priCon.listTransactionHistoryTemplate[index].amount,
-                    ),
-                  )
-                : emtyStateTransactionTemplate(context),
-          ),
-          Container(
-            decoration: const BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(10),
-                    topRight: Radius.circular(10))),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Container(
-                  margin: const EdgeInsets.only(top: 10),
-                  width: 50,
-                  height: 5,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10.0),
-                      color: Colors.grey[300]),
-                ),
-                const SizedBox(
-                  height: 10.0,
-                ),
-                //Header Card Gift Template
-                Padding(
-                  padding: const EdgeInsets.symmetric(
-                      horizontal: 20.0, vertical: 10.0),
-                  child: headerCardGiftTemplate(
-                    context,
+    return Obx(
+      () => priCon.isLoadingTransactionTemplate.value
+          ? loadingTransactionTemplate(
+              context,
+              ChosenMVPModel(
+                id: e.value.id,
+                receiverName: e.value.name,
+                receiverWallet: e.value.walletNumber,
+              ))
+          : priCon.listTransactionHistoryTemplate.isEmpty
+              ? emtyStateTransactionTemplate(
+                  context,
+                  ChosenMVPModel(
                     id: e.value.id,
-                    titleGiftTemplate: e.value.name,
-                    acountNumGiftTemplate: e.value.walletNumber,
+                    receiverName: e.value.name,
+                    receiverWallet: e.value.walletNumber,
+                  ))
+              : ClipRRect(
+                  borderRadius: const BorderRadius.only(
+                      topLeft: Radius.circular(14),
+                      topRight: Radius.circular(14)),
+                  child: Stack(
+                    children: [
+                      Container(
+                          color: Colors.white,
+                          child: ListView.separated(
+                            controller: scrollController,
+                            separatorBuilder: (context, index) => Divider(
+                              color: Colors.grey[400],
+                              height: 1,
+                            ),
+                            itemCount:
+                                priCon.listTransactionHistoryTemplate.length,
+                            itemBuilder: (_, index) =>
+                                TransactionHistoryTemplate(
+                              id: priCon
+                                  .listTransactionHistoryTemplate[index].id,
+                              title: priCon
+                                  .listTransactionHistoryTemplate[index]
+                                  .walletName,
+                              image: priCon
+                                  .listTransactionHistoryTemplate[index].image,
+                              dated: priCon
+                                  .listTransactionHistoryTemplate[index]
+                                  .paymentDate,
+                              amount: priCon
+                                  .listTransactionHistoryTemplate[index].amount,
+                              defaultImage: priCon
+                                  .listTransactionHistoryTemplate[index]
+                                  .defaultImage,
+                            ),
+                          )),
+                      Container(
+                        decoration: const BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.only(
+                                topLeft: Radius.circular(10),
+                                topRight: Radius.circular(10))),
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Container(
+                              margin: const EdgeInsets.only(top: 10),
+                              width: 50,
+                              height: 5,
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(10.0),
+                                  color: Colors.grey[300]),
+                            ),
+                            const SizedBox(
+                              height: 10.0,
+                            ),
+                            //Header Card Gift Template
+                            Padding(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 20.0, vertical: 10.0),
+                              child: headerCardGiftTemplate(
+                                context,
+                                titleGiftTemplate: e.value.name,
+                                acountNumGiftTemplate: e.value.walletNumber,
+                                id: e.value.id,
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.symmetric(
+                                  vertical: 14.0, horizontal: 20.0),
+                              child: Align(
+                                alignment: Alignment.centerLeft,
+                                child: Text(
+                                  'Transaction History',
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .displayMedium!
+                                      .copyWith(
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.w500,
+                                          color: const Color(0xff848F92)),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      )
+                    ],
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(
-                      vertical: 14.0, horizontal: 20.0),
-                  child: Align(
-                    alignment: Alignment.centerLeft,
-                    child: Text(
-                      'Transaction History',
-                      style: Theme.of(context)
-                          .textTheme
-                          .displayMedium!
-                          .copyWith(
-                              fontSize: 16,
-                              fontWeight: FontWeight.w500,
-                              color: const Color(0xff848F92)),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          )
-        ],
-      ),
-    );
-  }
-
-  Container emtyStateTransactionTemplate(BuildContext context) {
-    return Container(
-      color: Colors.white,
-      width: double.infinity,
-      padding: const EdgeInsets.only(top: 90.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Image.asset(
-            'assets/images/emptyState.png',
-            width: 200,
-            height: 200,
-          ),
-          Text(
-            'No Transaction History',
-            style: Theme.of(context)
-                .textTheme
-                .headlineMedium!
-                .copyWith(fontWeight: FontWeight.w600),
-          ),
-          const SizedBox(
-            height: 6.0,
-          ),
-          Text(
-            'No Transaction History Here !',
-            style: Theme.of(context)
-                .textTheme
-                .displayMedium!
-                .copyWith(fontWeight: FontWeight.w400),
-            textAlign: TextAlign.center,
-          ),
-        ],
-      ),
     );
   }
 }
