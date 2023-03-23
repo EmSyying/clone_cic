@@ -1325,9 +1325,9 @@ class PrivilegeController extends GetxController {
       await _uploadImageController.uploadImage(
         endPoint: 'create-template',
         body: {
-          'image': templateImage.toString(),
           'receiver': receiveWalletNumberController.value.text,
           'template_name': templateName.value,
+          'image': templateImage.toString(),
         },
       ).then((response) async {
         debugPrint('--------------- Success $response');
@@ -1346,6 +1346,8 @@ class PrivilegeController extends GetxController {
             },
           );
         }
+        listGiftTemplate.clear();
+        fetchListTemplate();
         loadingCreateTemplate(false);
         update();
       }).onError((ErrorModel error, stackTrace) {
@@ -1405,10 +1407,10 @@ class PrivilegeController extends GetxController {
 
   ///Delete template
   // Hany
-  final isDeletTemplate = false.obs;
+
   Future<void> deleteTemplate(BuildContext context, int? id,
       {bool isFromChosenTemplate = false}) async {
-    isDeletTemplate(true);
+    isLoadingTemplate(true);
     try {
       await apiBaseHelper
           .onNetworkRequesting(
@@ -1424,13 +1426,11 @@ class PrivilegeController extends GetxController {
           description: 'Your template has been deleted Successfully!',
         );
 
-        isDeletTemplate(false);
-
+        fetchListTemplate(); //do not remove it because I fetch templated list when i deleted template thanks
+        isLoadingTemplate(false);
         if (isFromChosenTemplate) {
           context.pop();
         }
-        fetchListTemplate();
-
         update();
       }).onError((ErrorModel error, stackTrace) async {
         debugPrint('hany test delete====Template=====${error.bodyString}');
@@ -1439,52 +1439,48 @@ class PrivilegeController extends GetxController {
             description: 'Your template has been deleted failed!',
             type: SnackType.error);
 
-        isDeletTemplate(false);
+        isLoadingTemplate(false);
       });
     } catch (e) {
-      isDeletTemplate(false);
+      isLoadingTemplate(false);
       debugPrint("====>:$e");
     } finally {
-      isDeletTemplate(false);
+      isLoadingTemplate(false);
     }
   }
 
   //Updated or Edite Template Gift MVP
-  final isLoadingUpdatedTemplate = false.obs;
-
   Future<void> updatedTemplate(BuildContext context, int templateId) async {
     loadingCreateTemplate(true);
-    var body = {
-      'template_id': templateId,
-      'template_name': templatRecieverNameController.text,
-      'wallet_number':
-          receiveWalletNumberController.value.text.removeAllWhitespace,
-      'image': templateImage.toString(),
-    };
-    debugPrint("BODY$body");
+    debugPrint('Imagae Name : ${templateImage.toString()}');
+    debugPrint('Template Name : ${templatRecieverNameController.text}');
     try {
-      await apiBaseHelper
-          .onNetworkRequesting(
-              url: 'template',
-              methode: METHODE.post,
-              isAuthorize: true,
-              body: body)
-          .then((value) async {
-        await fetchListTemplate();
-        if (context.mounted) {
-          context.pushNamed(
-            'SuccessScreen',
-            queryParams: {
-              'title': 'Success',
-              'description': 'Template has been edited Successfully'
-            },
-            extra: {
-              'onPressedButton': () {
-                context.go('/mymvp/gift-mvp-option/gift-mvp-template');
-              }
-            },
-          );
-        }
+      await apiBaseHelper.onNetworkRequesting(
+        url: 'template',
+        methode: METHODE.post,
+        isAuthorize: true,
+        body: {
+          'template_id': templateId,
+          'wallet_number':
+              receiveWalletNumberController.value.text.removeAllWhitespace,
+          'template_name': templateName.value,
+          'image': templateImage.toString(),
+        },
+      ).then((value) async {
+        context.pushNamed(
+          'SuccessScreen',
+          queryParams: {
+            'title': 'Success',
+            'description': 'Template has been edited Successfully'
+          },
+          extra: {
+            'onPressedButton': () {
+              context.go('/mymvp/gift-mvp-option/gift-mvp-template');
+            }
+          },
+        );
+        listGiftTemplate.clear();
+        fetchListTemplate();
         loadingCreateTemplate(false);
       }).onError((ErrorModel error, stackTrace) {
         final message = error.bodyString['message'];

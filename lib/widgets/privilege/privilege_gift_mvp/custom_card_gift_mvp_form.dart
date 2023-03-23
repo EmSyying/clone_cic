@@ -60,7 +60,7 @@ class CustomCardGiftMVPForm extends StatelessWidget {
               // ),
             ),
             alignment: Alignment.center,
-            clipBehavior: Clip.antiAlias,
+            clipBehavior: Clip.hardEdge,
             child: imageAccount != null
                 ? CachedNetworkImage(
                     imageUrl: imageAccount ?? '',

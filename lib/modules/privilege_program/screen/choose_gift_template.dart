@@ -280,7 +280,9 @@ class ChooseGiftTemplateScreen extends StatelessWidget {
                         var string = GoRouterState.of(context).location;
                         if (chosenMVPModel != null) {
                           context.push(
-                              "$string/create-template?templatId=${chosenMVPModel!.id}&recieverWalletNumber=${chosenMVPModel!.receiverWallet}&templateName=${chosenMVPModel!.receiverName}&templateImg=${chosenMVPModel!.imageUrl}");
+                              "$string/create-template?templatId=${chosenMVPModel!.id}&recieverWalletNumber=${chosenMVPModel!.receiverWallet}&templateName=${chosenMVPModel!.receiverName}${chosenMVPModel!.imageUrl != null ? '&templateImg=${chosenMVPModel!.imageUrl}' : ''}${chosenMVPModel!.defaultImageLetter != null ? '&defaultImage=${chosenMVPModel!.defaultImageLetter}' : ''}");
+                          // context.push(
+                          //     "$string/create-template?templatId=${chosenMVPModel!.id}&recieverWalletNumber=${chosenMVPModel!.receiverWallet}&templateName=${chosenMVPModel!.receiverName}&templateImg=${chosenMVPModel!.imageUrl}");
                         }
 
                         debugPrint("Hello ERRO====R $string");

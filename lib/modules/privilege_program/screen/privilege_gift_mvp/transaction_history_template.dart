@@ -40,7 +40,7 @@ class TransactionHistoryTemplate extends StatelessWidget {
               )
             ],
           ),
-          clipBehavior: Clip.antiAlias,
+          clipBehavior: Clip.hardEdge,
           alignment: Alignment.center,
           child: image != null
               ? CachedNetworkImage(

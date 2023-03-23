@@ -161,23 +161,21 @@ class _GiftMVPFromTemplateScreenState extends State<GiftMVPFromTemplateScreen> {
                                               imageAccount: e.value.image,
                                               defaultImage:
                                                   e.value.defaultImage,
-                                              onTapDeleted: () async {
-                                                context.pop();
-
-                                                await priCon.deleteTemplate(
+                                              onTapDeleted: () {
+                                                priCon.deleteTemplate(
                                                   context,
                                                   id = e.value.id,
                                                 );
+                                                // priCon.isDeletTemplate.value;
                                               },
                                               onTapEdit: () {
-                                                context.pop();
                                                 try {
                                                   var string =
                                                       GoRouterState.of(context)
                                                           .location;
 
                                                   context.push(
-                                                      "$string/create-template?templatId=${e.value.id}&recieverWalletNumber=${e.value.walletNumberNoFormat}&templateName=${e.value.name}&templateImg=${e.value.image}");
+                                                      "$string/create-template?templatId=${e.value.id}&recieverWalletNumber=${e.value.walletNumberNoFormat}&templateName=${e.value.name}${e.value.image != null ? '&templateImg=${e.value.image}' : ''}${e.value.defaultImage != null ? '&defaultImage=${e.value.defaultImage}' : ''}");
                                                   debugPrint(
                                                       "Hello ERRO====R $string");
                                                 } catch (e) {

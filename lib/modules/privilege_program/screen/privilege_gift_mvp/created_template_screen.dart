@@ -90,6 +90,8 @@ class _CreateTemplateScreenState extends State<CreateTemplateScreen> {
 
   @override
   void initState() {
+    // debugPrint(
+    //     'Image : ${widget.templateImg} => ${widget.templateImg.runtimeType}');
     _initValue();
     super.initState();
   }
@@ -228,7 +230,8 @@ class _CreateTemplateScreenState extends State<CreateTemplateScreen> {
                                             image!,
                                             fit: BoxFit.cover,
                                           )
-                                        : widget.templateImg != null
+                                        : widget.templateImg != null &&
+                                                widget.templateImg != ''
                                             ? Image.network(
                                                 widget.templateImg ?? "",
                                                 fit: BoxFit.cover,
@@ -356,7 +359,8 @@ class _CreateTemplateScreenState extends State<CreateTemplateScreen> {
                           width: double.infinity,
                           onPressed: () async {
                             if (widget.templatId != null) {
-                              debugPrint("Hello ID ${widget.templatId}");
+                              debugPrint(
+                                  "id updated templated====== ${widget.templatId}");
                               await privilegeController.updatedTemplate(
                                   context, widget.templatId!);
                             } else {

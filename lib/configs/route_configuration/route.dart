@@ -585,6 +585,8 @@ final router = GoRouter(
                                                 .queryParams['templateName'],
                                             templateImg: state
                                                 .queryParams['templateImg'],
+                                            defaultImage: state
+                                                .queryParams['defaultImage'],
                                           ),
                                       routes: [
                                         GoRoute(
@@ -632,6 +634,8 @@ final router = GoRouter(
                                           state.queryParams['templateName'],
                                       templateImg:
                                           state.queryParams['templateImg'],
+                                      defaultImage:
+                                          state.queryParams['defaultImage'],
                                     ),
                                   ),
                                   GoRoute(
