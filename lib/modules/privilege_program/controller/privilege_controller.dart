@@ -1269,6 +1269,14 @@ class PrivilegeController extends GetxController {
   }
 
   // final modelGiftMVPTemplate = TemplateGiftMVPModel().obs;
+  final listColors = <Color>[
+    const Color(0xffEC4C53),
+    const Color(0xffFF9700),
+    const Color(0xff00B4E9),
+    const Color(0xff00AB65),
+    const Color(0xffC038DF),
+    const Color(0xff0084FF)
+  ];
   final listGiftTemplate = <TemplateGiftMVPModel>[].obs;
   final isLoadingTemplate = false.obs;
 

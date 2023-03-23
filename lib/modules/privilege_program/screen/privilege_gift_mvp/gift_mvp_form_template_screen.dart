@@ -154,6 +154,8 @@ class _GiftMVPFromTemplateScreenState extends State<GiftMVPFromTemplateScreen> {
                                             }
                                           },
                                           child: CustomCardGiftMVPForm(
+                                              backgroundColor:
+                                                  priCon.listColors[e.key % 6],
                                               id: e.value.id,
                                               acountName: e.value.name,
                                               accountNumber:
