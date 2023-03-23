@@ -58,15 +58,6 @@ class _GiftMVPTransferScreenState extends State<GiftMVPTransferScreen> {
   final privilegeController = Get.put(PrivilegeController());
   final walletController = Get.put(WalletController());
 
-  final listColor = <Color>[
-    const Color(0xffEC4C53),
-    const Color(0xffFF9700),
-    const Color(0xff00B4E9),
-    const Color(0xff00AB65),
-    const Color(0xffC038DF),
-    const Color(0xff0084FF)
-  ];
-
   void _showTemplate(BuildContext context) {
     privilegeController.fetchListTemplate();
     showModalBottomSheet(
@@ -154,18 +145,13 @@ class _GiftMVPTransferScreenState extends State<GiftMVPTransferScreen> {
                                           Navigator.pop(context);
                                         },
                                         child: CustomCardGiftMVPForm(
-                                          backgroundColor: listColor[(5 -
-                                                  ((privilegeController
-                                                              .listGiftTemplate
-                                                              .length -
-                                                          index +
-                                                          1) %
-                                                      6))
-                                              .toInt()],
+                                          backgroundColor: privilegeController
+                                              .listColors[index % 6],
                                           id: item.id,
                                           acountName: item.name,
                                           accountNumber: item.walletNumber,
                                           imageAccount: item.image,
+                                          defaultImage: item.defaultImage,
                                         ),
                                       );
                                     },

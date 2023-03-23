@@ -54,27 +54,25 @@ class CustomCardGiftMVPForm extends StatelessWidget {
             decoration: BoxDecoration(
               shape: BoxShape.circle,
               color: backgroundColor,
-              // image: DecorationImage(
-              //   image: NetworkImage(
-              //     imageAccount ?? '',
-              //   ),
-              //   fit: BoxFit.cover,
-              // ),
+             
             ),
-            alignment: Alignment.center,
             clipBehavior: Clip.hardEdge,
             child: imageAccount != null
                 ? CachedNetworkImage(
                     imageUrl: imageAccount ?? '',
                     fit: BoxFit.cover,
                   )
-                : Text(
-                    defaultImage ?? ' ',
-                    style: Theme.of(context).textTheme.displayMedium!.copyWith(
-                          fontSize: 14,
-                          fontWeight: FontWeight.w700,
-                          overflow: TextOverflow.ellipsis,
-                        ),
+                : Center(
+                    child: Text(
+                      defaultImage ?? '',
+                      style:
+                          Theme.of(context).textTheme.displayMedium!.copyWith(
+                                color: Colors.white,
+                                fontSize: 16,
+                                fontWeight: FontWeight.w700,
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                    ),
                   ),
           ),
           const SizedBox(
