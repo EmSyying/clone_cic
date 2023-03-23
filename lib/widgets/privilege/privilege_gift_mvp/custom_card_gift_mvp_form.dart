@@ -12,6 +12,7 @@ class CustomCardGiftMVPForm extends StatelessWidget {
   final String? accountNumber;
   final String? imageAccount;
   final String? defaultImage;
+  final Color? backgroundColor;
   final GestureTapCallback? onTapHistory;
   final GestureTapCallback? onTapEdit;
   final GestureTapCallback? onTapDeleted;
@@ -26,6 +27,7 @@ class CustomCardGiftMVPForm extends StatelessWidget {
     this.onTapDeleted,
     this.id,
     this.defaultImage,
+    this.backgroundColor,
   });
 
   @override
@@ -51,7 +53,7 @@ class CustomCardGiftMVPForm extends StatelessWidget {
             height: 42,
             decoration: BoxDecoration(
               shape: BoxShape.circle,
-              color: Colors.blueAccent.withOpacity(0.1),
+              color: backgroundColor,
               // image: DecorationImage(
               //   image: NetworkImage(
               //     imageAccount ?? '',
