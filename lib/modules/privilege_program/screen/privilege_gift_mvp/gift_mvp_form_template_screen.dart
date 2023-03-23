@@ -200,7 +200,6 @@ class _GiftMVPFromTemplateScreenState extends State<GiftMVPFromTemplateScreen> {
                                                               Radius.circular(
                                                                   14)),
                                                 ),
-                                                // expand: false,
                                                 backgroundColor: Colors.white,
                                                 builder: (context) =>
                                                     DraggableScrollableSheet(
@@ -296,6 +295,7 @@ class _GiftMVPFromTemplateScreenState extends State<GiftMVPFromTemplateScreen> {
                                 priCon.listTransactionHistoryTemplate.length,
                             itemBuilder: (_, index) =>
                                 TransactionHistoryTemplate(
+                              backgroundColor: priCon.listColors[index % 6],
                               id: priCon
                                   .listTransactionHistoryTemplate[index].id,
                               title: priCon
