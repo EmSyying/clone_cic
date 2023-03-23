@@ -41,7 +41,6 @@ class TransactionHistoryTemplate extends StatelessWidget {
             ],
           ),
           clipBehavior: Clip.hardEdge,
-          alignment: Alignment.center,
           child: image != null
               ? CachedNetworkImage(
                   imageUrl: image ?? '',

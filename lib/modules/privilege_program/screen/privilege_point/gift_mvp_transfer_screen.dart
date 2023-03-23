@@ -3,12 +3,15 @@ import 'dart:io';
 import 'package:cicgreenloan/utils/helper/color.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../../Utils/form_builder/custom_button.dart';
 import '../../../../Utils/form_builder/custom_textformfield.dart';
+import '../../../../Utils/function/format_account_number.dart';
+import '../../../../Utils/function/format_date_time.dart';
 import '../../../../Utils/helper/custom_appbar_colorswhite.dart';
 import '../../../../widgets/privilege/custom_card_current_point.dart';
 import '../../../../widgets/privilege/privilege_gift_mvp/custom_card_gift_mvp_form.dart';
@@ -133,9 +136,11 @@ class _GiftMVPTransferScreenState extends State<GiftMVPTransferScreen> {
                                       return GestureDetector(
                                         onTap: () {
                                           privilegeController
-                                                  .receiveWalletNumberController
-                                                  .text =
-                                              item.walletNumberNoFormat ?? '';
+                                              .receiveWalletNumberController
+                                              .text = FormatDate
+                                                  .formatAccountNumber(item
+                                                      .walletNumberNoFormat) ??
+                                              '';
                                           privilegeController
                                               .inputRecieverWalletChanged(
                                                   privilegeController
@@ -241,8 +246,9 @@ class _GiftMVPTransferScreenState extends State<GiftMVPTransferScreen> {
                                 .isGiftMVPVerifyAccountValidateMessage.value,
                             controller: privilegeController
                                 .receiveWalletNumberController,
-                            inputFormatterList: const [
-                              // AccountNumberFormatter(),
+                            inputFormatterList: [
+                              FilteringTextInputFormatter.digitsOnly,
+                              AccountNumberFormatter()
                             ],
                             keyboardType: const TextInputType.numberWithOptions(
                               decimal: false,

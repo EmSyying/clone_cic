@@ -1333,7 +1333,8 @@ class PrivilegeController extends GetxController {
       await _uploadImageController.uploadImage(
         endPoint: 'create-template',
         body: {
-          'receiver': receiveWalletNumberController.value.text,
+          'receiver':
+              receiveWalletNumberController.value.text.removeAllWhitespace,
           'template_name': templateName.value,
           'image': templateImage.toString(),
         },

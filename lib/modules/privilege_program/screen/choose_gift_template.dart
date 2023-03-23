@@ -567,8 +567,8 @@ Widget emtyStateTransactionTemplate(
                     children: [
                       Image.asset(
                         'assets/images/emptyState.png',
-                        // width: 180,
-                        // height: 180,
+                        width: 250,
+                        height: 250,
                       ),
                       Text(
                         'No Transaction History',
