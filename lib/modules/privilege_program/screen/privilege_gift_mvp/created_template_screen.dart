@@ -14,6 +14,7 @@ import 'package:image_picker/image_picker.dart';
 
 import '../../../../Utils/form_builder/custom_button.dart';
 import '../../../../Utils/form_builder/custom_textformfield.dart';
+import '../../../../Utils/function/format_date_time.dart';
 import '../../../../Utils/helper/custom_appbar_colorswhite.dart';
 import '../../controller/privilege_controller.dart';
 
@@ -79,9 +80,11 @@ class _CreateTemplateScreenState extends State<CreateTemplateScreen> {
     if (widget.templatId != null) {
       debugPrint('Update');
       var wallet = widget.recieverWalletNumber ?? '';
-      wallet = wallet.replaceAll(" | MVP", "");
+      wallet = wallet.replaceAll(" | MVP", "").removeAllWhitespace;
+      // wallet.
       debugPrint("wallet==$wallet");
-      privilegeController.receiveWalletNumberController.text = wallet;
+      privilegeController.receiveWalletNumberController.text =
+          FormatDate.formatAccountNumber(wallet).toString();
       privilegeController.templatRecieverNameController.text =
           widget.templateName ?? '';
       privilegeController.inputRecieverWalletChanged(

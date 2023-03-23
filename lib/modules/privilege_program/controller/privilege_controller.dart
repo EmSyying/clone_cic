@@ -1181,7 +1181,7 @@ class PrivilegeController extends GetxController {
 
   //textfield onChanged
   void inputRecieverWalletChanged(String value) {
-    receiveWalletNumber.value = value.removeAllWhitespace;
+    receiveWalletNumber.value = value;
     _inputWalletDebounce.listener(() async {
       await validateMVPaccount(value.removeAllWhitespace).then((res) {
         receiveWalletNumber.value = value.removeAllWhitespace;
