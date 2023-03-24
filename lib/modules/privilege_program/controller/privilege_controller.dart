@@ -1480,7 +1480,7 @@ class PrivilegeController extends GetxController {
           'SuccessScreen',
           queryParams: {
             'title': 'Success',
-            'description': 'Template has been created Successfully'
+            'description': 'Template has been updated Successfully'
           },
           extra: {
             'onPressedButton': () {

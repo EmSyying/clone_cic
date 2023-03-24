@@ -201,7 +201,6 @@ class _GiftMVPFromTemplateScreenState extends State<GiftMVPFromTemplateScreen> {
                                                               Radius.circular(
                                                                   14)),
                                                 ),
-                                                // expand: false,
                                                 backgroundColor: Colors.white,
                                                 builder: (context) =>
                                                     DraggableScrollableSheet(

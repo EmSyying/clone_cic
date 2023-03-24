@@ -9,6 +9,7 @@ class TransactionHistoryTemplate extends StatelessWidget {
   final String? amountColorType;
   final String? defaultImage;
   final int? id;
+  final Color? backgroundColor;
   const TransactionHistoryTemplate({
     super.key,
     this.dated,
@@ -18,6 +19,7 @@ class TransactionHistoryTemplate extends StatelessWidget {
     this.amountColorType,
     this.id,
     this.defaultImage,
+    this.backgroundColor,
   });
 
   @override
@@ -31,7 +33,8 @@ class TransactionHistoryTemplate extends StatelessWidget {
           height: 42,
           decoration: BoxDecoration(
             shape: BoxShape.circle,
-            color: Colors.white,
+            color: backgroundColor,
+            //color: Colors.white,
             boxShadow: [
               BoxShadow(
                 color: Colors.grey.withAlpha(25),
@@ -46,13 +49,16 @@ class TransactionHistoryTemplate extends StatelessWidget {
                   imageUrl: image ?? '',
                   fit: BoxFit.cover,
                 )
-              : Text(
-                  defaultImage ?? ' ',
-                  style: Theme.of(context).textTheme.displayMedium!.copyWith(
-                        fontSize: 14,
-                        fontWeight: FontWeight.w700,
-                        overflow: TextOverflow.ellipsis,
-                      ),
+              : Center(
+                  child: Text(
+                    defaultImage ?? ' ',
+                    style: Theme.of(context).textTheme.displayMedium!.copyWith(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w700,
+                          overflow: TextOverflow.ellipsis,
+                          color: Colors.white,
+                        ),
+                  ),
                 ),
         ),
         const SizedBox(
