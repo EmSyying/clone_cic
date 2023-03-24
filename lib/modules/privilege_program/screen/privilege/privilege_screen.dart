@@ -12,7 +12,6 @@ import 'package:go_router/go_router.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import '../../../../Utils/custom_indicatior.dart';
 import '../../../../Utils/form_builder/custom_material_modal_sheet.dart';
-import '../../../../Utils/function/format_to_k.dart';
 import '../../../../Utils/helper/firebase_analytics.dart';
 import '../../../../utils/permission/controller/permision_controller.dart';
 import '../../../../widgets/privilege/custom_row_filter.dart';
@@ -53,6 +52,8 @@ class _PrivilegeScreenState extends State<PrivilegeScreen> {
 
   @override
   void initState() {
+    // debugPrint(
+    //     "testing ############# : ${_walletController.mvpBalance.value.mvpAmount}");
     _permissionController.checkLocationPermission();
     _walletController.onFetchMyPoin();
 
@@ -122,28 +123,32 @@ class _PrivilegeScreenState extends State<PrivilegeScreen> {
                       // _walletController.myPoint.value >= 999 ? 5.0 : 12.0,
                       top: 8.0,
                       child: Obx(
-                        () => Container(
-                          decoration: BoxDecoration(
-                            color: Colors.red[400],
-                            borderRadius: BorderRadius.circular(3.0),
-                          ),
-                          height: 14,
-                          child: Center(
-                            child: Padding(
-                              padding: const EdgeInsets.only(
-                                left: 3,
-                                right: 3,
+                        () => _walletController
+                                    .mvpBalance.value.mvpAmountFormat ==
+                                null
+                            ? Container()
+                            : Container(
+                                decoration: BoxDecoration(
+                                  color: Colors.red[400],
+                                  borderRadius: BorderRadius.circular(3.0),
+                                ),
+                                height: 14,
+                                child: Center(
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(
+                                      left: 3,
+                                      right: 3,
+                                    ),
+                                    child: Text(
+                                      // FormatToK.convertNumber(_walletController
+                                      //         .mvpBalance.value.mvpAmount ??""
+                                      "${_walletController.mvpBalance.value.mvpAmountFormat}",
+                                      style: const TextStyle(
+                                          color: Colors.white, fontSize: 9),
+                                    ),
+                                  ),
+                                ),
                               ),
-                              child: Text(
-                                FormatToK.convertNumber(_walletController
-                                        .mvpBalance.value.mvpAmount ??
-                                    0.00),
-                                style: const TextStyle(
-                                    color: Colors.white, fontSize: 9),
-                              ),
-                            ),
-                          ),
-                        ),
                       ),
                     ),
                   ],

@@ -257,9 +257,10 @@ class _PrivilegePointScreenState extends State<PrivilegePointScreen> {
                                     height: 10,
                                   ),
                                   Text(
-                                    _walletController
-                                            .mvpBalance.value.mvpAmountFormat ??
-                                        '0.00',
+                                    "${_walletController.mvpBalance.value.mvpAmountFormat}"
+                                    // _walletController
+                                    //         .mvpBalance.value.mvpAmountFormat ??
+                                    ,
                                     style: textStyle.copyWith(
                                         fontWeight: FontWeight.w700,
                                         fontSize: 30),
