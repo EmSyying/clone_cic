@@ -13,6 +13,7 @@ import 'package:share_plus/share_plus.dart';
 import '../../../../Utils/form_builder/custom_button.dart';
 import '../../../../Utils/helper/color.dart';
 import '../../../../Utils/helper/custom_route_snackbar.dart';
+import '../../../../widgets/privilege/privilege/custom_card_invoice.dart';
 import '../../../../widgets/wallets/custom_positioned_boxshape_circle.dart';
 
 class GiftMVPSuccessfully extends StatelessWidget {
@@ -363,32 +364,6 @@ class GiftMVPSuccessfully extends StatelessWidget {
             ],
           ),
         ),
-      ),
-    );
-  }
-
-  Widget summeryLabel(BuildContext context, {String? label, String? value}) {
-    return Padding(
-      padding: const EdgeInsets.only(top: 14.0),
-      child: Row(
-        children: [
-          Text(
-            label ?? '',
-            style: Theme.of(context).textTheme.displayMedium!.copyWith(
-                  fontWeight: FontWeight.w400,
-                  fontSize: 14,
-                  color: const Color(0xff464646),
-                ),
-          ),
-          const Spacer(),
-          Text(
-            value ?? '',
-            style: Theme.of(context).textTheme.displayMedium!.copyWith(
-                  fontWeight: FontWeight.w600,
-                  fontSize: 12.0,
-                ),
-          ),
-        ],
       ),
     );
   }

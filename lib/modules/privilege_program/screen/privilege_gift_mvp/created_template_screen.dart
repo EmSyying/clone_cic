@@ -334,19 +334,24 @@ class _CreateTemplateScreenState extends State<CreateTemplateScreen> {
                                   .isGiftMVPVerifyAccountValidate.value
                               ? 10
                               : 0),
-                      CustomTextFieldNew(
-                        controller:
-                            privilegeController.templatRecieverNameController,
-                        keyboardType: TextInputType.name,
-                        hintText: 'Template Name',
-                        onChange: (name) {
-                          privilegeController.templateName.value = name;
-                        },
-                        isValidate: true,
-                        labelText: 'Template Name',
-                        initialValue: privilegeController
-                            .templatRecieverNameController.text,
-                      ),
+                      GetBuilder(
+                          init: privilegeController,
+                          builder: (_) {
+                            return CustomTextFieldNew(
+                              controller: privilegeController
+                                  .templatRecieverNameController,
+                              keyboardType: TextInputType.name,
+                              hintText: 'Template Name',
+                              onChange: (name) {
+                                privilegeController.templateName.value = name;
+                                privilegeController.update();
+                              },
+                              isValidate: true,
+                              labelText: 'Template Name',
+                              initialValue: privilegeController
+                                  .templatRecieverNameController.text,
+                            );
+                          }),
                     ],
                   ),
                 ),
