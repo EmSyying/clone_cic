@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'dart:ui';
 
+import 'package:cicgreenloan/Utils/function/format_date_time.dart';
 import 'package:cicgreenloan/modules/privilege_program/screen/privilege_gift_mvp/transaction_history_template.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -825,7 +826,7 @@ class BodyWidget extends StatelessWidget {
                             fontSize: 16,
                           ),
                           text:
-                              "${walletController!.mvpBalance.value.mvpWalletNumber}"
+                              "${FormatDate.formatAccountNumber(walletController!.mvpBalance.value.mvpWalletNumber)}"
                               " | ",
                           children: [
                             TextSpan(
@@ -894,7 +895,7 @@ class BodyWidget extends StatelessWidget {
                     CustomTextFieldNew(
                       enable: true,
                       isRequired: false,
-                      controller: privilegeController!.mvpGiftRemark,
+                      controller: privilegeController!.mvpGiftRemark.value,
                       keyboardType: TextInputType.text,
                       hintText: 'Remark',
                       onChange: (phone) {

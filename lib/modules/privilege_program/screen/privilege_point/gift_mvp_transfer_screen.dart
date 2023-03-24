@@ -11,13 +11,13 @@ import 'package:go_router/go_router.dart';
 import '../../../../Utils/form_builder/custom_button.dart';
 import '../../../../Utils/form_builder/custom_textformfield.dart';
 import '../../../../Utils/function/format_account_number.dart';
+import '../../../../Utils/function/format_date_time.dart';
 import '../../../../Utils/helper/custom_appbar_colorswhite.dart';
 import '../../../../widgets/privilege/custom_card_current_point.dart';
 import '../../../../widgets/privilege/privilege_gift_mvp/custom_bottom_popup.dart';
 import '../../../../widgets/privilege/privilege_gift_mvp/custom_card_gift_mvp_form.dart';
 import '../../../wallet/controller/wallet_controller.dart';
 import '../../controller/privilege_controller.dart';
-import '../choose_gift_template.dart';
 
 class GiftMVPTransferScreen extends StatefulWidget {
   const GiftMVPTransferScreen({super.key, this.walletNumber, this.amount = ""});
@@ -55,7 +55,9 @@ class _GiftMVPTransferScreenState extends State<GiftMVPTransferScreen> {
 
   @override
   void initState() {
-    _initialData();
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      _initialData();
+    });
     super.initState();
   }
 
@@ -69,11 +71,11 @@ class _GiftMVPTransferScreenState extends State<GiftMVPTransferScreen> {
       backgroundColor: Colors.transparent,
       context: context,
       isScrollControlled: true,
-      builder: (context) => Stack(
+      builder: (_) => Stack(
         children: [
           GestureDetector(
             onTap: () {
-              Navigator.pop(context);
+              Navigator.pop(_);
             },
             child: Container(
               width: double.infinity,
@@ -93,8 +95,7 @@ class _GiftMVPTransferScreenState extends State<GiftMVPTransferScreen> {
                 initialChildSize: 0.5,
                 maxChildSize: .95,
                 minChildSize: 0.5,
-                builder:
-                    (BuildContext context, ScrollController scrollController) {
+                builder: (BuildContext __, ScrollController scrollController) {
                   return Container(
                     clipBehavior: Clip.antiAlias,
                     decoration: BoxDecoration(
@@ -126,122 +127,123 @@ class _GiftMVPTransferScreenState extends State<GiftMVPTransferScreen> {
                               () => privilegeController.isLoadingTemplate.value
                                   ? const Center(
                                       child: CircularProgressIndicator())
-                                  : Column(
-                                      children: priCon.listGiftTemplate
-                                          .asMap()
-                                          .entries
-                                          .map(
-                                            (e) => Padding(
-                                              padding: const EdgeInsets.only(
-                                                  bottom: 16.0),
-                                              child: GestureDetector(
-                                                onTap: () {
-                                                  try {
-                                                    var string =
-                                                        GoRouterState.of(
-                                                                context)
-                                                            .location;
-                                                    priCon
-                                                        .onClearChosenGiftMVPField();
-                                                    context.push(
-                                                        "$string/choosen-template",
-                                                        extra: ChosenMVPModel(
-                                                          id: e.value.id,
-                                                          imageUrl:
-                                                              e.value.image,
-                                                          defaultImageLetter: e
-                                                              .value
-                                                              .defaultImage,
-                                                          receiverName:
-                                                              e.value.name,
-                                                          receiverWallet: e
-                                                              .value
-                                                              .walletNumber,
-                                                        ));
-                                                  } catch (e) {
-                                                    debugPrint("Hello ERROR$e");
-                                                  }
-                                                },
-                                                child: CustomCardGiftMVPForm(
-                                                  backgroundColor: priCon
-                                                      .listColors[e.key % 6],
-                                                  id: e.value.id,
-                                                  acountName: e.value.name,
-                                                  accountNumber:
-                                                      e.value.walletNumber,
-                                                  imageAccount: e.value.image,
-                                                  defaultImage:
-                                                      e.value.defaultImage,
-                                                  // onTapDeleted: () {
-                                                  //   priCon.deleteTemplate(
-                                                  //     context,
-                                                  //     e.value.id,
-                                                  //   );
-                                                  //   // priCon.isDeletTemplate.value;
-                                                  // },
-                                                  onTapEdit: () {
-                                                    debugPrint(
-                                                        "--------Testing tttttttttt:");
-                                                    try {
-                                                      var string =
-                                                          GoRouterState.of(
-                                                                  context)
-                                                              .location;
-                                                      debugPrint(
-                                                          "--------Testing tttttttttt: $string");
-                                                      context.push(
-                                                          "/gift-mvp-template/create-template?templatId=${e.value.id}&recieverWalletNumber=${e.value.walletNumberNoFormat}&templateName=${e.value.name}${e.value.image != null ? '&templateImg=${e.value.image}' : ''}${e.value.defaultImage != null ? '&defaultImage=${e.value.defaultImage}' : ''}");
-                                                      debugPrint(
-                                                          "Hello ERRO====R $string");
-                                                    } catch (e) {
-                                                      debugPrint(
-                                                          "Hello ERRO====R$e");
-                                                    }
-                                                  },
-                                                  onTapHistory: () {
-                                                    //header template history
-                                                    priCon
-                                                        .transactionHistoryTemplate(
-                                                            e.value.id);
-                                                    showModalBottomSheet(
-                                                      context: context,
-                                                      isScrollControlled: true,
-                                                      shape:
-                                                          const RoundedRectangleBorder(
-                                                        borderRadius:
-                                                            BorderRadius.only(
+                                  : SingleChildScrollView(
+                                      controller: scrollController,
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(20),
+                                        child: Column(
+                                          children: priCon.listGiftTemplate
+                                              .asMap()
+                                              .entries
+                                              .map(
+                                                (e) => Padding(
+                                                  padding:
+                                                      const EdgeInsets.only(
+                                                          bottom: 16.0),
+                                                  child: GestureDetector(
+                                                    onTap: () {
+                                                      privilegeController
+                                                          .receiveWalletNumberController
+                                                          .text = FormatDate
+                                                              .formatAccountNumber(e
+                                                                  .value
+                                                                  .walletNumberNoFormat) ??
+                                                          '';
+                                                      privilegeController
+                                                          .inputRecieverWalletChanged(
+                                                              privilegeController
+                                                                  .receiveWalletNumberController
+                                                                  .text);
+
+                                                      Navigator.pop(__);
+                                                    },
+                                                    child:
+                                                        CustomCardGiftMVPForm(
+                                                      backgroundColor:
+                                                          priCon.listColors[
+                                                              e.key % 6],
+                                                      id: e.value.id,
+                                                      acountName: e.value.name,
+                                                      accountNumber:
+                                                          e.value.walletNumber,
+                                                      imageAccount:
+                                                          e.value.image,
+                                                      defaultImage:
+                                                          e.value.defaultImage,
+                                                      // onTapDeleted: () {
+                                                      //   priCon.deleteTemplate(
+                                                      //     context,
+                                                      //     e.value.id,
+                                                      //   );
+                                                      //   // priCon.isDeletTemplate.value;
+                                                      // },
+                                                      onTapEdit: () {
+                                                        debugPrint(
+                                                            "--------Testing tttttttttt:");
+                                                        try {
+                                                          final string =
+                                                              GoRouterState.of(
+                                                                      context)
+                                                                  .location;
+
+                                                          debugPrint(
+                                                              'Parent Route => $string');
+
+                                                          context.push(
+                                                              "$string/create-template?templatId=${e.value.id}&recieverWalletNumber=${e.value.walletNumberNoFormat}&templateName=${e.value.name}${e.value.image != null ? '&templateImg=${e.value.image}' : ''}${e.value.defaultImage != null ? '&defaultImage=${e.value.defaultImage}' : ''}");
+                                                        } catch (e) {
+                                                          debugPrint(
+                                                              "Hello ERRO====R$e");
+                                                        }
+                                                      },
+                                                      onTapHistory: () {
+                                                        //header template history
+                                                        priCon
+                                                            .transactionHistoryTemplate(
+                                                                e.value.id);
+                                                        showModalBottomSheet(
+                                                          context: context,
+                                                          isScrollControlled:
+                                                              true,
+                                                          shape:
+                                                              const RoundedRectangleBorder(
+                                                            borderRadius: BorderRadius.only(
                                                                 topLeft: Radius
                                                                     .circular(
                                                                         14),
                                                                 topRight: Radius
                                                                     .circular(
                                                                         14)),
-                                                      ),
-                                                      // expand: false,
-                                                      backgroundColor:
-                                                          Colors.white,
-                                                      builder: (context) =>
-                                                          DraggableScrollableSheet(
-                                                        initialChildSize: 0.64,
-                                                        minChildSize: 0.2,
-                                                        maxChildSize: 0.9,
-                                                        expand: false,
-                                                        builder: (context,
-                                                            scrollController) {
-                                                          return containPopTransactionHistory(
-                                                              scrollController,
-                                                              context,
-                                                              e);
-                                                        },
-                                                      ),
-                                                    );
-                                                  },
+                                                          ),
+                                                          // expand: false,
+                                                          backgroundColor:
+                                                              Colors.white,
+                                                          builder: (context) =>
+                                                              DraggableScrollableSheet(
+                                                            initialChildSize:
+                                                                0.64,
+                                                            minChildSize: 0.2,
+                                                            maxChildSize: 0.9,
+                                                            expand: false,
+                                                            builder: (context,
+                                                                scrollController) {
+                                                              return containPopTransactionHistory(
+                                                                  scrollController,
+                                                                  context,
+                                                                  e);
+                                                            },
+                                                          ),
+                                                        );
+                                                      },
+                                                    ),
+                                                  ),
                                                 ),
-                                              ),
-                                            ),
-                                          )
-                                          .toList(),
+                                              )
+                                              .toList(),
+                                        ),
+                                      ),
                                     )
+
                               // : ListView.separated(
                               //     padding: const EdgeInsets.all(20),
                               //     controller: scrollController,
@@ -254,19 +256,19 @@ class _GiftMVPTransferScreenState extends State<GiftMVPTransferScreen> {
 
                               //       return GestureDetector(
                               //         onTap: () {
-                              //           privilegeController
-                              //               .receiveWalletNumberController
-                              //               .text = FormatDate
-                              //                   .formatAccountNumber(item
-                              //                       .walletNumberNoFormat) ??
-                              //               '';
-                              //           privilegeController
-                              //               .inputRecieverWalletChanged(
-                              //                   privilegeController
-                              //                       .receiveWalletNumberController
-                              //                       .text);
+                              // privilegeController
+                              //     .receiveWalletNumberController
+                              //     .text = FormatDate
+                              //         .formatAccountNumber(item
+                              //             .walletNumberNoFormat) ??
+                              //     '';
+                              // privilegeController
+                              //     .inputRecieverWalletChanged(
+                              //         privilegeController
+                              //             .receiveWalletNumberController
+                              //             .text);
 
-                              //           Navigator.pop(context);
+                              // Navigator.pop(context);
                               //         },
                               //         child: CustomCardGiftMVPForm(
                               //           backgroundColor: privilegeController
@@ -352,297 +354,347 @@ class _GiftMVPTransferScreenState extends State<GiftMVPTransferScreen> {
     final textStyle = Theme.of(context).textTheme.titleMedium;
     final size = MediaQuery.of(context).size;
     return Scaffold(
-      appBar: CustomAppBarWhiteColor(
-        context: context,
-        elevation: 0,
-        title: 'Gift MVP',
-        colorTitle: true,
-        backgroundColor: Theme.of(context).primaryColor,
-        leading: IconButton(
-          icon: _icon,
-          color: Colors.white,
-          onPressed: () {
-            context.pop();
-          },
+        appBar: CustomAppBarWhiteColor(
+          context: context,
+          elevation: 0,
+          title: 'Gift MVP',
+          colorTitle: true,
+          backgroundColor: Theme.of(context).primaryColor,
+          leading: IconButton(
+            icon: _icon,
+            color: Colors.white,
+            onPressed: () {
+              context.pop();
+            },
+          ),
         ),
-      ),
-      body: Obx(
-        () => Column(
-          children: [
-            Expanded(
-              child: SingleChildScrollView(
-                child: Column(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 20.0, vertical: 20.0),
-                      child: CardCurrentPoints(
-                        title: 'MVP Balance',
-                        amount:
-                            walletController.mvpBalance.value.mvpAmountFormat ??
+        body: GetBuilder(
+          init: privilegeController,
+          builder: (controller) {
+            return Column(
+              children: [
+                Expanded(
+                  child: SingleChildScrollView(
+                    child: Column(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 20.0, vertical: 20.0),
+                          child: CardCurrentPoints(
+                            title: 'MVP Balance',
+                            amount: walletController
+                                    .mvpBalance.value.mvpAmountFormat ??
                                 '0.00',
-                      ),
-                    ),
-                    Container(
-                      constraints:
-                          BoxConstraints(minHeight: size.height * 0.63),
-                      width: double.infinity,
-                      decoration: const BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(20),
-                          topRight: Radius.circular(20),
+                          ),
                         ),
-                      ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          const SizedBox(
-                            height: 10.0,
-                          ),
-                          CustomTextFieldNew(
-                            enable: enableAccountNumber,
-                            padding: const EdgeInsets.only(
-                                left: 20, top: 20, right: 20),
-                            initialValue: privilegeController
-                                .receiveWalletNumberController.text,
-                            isValidate: privilegeController
-                                .isGiftMVPVerifyAccountValidate.value,
-                            validateText: privilegeController
-                                .isGiftMVPVerifyAccountValidateMessage.value,
-                            controller: privilegeController
-                                .receiveWalletNumberController,
-                            inputFormatterList: [
-                              FilteringTextInputFormatter.digitsOnly,
-                              AccountNumberFormatter()
-                            ],
-                            keyboardType: const TextInputType.numberWithOptions(
-                              decimal: false,
-                              signed: false,
+                        Container(
+                          constraints:
+                              BoxConstraints(minHeight: size.height * 0.63),
+                          width: double.infinity,
+                          decoration: const BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(20),
+                              topRight: Radius.circular(20),
                             ),
-                            isRequired: true,
-                            labelText: 'Receiver MVP Wallet Number',
-                            hintText: 'Receiver MVP Wallet Number',
-                            suffixIcon: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Row(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  const SizedBox(
-                                    height: 20,
-                                    child: VerticalDivider(
-                                      thickness: 1,
-                                    ),
-                                  ),
-                                  GestureDetector(
-                                    onTap: () {
-                                      _showTemplate(context);
-                                    },
-                                    child: Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: 5),
-                                      child: SvgPicture.asset(
-                                        'assets/images/profile_template.svg',
-                                        height: 20,
-                                      ),
-                                    ),
-                                  ),
-                                ],
+                          ),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              const SizedBox(
+                                height: 10.0,
                               ),
-                            ),
-                            onChange:
-                                privilegeController.inputRecieverWalletChanged,
-                            errorWidget: privilegeController
-                                        .isGiftMVPVerifyAccountValidate.value &&
-                                    privilegeController
-                                        .receiveWalletNumber.isNotEmpty &&
-                                    privilegeController
-                                        .receiverWalletName.isNotEmpty
-                                ? Padding(
-                                    padding: const EdgeInsets.only(
-                                        right: 20, top: 8),
-                                    child: Row(
-                                      mainAxisSize: MainAxisSize.min,
-                                      children: [
-                                        SvgPicture.asset(
-                                          'assets/images/wallet_found.svg',
-                                          height: 18,
-                                        ),
-                                        const SizedBox(width: 10),
-                                        Text(
-                                          privilegeController
-                                              .receiverWalletName.value,
-                                          style: const TextStyle(
-                                              fontSize: 10.5,
-                                              color: Color(0xff4FA30F)),
-                                        )
-                                      ],
-                                    ),
-                                  )
-                                : null,
-                          ),
-                          SizedBox(
-                              height: privilegeController
-                                      .isGiftMVPVerifyAccountValidate.value
-                                  ? 20
-                                  : 10),
-                          Focus(
-                            onFocusChange: (value) {},
-                            child: CustomTextFieldNew(
-                              enable: enableAmount,
-                              initialValue: privilegeController
-                                  .amountgiftMVPController.value.text,
-                              padding: const EdgeInsets.only(
-                                  left: 20, right: 20, bottom: 10),
-                              validateText: privilegeController
-                                      .amountgiftMVPController
-                                      .value
-                                      .text
-                                      .isEmpty
-                                  ? 'Please enter amount to gift.'
-                                  : 'You don\'t have enought MVP',
-
-                              keyboardType:
-                                  const TextInputType.numberWithOptions(
-                                      decimal: true),
-                              // inputFormatterList: [DecimalTextInputFormatter()],
-                              isValidate:
-                                  privilegeController.validateMVPAmount.value,
-                              onChange: (value) {
-                                privilegeController.amountValidator();
-                              },
-
-                              controller: privilegeController
-                                  .amountgiftMVPController.value,
-                              isRequired: true,
-                              labelText: 'Amount',
-                              hintText: 'Amount',
-                              suffixIcon: Padding(
+                              CustomTextFieldNew(
+                                enable: enableAccountNumber,
                                 padding: const EdgeInsets.only(
-                                  top: 15,
+                                    left: 20, top: 20, right: 20),
+                                initialValue: privilegeController
+                                    .receiveWalletNumberController.text,
+                                isValidate: privilegeController
+                                    .isGiftMVPVerifyAccountValidate.value,
+                                validateText: privilegeController
+                                    .isGiftMVPVerifyAccountValidateMessage
+                                    .value,
+                                controller: privilegeController
+                                    .receiveWalletNumberController,
+                                inputFormatterList: [
+                                  FilteringTextInputFormatter.digitsOnly,
+                                  AccountNumberFormatter()
+                                ],
+                                keyboardType:
+                                    const TextInputType.numberWithOptions(
+                                  decimal: false,
+                                  signed: false,
                                 ),
-                                child: Text(
-                                  'MVP',
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .titleMedium!
-                                      .copyWith(color: const Color(0xffBDBDBD)),
+                                isRequired: true,
+                                labelText: 'Receiver MVP Wallet Number',
+                                hintText: 'Receiver MVP Wallet Number',
+                                suffixIcon: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Row(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      const SizedBox(
+                                        height: 20,
+                                        child: VerticalDivider(
+                                          thickness: 1,
+                                        ),
+                                      ),
+                                      GestureDetector(
+                                        onTap: () {
+                                          _showTemplate(context);
+                                          privilegeController.update();
+                                        },
+                                        child: Padding(
+                                          padding: const EdgeInsets.symmetric(
+                                              horizontal: 5),
+                                          child: SvgPicture.asset(
+                                            'assets/images/profile_template.svg',
+                                            height: 20,
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                onChange: privilegeController
+                                    .inputRecieverWalletChanged,
+                                errorWidget: privilegeController
+                                            .isGiftMVPVerifyAccountValidate
+                                            .value &&
+                                        privilegeController
+                                            .receiveWalletNumber.isNotEmpty &&
+                                        privilegeController
+                                            .receiverWalletName.isNotEmpty
+                                    ? Padding(
+                                        padding: const EdgeInsets.only(
+                                            right: 20, top: 8),
+                                        child: Row(
+                                          mainAxisSize: MainAxisSize.min,
+                                          children: [
+                                            SvgPicture.asset(
+                                              'assets/images/wallet_found.svg',
+                                              height: 18,
+                                            ),
+                                            const SizedBox(width: 10),
+                                            Text(
+                                              privilegeController
+                                                  .receiverWalletName.value,
+                                              style: const TextStyle(
+                                                  fontSize: 10.5,
+                                                  color: Color(0xff4FA30F)),
+                                            )
+                                          ],
+                                        ),
+                                      )
+                                    : null,
+                              ),
+                              SizedBox(
+                                  height: privilegeController
+                                          .isGiftMVPVerifyAccountValidate.value
+                                      ? 20
+                                      : 10),
+                              Focus(
+                                onFocusChange: (value) {},
+                                child: CustomTextFieldNew(
+                                  enable: enableAmount,
+                                  initialValue: privilegeController
+                                      .amountgiftMVPController.value.text,
+                                  padding: const EdgeInsets.only(
+                                      left: 20, right: 20, bottom: 10),
+                                  validateText: privilegeController
+                                          .amountgiftMVPController
+                                          .value
+                                          .text
+                                          .isEmpty
+                                      ? 'Please enter amount to gift.'
+                                      : 'You don\'t have enought MVP',
+
+                                  keyboardType:
+                                      const TextInputType.numberWithOptions(
+                                          decimal: true),
+                                  // inputFormatterList: [DecimalTextInputFormatter()],
+                                  isValidate: privilegeController
+                                      .validateMVPAmount.value,
+                                  onChange: (value) {
+                                    privilegeController.amountValidator();
+                                    privilegeController.update();
+                                  },
+
+                                  controller: privilegeController
+                                      .amountgiftMVPController.value,
+                                  isRequired: true,
+                                  labelText: 'Amount',
+                                  hintText: 'Amount',
+                                  suffixIcon: Padding(
+                                    padding: const EdgeInsets.only(
+                                      top: 15,
+                                    ),
+                                    child: Text(
+                                      'MVP',
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .titleMedium!
+                                          .copyWith(
+                                              color: const Color(0xffBDBDBD)),
+                                    ),
+                                  ),
                                 ),
                               ),
-                            ),
-                          ),
-                          CustomTextFieldNew(
-                            initialValue:
-                                privilegeController.mvpGiftRemark.text,
-                            controller: privilegeController.mvpGiftRemark,
-                            labelText: 'Remark',
-                            hintText: 'Remark',
-                            onChange: (value) {},
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(left: 20, top: 10),
-                            child: Row(
-                              children: [
-                                Expanded(
-                                  child:
-                                      privilegeController.createTemplate.value
+                              CustomTextFieldNew(
+                                initialValue: privilegeController
+                                    .mvpGiftRemark.value.text,
+                                controller:
+                                    privilegeController.mvpGiftRemark.value,
+                                labelText: 'Remark',
+                                hintText: 'Remark',
+                                onChange: (value) {
+                                  privilegeController.mvpGiftRemark.value.text =
+                                      value;
+                                  privilegeController
+                                          .mvpGiftRemark.value.selection =
+                                      TextSelection.fromPosition(TextPosition(
+                                          offset: privilegeController
+                                              .mvpGiftRemark
+                                              .value
+                                              .text
+                                              .length));
+                                  privilegeController.update();
+                                },
+                              ),
+                              Padding(
+                                padding:
+                                    const EdgeInsets.only(left: 20, top: 10),
+                                child: Row(
+                                  children: [
+                                    Expanded(
+                                      child: privilegeController
+                                              .createTemplate.value
                                           ? CustomTextFieldNew(
                                               controller: privilegeController
-                                                  .templateNameController,
+                                                  .templateNameController.value,
                                               initialValue: privilegeController
-                                                  .templateNameController.text,
+                                                  .templateNameController
+                                                  .value
+                                                  .text,
                                               labelText: 'Create Template',
                                               hintText: 'Create Template',
-                                              onChange: (value) {},
+                                              onChange: (value) {
+                                                privilegeController
+                                                    .templateNameController
+                                                    .value
+                                                    .text = value;
+                                                privilegeController
+                                                        .templateNameController
+                                                        .value
+                                                        .selection =
+                                                    TextSelection.fromPosition(
+                                                        TextPosition(
+                                                            offset: privilegeController
+                                                                .templateNameController
+                                                                .value
+                                                                .text
+                                                                .length));
+                                                privilegeController.update();
+                                              },
                                               padding: EdgeInsets.zero,
                                             )
                                           : Text(
                                               'Create Template',
                                               style: textStyle,
                                             ),
+                                    ),
+                                    Platform.isIOS
+                                        ? Padding(
+                                            padding: const EdgeInsets.only(
+                                                left: 16, right: 17),
+                                            child: CupertinoSwitch(
+                                                value: privilegeController
+                                                    .createTemplate.value,
+                                                onChanged: (value) {
+                                                  privilegeController
+                                                      .createTemplate
+                                                      .value = value;
+                                                  privilegeController.update();
+                                                },
+                                                activeColor:
+                                                    AppColor.mainColor),
+                                          )
+                                        : Padding(
+                                            padding: const EdgeInsets.only(
+                                                left: 7, right: 12),
+                                            child: Switch(
+                                                value: privilegeController
+                                                    .createTemplate.value,
+                                                onChanged: (value) {
+                                                  privilegeController
+                                                      .createTemplate
+                                                      .value = value;
+                                                  privilegeController.update();
+                                                },
+                                                activeColor:
+                                                    AppColor.mainColor),
+                                          ),
+                                  ],
                                 ),
-                                Platform.isIOS
-                                    ? Padding(
-                                        padding: const EdgeInsets.only(
-                                            left: 16, right: 17),
-                                        child: CupertinoSwitch(
-                                            value: privilegeController
-                                                .createTemplate.value,
-                                            onChanged: (value) {
-                                              privilegeController
-                                                  .createTemplate.value = value;
-                                            },
-                                            activeColor: AppColor.mainColor),
-                                      )
-                                    : Padding(
-                                        padding: const EdgeInsets.only(
-                                            left: 7, right: 12),
-                                        child: Switch(
-                                            value: privilegeController
-                                                .createTemplate.value,
-                                            onChanged: (value) {
-                                              privilegeController
-                                                  .createTemplate.value = value;
-                                            },
-                                            activeColor: AppColor.mainColor),
-                                      ),
-                              ],
-                            ),
+                              ),
+                              const SizedBox(height: 14),
+                            ],
                           ),
-                          const SizedBox(height: 14),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
-                  ],
+                  ),
                 ),
-              ),
-            ),
-            Container(
-              color: Colors.white,
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 20.0, vertical: 24.0),
-              child: CustomButton(
-                width: double.infinity,
-                backgroundColor: privilegeController.validateMVPAmount.value &&
-                        privilegeController
-                            .isGiftMVPVerifyAccountValidate.value &&
-                        privilegeController.receiverWalletName.isNotEmpty &&
-                        privilegeController
-                            .amountgiftMVPController.value.text.isNotEmpty
-                    ? AppColor.mainColor
-                    : Colors.grey[400],
-                onPressed: privilegeController.validateMVPAmount.value &&
-                        privilegeController
-                            .isGiftMVPVerifyAccountValidate.value &&
-                        privilegeController.receiverWalletName.isNotEmpty &&
-                        privilegeController
-                            .amountgiftMVPController.value.text.isNotEmpty
-                    ? () {
-                        debugPrint('Clicked');
+                Container(
+                  color: Colors.white,
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 20.0, vertical: 24.0),
+                  child: CustomButton(
+                    width: double.infinity,
+                    backgroundColor: privilegeController
+                                .validateMVPAmount.value &&
+                            privilegeController
+                                .isGiftMVPVerifyAccountValidate.value &&
+                            privilegeController.receiverWalletName.isNotEmpty &&
+                            privilegeController
+                                .amountgiftMVPController.value.text.isNotEmpty
+                        ? AppColor.mainColor
+                        : Colors.grey[400],
+                    onPressed: privilegeController.validateMVPAmount.value &&
+                            privilegeController
+                                .isGiftMVPVerifyAccountValidate.value &&
+                            privilegeController.receiverWalletName.isNotEmpty &&
+                            privilegeController
+                                .amountgiftMVPController.value.text.isNotEmpty
+                        ? () {
+                            debugPrint('Clicked');
 
-                        try {
-                          final location = GoRouterState.of(context).location;
-                          if (location.contains("/giftmvp")) {
-                            context.push("/giftmvp/review-gift-mvp");
-                          } else {
-                            context.push("$location/review-gift-mvp");
+                            try {
+                              final location =
+                                  GoRouterState.of(context).location;
+                              if (location.contains("/giftmvp")) {
+                                context.push("/giftmvp/review-gift-mvp");
+                              } else {
+                                context.push("$location/review-gift-mvp");
+                              }
+                              debugPrint("location$location");
+                            } catch (e) {
+                              debugPrint("Routing Error => $e");
+                            }
+                            privilegeController.update();
+                            // context
+                            //     .push('/mymvp/gift-mvp-transfer/review-gift-mvp');
                           }
-                          debugPrint("location$location");
-                        } catch (e) {
-                          debugPrint("Routing Error => $e");
-                        }
-                        // context
-                        //     .push('/mymvp/gift-mvp-transfer/review-gift-mvp');
-                      }
-                    : null,
-                title: 'Pay Now',
-                isDisable: false,
-                isOutline: false,
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
+                        : null,
+                    title: 'Pay Now',
+                    isDisable: false,
+                    isOutline: false,
+                  ),
+                ),
+              ],
+            );
+          },
+        ));
   }
 }

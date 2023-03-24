@@ -8,4 +8,5 @@ abstract class MainRoute {
   // GoRoute privilageClaim({required String fromWhere});
   GoRoute event({required String fromWhere, bool isRoot = false});
   GoRoute privilege({required String fromWhere, bool isRoot = false});
+  GoRoute mvpRoute({required String fromWhere, bool isRoot = false});
 }

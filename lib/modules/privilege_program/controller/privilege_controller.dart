@@ -54,7 +54,7 @@ class PrivilegeController extends GetxController {
   onClearChosenGiftMVPField() {
     isChosenGiftMVPValidate(true);
     amountChosenGiftMvpController.value.clear();
-    mvpGiftRemark.clear();
+    mvpGiftRemark.value.clear();
     update();
   }
 
@@ -1114,7 +1114,7 @@ class PrivilegeController extends GetxController {
   final isGiftMVPVerifyAccountValidate = true.obs;
   final isGiftMVPVerifyAccountValidateMessage = ''.obs;
   final amountgiftMVPController = TextEditingController().obs;
-  final mvpGiftRemark = TextEditingController();
+  final mvpGiftRemark = TextEditingController().obs;
   final receiveWalletNumberController = TextEditingController();
 
   void clearGiftMVPForm() {
@@ -1127,9 +1127,9 @@ class PrivilegeController extends GetxController {
     validateMVPAmount(true);
 
     amountgiftMVPController.value.clear();
-    mvpGiftRemark.clear();
+    mvpGiftRemark.value.clear();
     receiveWalletNumberController.clear();
-    templateNameController.clear();
+    templateNameController.value.clear();
     templatRecieverNameController.clear();
     createTemplate(false);
   }
@@ -1166,7 +1166,7 @@ class PrivilegeController extends GetxController {
   }
 
   RxBool createTemplate = false.obs;
-  final templateNameController = TextEditingController();
+  final templateNameController = TextEditingController().obs;
 
   final _inputWalletDebounce = Debounce();
   final validateMVPAmount = true.obs;
@@ -1247,9 +1247,9 @@ class PrivilegeController extends GetxController {
         'sender': sender, //sender
         'receiver': receiverWallet ?? receiveWalletNumber.value,
         'amount': amount ?? amountgiftMVPController.value.text,
-        'remark': mvpGiftRemark.text,
+        'remark': mvpGiftRemark.value.text,
         'is_create_template': createTemplate.value ? 1 : 0,
-        'template_name': templateNameController.text
+        'template_name': templateNameController.value.text
       },
       methode: METHODE.post,
       isAuthorize: true,
@@ -1484,7 +1484,15 @@ class PrivilegeController extends GetxController {
           },
           extra: {
             'onPressedButton': () {
-              context.go('/mymvp/gift-mvp-option/gift-mvp-template');
+              try {
+                final location = GoRouterState.of(context).location;
+                debugPrint('Location => $location');
+                if (location.contains('gift-mvp-transfer')) {
+                  context.go('/mymvp/gift-mvp-option/gift-mvp-transfer');
+                } else {
+                  context.go('/mymvp/gift-mvp-option/gift-mvp-template');
+                }
+              } catch (_) {}
             }
           },
         );

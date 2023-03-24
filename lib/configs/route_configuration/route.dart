@@ -64,9 +64,11 @@ import '../../widgets/investments/fif_option1.dart';
 import '../../widgets/investments/view_agreement_list.dart';
 import 'route_singleton.dart';
 
-final GlobalKey<NavigatorState> _rootNavigatorKey =
+@protected
+final GlobalKey<NavigatorState> rootNavigatorKey =
     GlobalKey<NavigatorState>(debugLabel: 'root');
-final GlobalKey<NavigatorState> _shellNavigatorKey =
+@protected
+final GlobalKey<NavigatorState> shellNavigatorKey =
     GlobalKey<NavigatorState>(debugLabel: 'shell');
 
 final settingCon = Get.put(SettingController());
@@ -74,7 +76,7 @@ final userCon = Get.put(CustomerController());
 
 final router = GoRouter(
     // debugLogDiagnostics: true,
-    navigatorKey: _rootNavigatorKey,
+    navigatorKey: rootNavigatorKey,
     debugLogDiagnostics: true,
     redirect: (context, state) {
       if (settingCon.appSettingNofier.value.userToken == null &&
@@ -91,7 +93,7 @@ final router = GoRouter(
     initialLocation: '/',
     routes: <RouteBase>[
       ShellRoute(
-        navigatorKey: _shellNavigatorKey,
+        navigatorKey: shellNavigatorKey,
         builder: (context, state, child) => PaymentSchedule(
           key: state.pageKey,
           child: child,
@@ -108,7 +110,7 @@ final router = GoRouter(
                   child: const MainDashboard()),
               routes: [
                 GoRoute(
-                  parentNavigatorKey: _rootNavigatorKey,
+                  parentNavigatorKey: rootNavigatorKey,
                   path: 'giftmvp',
                   builder: (context, state) {
                     String amount = "";
@@ -123,7 +125,7 @@ final router = GoRouter(
                   },
                   routes: [
                     GoRoute(
-                      parentNavigatorKey: _rootNavigatorKey,
+                      parentNavigatorKey: rootNavigatorKey,
                       path: 'review-gift-mvp',
                       builder: (context, state) => ReviewGiftMVPTransfer(
                         key: state.pageKey,
@@ -142,6 +144,7 @@ final router = GoRouter(
                     key: state.pageKey,
                   ),
                   routes: [
+                    CICRoute.instance.mvpRoute(fromWhere: 'Privilege'),
                     GoRoute(
                       path: 'privilege-detail/:id',
                       name: 'PrivilegeDetailScreen',
@@ -191,7 +194,7 @@ final router = GoRouter(
                     GoRoute(
                       name: 'RedeemPointToPay',
                       path: 'redeem-point-to-pay',
-                      parentNavigatorKey: _rootNavigatorKey,
+                      parentNavigatorKey: rootNavigatorKey,
                       builder: (context, state) => RedeemPointToPay(
                         key: state.pageKey,
                         receiveAccountName:
@@ -205,169 +208,169 @@ final router = GoRouter(
                     GoRoute(
                       name: 'RedeemPointPayReviewScreen',
                       path: 'redeem-point-pay-review',
-                      parentNavigatorKey: _rootNavigatorKey,
+                      parentNavigatorKey: rootNavigatorKey,
                       builder: (context, state) => RedeemPointPayReviewScreen(
                         key: state.pageKey,
                       ),
                     ),
-                    GoRoute(
-                        name: 'pointScreen',
-                        path: 'point-screen',
-                        builder: (context, state) => PrivilegePointScreen(
-                              key: state.pageKey,
-                            ),
-                        routes: [
-                          GoRoute(
-                              parentNavigatorKey: _rootNavigatorKey,
-                              path: 'privilege-store',
-                              builder: (context, state) => PrivilageStoreScreen(
-                                    key: state.pageKey,
-                                  ),
-                              routes: [
-                                GoRoute(
-                                  parentNavigatorKey: _rootNavigatorKey,
-                                  path: 'mvp-history',
-                                  builder: (_, state) => MVPTransactionHistory(
-                                    key: state.pageKey,
-                                    id: state.queryParams['id'],
-                                    shopName: state.queryParams['shopName'],
-                                    amount: state.queryParams['amount'],
-                                  ),
-                                ),
-                              ]),
-                          GoRoute(
-                            parentNavigatorKey: _rootNavigatorKey,
-                            path: 'mvp-qr',
-                            builder: (context, state) => MvpQrScreen(
-                              key: state.pageKey,
-                              mvpID: state.queryParams["mvp-id"] != null
-                                  ? int.parse(state.queryParams["mvp-id"]!)
-                                  : 0,
-                            ),
-                          ),
-                          GoRoute(
-                              parentNavigatorKey: _rootNavigatorKey,
-                              path: 'gift-mvp-option',
-                              builder: (context, state) => GiftMvpOption(
-                                    key: state.pageKey,
-                                  ),
-                              routes: [
-                                GoRoute(
-                                  parentNavigatorKey: _rootNavigatorKey,
-                                  path: 'gift-mvp-transfer',
-                                  builder: (context, state) =>
-                                      GiftMVPTransferScreen(
-                                    key: state.pageKey,
-                                  ),
-                                  routes: [
-                                    GoRoute(
-                                      parentNavigatorKey: _rootNavigatorKey,
-                                      path: 'review-gift-mvp',
-                                      builder: (context, state) =>
-                                          ReviewGiftMVPTransfer(
-                                        key: state.pageKey,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                GoRoute(
-                                  parentNavigatorKey: _rootNavigatorKey,
-                                  path: 'gift-mvp-template',
-                                  builder: (context, state) =>
-                                      GiftMVPFromTemplateScreen(
-                                    key: state.pageKey,
-                                  ),
-                                  routes: [
-                                    GoRoute(
-                                      parentNavigatorKey: _rootNavigatorKey,
-                                      path: 'create-template',
-                                      builder: (context, state) =>
-                                          CreateTemplateScreen(
-                                        key: state.pageKey,
-                                        templatId: int.tryParse(
-                                            state.queryParams['templatId'] ??
-                                                ''),
-                                        recieverWalletNumber: state.queryParams[
-                                            'recieverWalletNumber'],
-                                        templateName:
-                                            state.queryParams['templateName'],
-                                        templateImg:
-                                            state.queryParams['templateImg'],
-                                      ),
-                                    ),
-                                    GoRoute(
-                                        parentNavigatorKey: _rootNavigatorKey,
-                                        path: 'choosen-template',
-                                        builder: (context, state) =>
-                                            ChooseGiftTemplateScreen(
-                                              key: state.pageKey,
-                                              chosenMVPModel:
-                                                  state.extra != null
-                                                      ? state.extra
-                                                          as ChosenMVPModel
-                                                      : null,
-                                            ),
-                                        routes: [
-                                          GoRoute(
-                                            parentNavigatorKey:
-                                                _rootNavigatorKey,
-                                            path: 'create-template',
-                                            builder: (context, state) =>
-                                                CreateTemplateScreen(
-                                              key: state.pageKey,
-                                              templatId: int.tryParse(
-                                                  state.queryParams[
-                                                          'templatId'] ??
-                                                      ''),
-                                              recieverWalletNumber:
-                                                  state.queryParams[
-                                                      'recieverWalletNumber'],
-                                              templateName: state
-                                                  .queryParams['templateName'],
-                                              templateImg: state
-                                                  .queryParams['templateImg'],
-                                            ),
-                                          ),
-                                          GoRoute(
-                                            parentNavigatorKey:
-                                                _rootNavigatorKey,
-                                            path: 'review-gift-mvp',
-                                            builder: (context, state) =>
-                                                ReviewGiftMVPTransfer(
-                                              key: state.pageKey,
-                                              amount:
-                                                  state.queryParams["amount"] ??
-                                                      "",
-                                              receiverWallet: state.queryParams[
-                                                      "receiverWallet"] ??
-                                                  "",
-                                              receiverName: state.queryParams[
-                                                      "receiverName"] ??
-                                                  "",
-                                            ),
-                                          ),
-                                        ]),
-                                  ],
-                                ),
-                              ]),
-                          // GoRoute(
-                          //   parentNavigatorKey: _rootNavigatorKey,
-                          //   path: 'gift-mvp-transfer',
-                          //   builder: (context, state) => GiftMVPTransferScreen(
-                          //     key: state.pageKey,
-                          //   ),
-                          //   routes: [
-                          //     GoRoute(
-                          //       parentNavigatorKey: _rootNavigatorKey,
-                          //       path: 'review-gift-mvp',
-                          //       builder: (context, state) =>
-                          //           ReviewGiftMVPTransfer(
-                          //         key: state.pageKey,
-                          //       ),
-                          //     ),
-                          //   ],
-                          // ),
-                        ]),
+                    // GoRoute(
+                    //     name: 'pointScreen',
+                    //     path: 'point-screen',
+                    //     builder: (context, state) => PrivilegePointScreen(
+                    //           key: state.pageKey,
+                    //         ),
+                    //     routes: [
+                    //       GoRoute(
+                    //           parentNavigatorKey: rootNavigatorKey,
+                    //           path: 'privilege-store',
+                    //           builder: (context, state) => PrivilageStoreScreen(
+                    //                 key: state.pageKey,
+                    //               ),
+                    //           routes: [
+                    //             GoRoute(
+                    //               parentNavigatorKey: rootNavigatorKey,
+                    //               path: 'mvp-history',
+                    //               builder: (_, state) => MVPTransactionHistory(
+                    //                 key: state.pageKey,
+                    //                 id: state.queryParams['id'],
+                    //                 shopName: state.queryParams['shopName'],
+                    //                 amount: state.queryParams['amount'],
+                    //               ),
+                    //             ),
+                    //           ]),
+                    //       GoRoute(
+                    //         parentNavigatorKey: rootNavigatorKey,
+                    //         path: 'mvp-qr',
+                    //         builder: (context, state) => MvpQrScreen(
+                    //           key: state.pageKey,
+                    //           mvpID: state.queryParams["mvp-id"] != null
+                    //               ? int.parse(state.queryParams["mvp-id"]!)
+                    //               : 0,
+                    //         ),
+                    //       ),
+                    //       GoRoute(
+                    //           parentNavigatorKey: rootNavigatorKey,
+                    //           path: 'gift-mvp-option',
+                    //           builder: (context, state) => GiftMvpOption(
+                    //                 key: state.pageKey,
+                    //               ),
+                    //           routes: [
+                    //             GoRoute(
+                    //               parentNavigatorKey: rootNavigatorKey,
+                    //               path: 'gift-mvp-transfer',
+                    //               builder: (context, state) =>
+                    //                   GiftMVPTransferScreen(
+                    //                 key: state.pageKey,
+                    //               ),
+                    //               routes: [
+                    //                 GoRoute(
+                    //                   parentNavigatorKey: rootNavigatorKey,
+                    //                   path: 'review-gift-mvp',
+                    //                   builder: (context, state) =>
+                    //                       ReviewGiftMVPTransfer(
+                    //                     key: state.pageKey,
+                    //                   ),
+                    //                 ),
+                    //               ],
+                    //             ),
+                    //             GoRoute(
+                    //               parentNavigatorKey: rootNavigatorKey,
+                    //               path: 'gift-mvp-template',
+                    //               builder: (context, state) =>
+                    //                   GiftMVPFromTemplateScreen(
+                    //                 key: state.pageKey,
+                    //               ),
+                    //               routes: [
+                    //                 GoRoute(
+                    //                   parentNavigatorKey: rootNavigatorKey,
+                    //                   path: 'create-template',
+                    //                   builder: (context, state) =>
+                    //                       CreateTemplateScreen(
+                    //                     key: state.pageKey,
+                    //                     templatId: int.tryParse(
+                    //                         state.queryParams['templatId'] ??
+                    //                             ''),
+                    //                     recieverWalletNumber: state.queryParams[
+                    //                         'recieverWalletNumber'],
+                    //                     templateName:
+                    //                         state.queryParams['templateName'],
+                    //                     templateImg:
+                    //                         state.queryParams['templateImg'],
+                    //                   ),
+                    //                 ),
+                    //                 GoRoute(
+                    //                     parentNavigatorKey: rootNavigatorKey,
+                    //                     path: 'choosen-template',
+                    //                     builder: (context, state) =>
+                    //                         ChooseGiftTemplateScreen(
+                    //                           key: state.pageKey,
+                    //                           chosenMVPModel:
+                    //                               state.extra != null
+                    //                                   ? state.extra
+                    //                                       as ChosenMVPModel
+                    //                                   : null,
+                    //                         ),
+                    //                     routes: [
+                    //                       GoRoute(
+                    //                         parentNavigatorKey:
+                    //                             rootNavigatorKey,
+                    //                         path: 'create-template',
+                    //                         builder: (context, state) =>
+                    //                             CreateTemplateScreen(
+                    //                           key: state.pageKey,
+                    //                           templatId: int.tryParse(
+                    //                               state.queryParams[
+                    //                                       'templatId'] ??
+                    //                                   ''),
+                    //                           recieverWalletNumber:
+                    //                               state.queryParams[
+                    //                                   'recieverWalletNumber'],
+                    //                           templateName: state
+                    //                               .queryParams['templateName'],
+                    //                           templateImg: state
+                    //                               .queryParams['templateImg'],
+                    //                         ),
+                    //                       ),
+                    //                       GoRoute(
+                    //                         parentNavigatorKey:
+                    //                             rootNavigatorKey,
+                    //                         path: 'review-gift-mvp',
+                    //                         builder: (context, state) =>
+                    //                             ReviewGiftMVPTransfer(
+                    //                           key: state.pageKey,
+                    //                           amount:
+                    //                               state.queryParams["amount"] ??
+                    //                                   "",
+                    //                           receiverWallet: state.queryParams[
+                    //                                   "receiverWallet"] ??
+                    //                               "",
+                    //                           receiverName: state.queryParams[
+                    //                                   "receiverName"] ??
+                    //                               "",
+                    //                         ),
+                    //                       ),
+                    //                     ]),
+                    //               ],
+                    //             ),
+                    //           ]),
+                    //       // GoRoute(
+                    //       //   parentNavigatorKey: rootNavigatorKey,
+                    //       //   path: 'gift-mvp-transfer',
+                    //       //   builder: (context, state) => GiftMVPTransferScreen(
+                    //       //     key: state.pageKey,
+                    //       //   ),
+                    //       //   routes: [
+                    //       //     GoRoute(
+                    //       //       parentNavigatorKey: rootNavigatorKey,
+                    //       //       path: 'review-gift-mvp',
+                    //       //       builder: (context, state) =>
+                    //       //           ReviewGiftMVPTransfer(
+                    //       //         key: state.pageKey,
+                    //       //       ),
+                    //       //     ),
+                    //       //   ],
+                    //       // ),
+                    //     ]),
                   ],
                 ),
                 GoRoute(
@@ -502,192 +505,186 @@ final router = GoRouter(
                     ]),
 
                 /// My MVP :
-                GoRoute(
-                    parentNavigatorKey: _rootNavigatorKey,
-                    path: 'mymvp',
-                    name: 'MyMVP',
-                    builder: (context, state) => const PrivilegePointScreen(),
-                    routes: [
-                      GoRoute(
-                          parentNavigatorKey: _rootNavigatorKey,
-                          path: 'privilege-store',
-                          builder: (context, state) => PrivilageStoreScreen(
-                                key: state.pageKey,
-                              ),
-                          routes: [
-                            GoRoute(
-                              parentNavigatorKey: _rootNavigatorKey,
-                              path: 'mvp-history',
-                              builder: (_, state) => MVPTransactionHistory(
-                                key: state.pageKey,
-                                id: state.queryParams['id'],
-                                shopName: state.queryParams['shopName'],
-                                amount: state.queryParams['amount'],
-                              ),
-                            ),
-                          ]),
-                      GoRoute(
-                        parentNavigatorKey: _rootNavigatorKey,
-                        path: 'mvp-qr',
-                        builder: (context, state) => MvpQrScreen(
-                          key: state.pageKey,
-                          mvpID: state.queryParams["mvp-id"] != null
-                              ? int.parse(state.queryParams["mvp-id"]!)
-                              : 0,
-                        ),
-                      ),
-                      GoRoute(
-                          parentNavigatorKey: _rootNavigatorKey,
-                          path: 'gift-mvp-option',
-                          builder: (context, state) => GiftMvpOption(
-                                key: state.pageKey,
-                              ),
-                          routes: [
-                            GoRoute(
-                              parentNavigatorKey: _rootNavigatorKey,
-                              path: 'gift-mvp-transfer',
-                              builder: (context, state) =>
-                                  GiftMVPTransferScreen(
-                                key: state.pageKey,
-                              ),
-                              routes: [
-                                GoRoute(
-                                  parentNavigatorKey: _rootNavigatorKey,
-                                  path: 'review-gift-mvp',
-                                  builder: (context, state) =>
-                                      ReviewGiftMVPTransfer(
-                                    key: state.pageKey,
-                                  ),
-                                ),
-                              ],
-                            ),
-                            GoRoute(
-                                parentNavigatorKey: _rootNavigatorKey,
-                                path: 'gift-mvp-template',
-                                builder: (context, state) =>
-                                    GiftMVPFromTemplateScreen(
-                                      key: state.pageKey,
-                                    ),
-                                routes: [
-                                  GoRoute(
-                                      parentNavigatorKey: _rootNavigatorKey,
-                                      path: 'create-template',
-                                      builder: (context, state) =>
-                                          CreateTemplateScreen(
-                                            key: state.pageKey,
-                                            templatId: int.tryParse(state
-                                                    .queryParams['templatId'] ??
-                                                ''),
-                                            recieverWalletNumber:
-                                                state.queryParams[
-                                                    'recieverWalletNumber'],
-                                            templateName: state
-                                                .queryParams['templateName'],
-                                            templateImg: state
-                                                .queryParams['templateImg'],
-                                            defaultImage: state
-                                                .queryParams['defaultImage'],
-                                          ),
-                                      routes: [
-                                        GoRoute(
-                                          path: 'success-screen',
-                                          name: 'SuccessScreenFromMVP',
-                                          parentNavigatorKey: _rootNavigatorKey,
-                                          builder: (_, state) {
-                                            final extras = state.extra
-                                                as Map<String, Object?>?;
+                // GoRoute(
+                //   parentNavigatorKey: rootNavigatorKey,
+                //   path: 'mymvp',
+                //   name: 'MyMVP',
+                //   builder: (context, state) => const PrivilegePointScreen(),
+                //   routes: [
+                //     GoRoute(
+                //         parentNavigatorKey: rootNavigatorKey,
+                //         path: 'privilege-store',
+                //         builder: (context, state) => PrivilageStoreScreen(
+                //               key: state.pageKey,
+                //             ),
+                //         routes: [
+                //           GoRoute(
+                //             parentNavigatorKey: rootNavigatorKey,
+                //             path: 'mvp-history',
+                //             builder: (_, state) => MVPTransactionHistory(
+                //               key: state.pageKey,
+                //               id: state.queryParams['id'],
+                //               shopName: state.queryParams['shopName'],
+                //               amount: state.queryParams['amount'],
+                //             ),
+                //           ),
+                //         ]),
+                //     GoRoute(
+                //       parentNavigatorKey: rootNavigatorKey,
+                //       path: 'mvp-qr',
+                //       builder: (context, state) => MvpQrScreen(
+                //         key: state.pageKey,
+                //         mvpID: state.queryParams["mvp-id"] != null
+                //             ? int.parse(state.queryParams["mvp-id"]!)
+                //             : 0,
+                //       ),
+                //     ),
+                //     GoRoute(
+                //       parentNavigatorKey: rootNavigatorKey,
+                //       path: 'gift-mvp-option',
+                //       builder: (context, state) => GiftMvpOption(
+                //         key: state.pageKey,
+                //       ),
+                //       routes: [
+                //         GoRoute(
+                //           parentNavigatorKey: rootNavigatorKey,
+                //           path: 'gift-mvp-transfer',
+                //           builder: (context, state) => GiftMVPTransferScreen(
+                //             key: state.pageKey,
+                //           ),
+                //           routes: [
+                //             GoRoute(
+                //               parentNavigatorKey: rootNavigatorKey,
+                //               path: 'review-gift-mvp',
+                //               builder: (context, state) =>
+                //                   ReviewGiftMVPTransfer(
+                //                 key: state.pageKey,
+                //               ),
+                //             ),
+                //           ],
+                //         ),
+                //         GoRoute(
+                //           parentNavigatorKey: rootNavigatorKey,
+                //           path: 'gift-mvp-template',
+                //           builder: (context, state) =>
+                //               GiftMVPFromTemplateScreen(
+                //             key: state.pageKey,
+                //           ),
+                //           routes: [
+                //             GoRoute(
+                //                 parentNavigatorKey: rootNavigatorKey,
+                //                 path: 'create-template',
+                //                 builder: (context, state) =>
+                //                     CreateTemplateScreen(
+                //                       key: state.pageKey,
+                //                       templatId: int.tryParse(
+                //                           state.queryParams['templatId'] ?? ''),
+                //                       recieverWalletNumber: state
+                //                           .queryParams['recieverWalletNumber'],
+                //                       templateName:
+                //                           state.queryParams['templateName'],
+                //                       templateImg:
+                //                           state.queryParams['templateImg'],
+                //                       defaultImage:
+                //                           state.queryParams['defaultImage'],
+                //                     ),
+                //                 routes: [
+                //                   GoRoute(
+                //                     path: 'success-screen',
+                //                     name: 'SuccessScreenFromMVP',
+                //                     parentNavigatorKey: rootNavigatorKey,
+                //                     builder: (_, state) {
+                //                       final extras =
+                //                           state.extra as Map<String, Object?>?;
 
-                                            return CustomSucessScreen(
-                                              key: state.pageKey,
-                                              appbarTitle: state
-                                                  .queryParams['appbarTitle'],
-                                              title: state.queryParams['title'],
-                                              buttonTitle: state
-                                                  .queryParams['buttonTitle'],
-                                              description: state
-                                                  .queryParams['description'],
-                                              icon: extras?['icon'] as Icon?,
-                                              backgroundColor:
-                                                  extras?['backgroundColor']
-                                                      as Color?,
-                                              onPressedButton:
-                                                  extras?['onPressedButton']
-                                                      as Function()?,
-                                              descriptionPadding:
-                                                  extras?['descriptionPadding']
-                                                      as EdgeInsetsGeometry?,
-                                            );
-                                          },
-                                        ),
-                                      ]),
-                                  GoRoute(
-                                    parentNavigatorKey: _rootNavigatorKey,
-                                    path: 'create-template',
-                                    builder: (context, state) =>
-                                        CreateTemplateScreen(
-                                      key: state.pageKey,
-                                      templatId: int.tryParse(
-                                          state.queryParams['templatId'] ?? ''),
-                                      recieverWalletNumber: state
-                                          .queryParams['recieverWalletNumber'],
-                                      templateName:
-                                          state.queryParams['templateName'],
-                                      templateImg:
-                                          state.queryParams['templateImg'],
-                                      defaultImage:
-                                          state.queryParams['defaultImage'],
-                                    ),
-                                  ),
-                                  GoRoute(
-                                      parentNavigatorKey: _rootNavigatorKey,
-                                      path: 'choosen-template',
-                                      builder: (context, state) =>
-                                          ChooseGiftTemplateScreen(
-                                            key: state.pageKey,
-                                            chosenMVPModel: state.extra != null
-                                                ? state.extra as ChosenMVPModel
-                                                : null,
-                                          ),
-                                      routes: [
-                                        GoRoute(
-                                          parentNavigatorKey: _rootNavigatorKey,
-                                          path: 'create-template',
-                                          builder: (context, state) =>
-                                              CreateTemplateScreen(
-                                            key: state.pageKey,
-                                            templatId: int.tryParse(state
-                                                    .queryParams['templatId'] ??
-                                                ''),
-                                            recieverWalletNumber:
-                                                state.queryParams[
-                                                    'recieverWalletNumber'],
-                                            templateName: state
-                                                .queryParams['templateName'],
-                                            templateImg: state
-                                                .queryParams['templateImg'],
-                                          ),
-                                        ),
-                                        GoRoute(
-                                          parentNavigatorKey: _rootNavigatorKey,
-                                          path: 'review-gift-mvp',
-                                          builder: (context, state) =>
-                                              ReviewGiftMVPTransfer(
-                                            key: state.pageKey,
-                                            amount:
-                                                state.queryParams["amount"] ??
-                                                    "",
-                                            receiverWallet: state.queryParams[
-                                                    "receiverWallet"] ??
-                                                "",
-                                            receiverName: state.queryParams[
-                                                    "receiverName"] ??
-                                                "",
-                                          ),
-                                        ),
-                                      ]),
-                                ]),
-                          ])
-                    ]),
+                //                       return CustomSucessScreen(
+                //                         key: state.pageKey,
+                //                         appbarTitle:
+                //                             state.queryParams['appbarTitle'],
+                //                         title: state.queryParams['title'],
+                //                         buttonTitle:
+                //                             state.queryParams['buttonTitle'],
+                //                         description:
+                //                             state.queryParams['description'],
+                //                         icon: extras?['icon'] as Icon?,
+                //                         backgroundColor:
+                //                             extras?['backgroundColor']
+                //                                 as Color?,
+                //                         onPressedButton:
+                //                             extras?['onPressedButton']
+                //                                 as Function()?,
+                //                         descriptionPadding:
+                //                             extras?['descriptionPadding']
+                //                                 as EdgeInsetsGeometry?,
+                //                       );
+                //                     },
+                //                   ),
+                //                 ]),
+                //             GoRoute(
+                //               parentNavigatorKey: rootNavigatorKey,
+                //               path: 'create-template',
+                //               builder: (context, state) => CreateTemplateScreen(
+                //                 key: state.pageKey,
+                //                 templatId: int.tryParse(
+                //                     state.queryParams['templatId'] ?? ''),
+                //                 recieverWalletNumber:
+                //                     state.queryParams['recieverWalletNumber'],
+                //                 templateName: state.queryParams['templateName'],
+                //                 templateImg: state.queryParams['templateImg'],
+                //                 defaultImage: state.queryParams['defaultImage'],
+                //               ),
+                //             ),
+                //             GoRoute(
+                //               parentNavigatorKey: rootNavigatorKey,
+                //               path: 'choosen-template',
+                //               builder: (context, state) =>
+                //                   ChooseGiftTemplateScreen(
+                //                 key: state.pageKey,
+                //                 chosenMVPModel: state.extra != null
+                //                     ? state.extra as ChosenMVPModel
+                //                     : null,
+                //               ),
+                //               routes: [
+                //                 GoRoute(
+                //                   parentNavigatorKey: rootNavigatorKey,
+                //                   path: 'create-template',
+                //                   builder: (context, state) =>
+                //                       CreateTemplateScreen(
+                //                     key: state.pageKey,
+                //                     templatId: int.tryParse(
+                //                         state.queryParams['templatId'] ?? ''),
+                //                     recieverWalletNumber: state
+                //                         .queryParams['recieverWalletNumber'],
+                //                     templateName:
+                //                         state.queryParams['templateName'],
+                //                     templateImg:
+                //                         state.queryParams['templateImg'],
+                //                   ),
+                //                 ),
+                //                 GoRoute(
+                //                   parentNavigatorKey: rootNavigatorKey,
+                //                   path: 'review-gift-mvp',
+                //                   builder: (context, state) =>
+                //                       ReviewGiftMVPTransfer(
+                //                     key: state.pageKey,
+                //                     amount: state.queryParams["amount"] ?? "",
+                //                     receiverWallet:
+                //                         state.queryParams["receiverWallet"] ??
+                //                             "",
+                //                     receiverName:
+                //                         state.queryParams["receiverName"] ?? "",
+                //                   ),
+                //                 ),
+                //               ],
+                //             ),
+                //           ],
+                //         ),
+                //       ],
+                //     )
+                //   ],
+                // ),
+
+                CICRoute.instance.mvpRoute(fromWhere: 'Dashboard'),
 
                 /// Investment
                 GoRoute(
@@ -964,14 +961,14 @@ final router = GoRouter(
                       ),
                     ),
                     GoRoute(
-                      // parentNavigatorKey: _rootNavigatorKey,
+                      // parentNavigatorKey: rootNavigatorKey,
                       path: 'invest-more',
                       name: 'Invest More No Param',
                       builder: (context, state) =>
                           FIFDeucSelection(key: state.pageKey),
                       routes: [
                         GoRoute(
-                            // parentNavigatorKey: _rootNavigatorKey,
+                            // parentNavigatorKey: rootNavigatorKey,
                             path: 'fif-step',
                             name: 'FiF1',
                             builder: (context, state) {
@@ -1050,7 +1047,7 @@ final router = GoRouter(
                   builder: (_, state) => WalletScreen(key: state.pageKey),
                   routes: [
                     GoRoute(
-                        parentNavigatorKey: _rootNavigatorKey,
+                        parentNavigatorKey: rootNavigatorKey,
                         path: 'point-exchange',
                         name: 'WalletPointExchange',
                         builder: (_, state) => WalletExchange(
@@ -1061,13 +1058,13 @@ final router = GoRouter(
                           GoRoute(
                               path: 'mvp-screen',
                               name: 'MVPScreen',
-                              parentNavigatorKey: _rootNavigatorKey,
+                              parentNavigatorKey: rootNavigatorKey,
                               builder: (context, state) => PrivilegePointScreen(
                                     key: state.pageKey,
                                   ),
                               routes: [
                                 GoRoute(
-                                    parentNavigatorKey: _rootNavigatorKey,
+                                    parentNavigatorKey: rootNavigatorKey,
                                     path: 'privilege-store',
                                     builder: (context, state) =>
                                         PrivilageStoreScreen(
@@ -1075,7 +1072,7 @@ final router = GoRouter(
                                         ),
                                     routes: [
                                       GoRoute(
-                                        parentNavigatorKey: _rootNavigatorKey,
+                                        parentNavigatorKey: rootNavigatorKey,
                                         path: 'mvp-history',
                                         builder: (_, state) =>
                                             MVPTransactionHistory(
@@ -1088,7 +1085,7 @@ final router = GoRouter(
                                       ),
                                     ]),
                                 GoRoute(
-                                  parentNavigatorKey: _rootNavigatorKey,
+                                  parentNavigatorKey: rootNavigatorKey,
                                   path: 'mvp-qr',
                                   builder: (context, state) => MvpQrScreen(
                                     key: state.pageKey,
@@ -1099,14 +1096,14 @@ final router = GoRouter(
                                   ),
                                 ),
                                 GoRoute(
-                                    parentNavigatorKey: _rootNavigatorKey,
+                                    parentNavigatorKey: rootNavigatorKey,
                                     path: 'gift-mvp-option',
                                     builder: (context, state) => GiftMvpOption(
                                           key: state.pageKey,
                                         ),
                                     routes: [
                                       GoRoute(
-                                        parentNavigatorKey: _rootNavigatorKey,
+                                        parentNavigatorKey: rootNavigatorKey,
                                         path: 'gift-mvp-transfer',
                                         builder: (context, state) =>
                                             GiftMVPTransferScreen(
@@ -1115,7 +1112,7 @@ final router = GoRouter(
                                         routes: [
                                           GoRoute(
                                             parentNavigatorKey:
-                                                _rootNavigatorKey,
+                                                rootNavigatorKey,
                                             path: 'review-gift-mvp',
                                             builder: (context, state) =>
                                                 ReviewGiftMVPTransfer(
@@ -1125,7 +1122,7 @@ final router = GoRouter(
                                         ],
                                       ),
                                       GoRoute(
-                                          parentNavigatorKey: _rootNavigatorKey,
+                                          parentNavigatorKey: rootNavigatorKey,
                                           path: 'gift-mvp-template',
                                           builder: (context, state) =>
                                               GiftMVPFromTemplateScreen(
@@ -1134,7 +1131,7 @@ final router = GoRouter(
                                           routes: [
                                             GoRoute(
                                               parentNavigatorKey:
-                                                  _rootNavigatorKey,
+                                                  rootNavigatorKey,
                                               path: 'create-template',
                                               builder: (context, state) =>
                                                   CreateTemplateScreen(
@@ -1154,7 +1151,7 @@ final router = GoRouter(
                                             ),
                                             GoRoute(
                                                 parentNavigatorKey:
-                                                    _rootNavigatorKey,
+                                                    rootNavigatorKey,
                                                 path: 'choosen-template',
                                                 builder: (context, state) =>
                                                     ChooseGiftTemplateScreen(
@@ -1169,7 +1166,7 @@ final router = GoRouter(
                                                 routes: [
                                                   GoRoute(
                                                     parentNavigatorKey:
-                                                        _rootNavigatorKey,
+                                                        rootNavigatorKey,
                                                     path: 'create-template',
                                                     builder: (context, state) =>
                                                         CreateTemplateScreen(
@@ -1191,7 +1188,7 @@ final router = GoRouter(
                                                   ),
                                                   GoRoute(
                                                     parentNavigatorKey:
-                                                        _rootNavigatorKey,
+                                                        rootNavigatorKey,
                                                     path: 'review-gift-mvp',
                                                     builder: (context, state) =>
                                                         ReviewGiftMVPTransfer(
@@ -1261,7 +1258,7 @@ final router = GoRouter(
                           routes: [
                             GoRoute(
                               path: 'ut-subscription/:tabName',
-                              parentNavigatorKey: _rootNavigatorKey,
+                              parentNavigatorKey: rootNavigatorKey,
                               builder:
                                   (BuildContext context, GoRouterState state) {
                                 final String tabName = state.params['tabName']!;
@@ -1468,7 +1465,7 @@ final router = GoRouter(
                 GoRoute(
                   path: 'switch-splash-screen/:userType',
                   name: 'SwitchSplashScreen',
-                  parentNavigatorKey: _rootNavigatorKey,
+                  parentNavigatorKey: rootNavigatorKey,
                   pageBuilder: (context, state) => CustomTransitionPage(
                       child: SwitchSplashScreen(
                         offset: state.extra! as Offset,
@@ -1717,7 +1714,7 @@ final router = GoRouter(
       GoRoute(
         path: '/ut-subscription/:tabName',
         name: 'Utsubscription',
-        parentNavigatorKey: _rootNavigatorKey,
+        parentNavigatorKey: rootNavigatorKey,
         builder: (BuildContext context, GoRouterState state) {
           final String tabName = state.params['tabName']!;
           final String fromPage = state.queryParams['fromPage']!;
@@ -1854,7 +1851,7 @@ final router = GoRouter(
       GoRoute(
         path: '/gift_mvp_successfully',
         name: 'GiftMVPSuccessfully',
-        parentNavigatorKey: _rootNavigatorKey,
+        parentNavigatorKey: rootNavigatorKey,
         builder: (_, state) {
           final extras = state.extra as Map<String, Object?>?;
           return GiftMVPSuccessfully(
@@ -1875,7 +1872,7 @@ final router = GoRouter(
       GoRoute(
         path: '/payment-summery',
         name: 'PaymentSummeryMVP',
-        parentNavigatorKey: _rootNavigatorKey,
+        parentNavigatorKey: rootNavigatorKey,
         builder: (_, state) {
           final extras = state.extra as Map<String, Object?>?;
           return PaymentSummeryMVP(
@@ -1898,7 +1895,7 @@ final router = GoRouter(
       GoRoute(
         path: '/recent-activity',
         name: 'RecentActivityDetailSummery',
-        parentNavigatorKey: _rootNavigatorKey,
+        parentNavigatorKey: rootNavigatorKey,
         builder: (_, state) {
           return RecentActivityDetailSummery(
             id: int.parse(state.queryParams['id'].toString()),
@@ -1911,7 +1908,7 @@ final router = GoRouter(
       GoRoute(
         path: '/success-screen',
         name: 'SuccessScreen',
-        parentNavigatorKey: _rootNavigatorKey,
+        parentNavigatorKey: rootNavigatorKey,
         builder: (_, state) {
           final extras = state.extra as Map<String, Object?>?;
 

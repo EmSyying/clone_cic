@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 
 import 'custom_header_transaction.dart';
 
@@ -34,9 +33,10 @@ onShowPopUpTemplateHistory(
           initialChildSize: 1,
           builder: (context, scrollController) {
             return SingleChildScrollView(
+              controller: scrollController,
               child: Column(
                 // mainAxisAlignment: MainAxisAlignment.end,
-                mainAxisSize: MainAxisSize.max,
+                // mainAxisSize: MainAxisSize.max,
                 children: [
                   Container(
                     margin: const EdgeInsets.only(top: 10),
@@ -109,9 +109,9 @@ onShowPopUpTemplateHistory(
   //           ? MediaQuery.of(context).size.height * 0.6
   //           : isHeight,
   //       child: SingleChildScrollView(
-  //         physics: isscroll!
-  //             ? const ScrollPhysics()
-  //             : const NeverScrollableScrollPhysics(),
+  // physics: isscroll!
+  //     ? const ScrollPhysics()
+  //     : const NeverScrollableScrollPhysics(),
   //         child: Column(
   //           // mainAxisAlignment: MainAxisAlignment.end,
   //           mainAxisSize: MainAxisSize.max,

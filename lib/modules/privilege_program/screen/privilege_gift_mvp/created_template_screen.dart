@@ -70,12 +70,6 @@ class _CreateTemplateScreenState extends State<CreateTemplateScreen> {
 
   final privilegeController = Get.put(PrivilegeController());
 
-  @override
-  void dispose() {
-    privilegeController.clearGiftMVPForm();
-    super.dispose();
-  }
-
   _initValue() {
     if (widget.templatId != null) {
       debugPrint('Update');
@@ -89,6 +83,8 @@ class _CreateTemplateScreenState extends State<CreateTemplateScreen> {
           widget.templateName ?? '';
       privilegeController.inputRecieverWalletChanged(
           privilegeController.receiveWalletNumberController.text);
+    } else {
+      privilegeController.clearGiftMVPForm();
     }
   }
 
@@ -97,7 +93,9 @@ class _CreateTemplateScreenState extends State<CreateTemplateScreen> {
     // debugPrint(
     //     'Image : ${widget.templateImg} => ${widget.templateImg.runtimeType}');
 
-    _initValue();
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      _initValue();
+    });
     super.initState();
   }
 

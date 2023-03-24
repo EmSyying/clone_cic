@@ -102,7 +102,7 @@ class _PrivilegeScreenState extends State<PrivilegeScreen> {
                       padding: const EdgeInsets.only(right: 10),
                       child: GestureDetector(
                         onTap: () {
-                          context.go('/privilege/all-store/point-screen');
+                          context.go('/privilege/all-store/mymvp');
                         },
                         child: Center(
                           child: Container(
