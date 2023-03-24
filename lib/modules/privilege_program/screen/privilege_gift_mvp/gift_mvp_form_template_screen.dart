@@ -3,8 +3,6 @@
 import 'dart:async';
 import 'dart:io';
 
-import 'package:cicgreenloan/modules/privilege_program/model/gift_mvp_model/template_gift_mvp_model.dart';
-import 'package:cicgreenloan/modules/privilege_program/screen/privilege_gift_mvp/transaction_history_template.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -14,8 +12,8 @@ import 'package:go_router/go_router.dart';
 import '../../../../Utils/helper/custom_appbar_colorswhite.dart';
 import '../../../../widgets/bonus/custom_empty_state.dart';
 import '../../../../widgets/privilege/privilege/custom_formfield_search.dart';
+import '../../../../widgets/privilege/privilege_gift_mvp/custom_bottom_popup.dart';
 import '../../../../widgets/privilege/privilege_gift_mvp/custom_card_gift_mvp_form.dart';
-import '../../../../widgets/privilege/privilege_gift_mvp/custom_pop_up_template_history.dart';
 import '../../controller/privilege_controller.dart';
 import '../choose_gift_template.dart';
 
@@ -161,18 +159,21 @@ class _GiftMVPFromTemplateScreenState extends State<GiftMVPFromTemplateScreen> {
                                             accountNumber: e.value.walletNumber,
                                             imageAccount: e.value.image,
                                             defaultImage: e.value.defaultImage,
-                                            onTapDeleted: () {
-                                              priCon.deleteTemplate(
-                                                context,
-                                                id = e.value.id,
-                                              );
-                                              // priCon.isDeletTemplate.value;
-                                            },
+                                            // onTapDeleted: () {
+                                            //   priCon.deleteTemplate(
+                                            //     context,
+                                            //     id = e.value.id,
+                                            //   );
+                                            //   // priCon.isDeletTemplate.value;
+                                            // },
                                             onTapEdit: () {
                                               try {
                                                 var string =
                                                     GoRouterState.of(context)
                                                         .location;
+
+                                                debugPrint(
+                                                    "===========Tttt: $string");
 
                                                 context.push(
                                                     "$string/create-template?templatId=${e.value.id}&recieverWalletNumber=${e.value.walletNumberNoFormat}&templateName=${e.value.name}${e.value.image != null ? '&templateImg=${e.value.image}' : ''}${e.value.defaultImage != null ? '&defaultImage=${e.value.defaultImage}' : ''}");
@@ -256,117 +257,6 @@ class _GiftMVPFromTemplateScreenState extends State<GiftMVPFromTemplateScreen> {
           ),
         )
       ],
-    );
-  }
-
-  containPopTransactionHistory(ScrollController scrollController,
-      BuildContext context, MapEntry<int, TemplateGiftMVPModel> e) {
-    return Obx(
-      () => priCon.isLoadingTransactionTemplate.value
-          ? loadingTransactionTemplate(
-              context,
-              ChosenMVPModel(
-                id: e.value.id,
-                receiverName: e.value.name,
-                receiverWallet: e.value.walletNumber,
-              ))
-          : priCon.listTransactionHistoryTemplate.isEmpty
-              ? emtyStateTransactionTemplate(
-                  context,
-                  ChosenMVPModel(
-                    id: e.value.id,
-                    receiverName: e.value.name,
-                    receiverWallet: e.value.walletNumber,
-                  ))
-              : ClipRRect(
-                  borderRadius: const BorderRadius.only(
-                      topLeft: Radius.circular(14),
-                      topRight: Radius.circular(14)),
-                  child: Stack(
-                    children: [
-                      Container(
-                          color: Colors.white,
-                          child: ListView.separated(
-                            controller: scrollController,
-                            separatorBuilder: (context, index) => Divider(
-                              color: Colors.grey[400],
-                              height: 1,
-                            ),
-                            itemCount:
-                                priCon.listTransactionHistoryTemplate.length,
-                            itemBuilder: (_, index) =>
-                                TransactionHistoryTemplate(
-                              id: priCon
-                                  .listTransactionHistoryTemplate[index].id,
-                              title: priCon
-                                  .listTransactionHistoryTemplate[index]
-                                  .walletName,
-                              image: priCon
-                                  .listTransactionHistoryTemplate[index].image,
-                              dated: priCon
-                                  .listTransactionHistoryTemplate[index]
-                                  .paymentDate,
-                              amount: priCon
-                                  .listTransactionHistoryTemplate[index].amount,
-                              defaultImage: priCon
-                                  .listTransactionHistoryTemplate[index]
-                                  .defaultImage,
-                            ),
-                          )),
-                      Container(
-                        decoration: const BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.only(
-                                topLeft: Radius.circular(10),
-                                topRight: Radius.circular(10))),
-                        child: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            Container(
-                              margin: const EdgeInsets.only(top: 10),
-                              width: 50,
-                              height: 5,
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(10.0),
-                                  color: Colors.grey[300]),
-                            ),
-                            const SizedBox(
-                              height: 10.0,
-                            ),
-                            //Header Card Gift Template
-                            Padding(
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: 20.0, vertical: 10.0),
-                              child: headerCardGiftTemplate(
-                                context,
-                                titleGiftTemplate: e.value.name,
-                                acountNumGiftTemplate: e.value.walletNumber,
-                                id: e.value.id,
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.symmetric(
-                                  vertical: 14.0, horizontal: 20.0),
-                              child: Align(
-                                alignment: Alignment.centerLeft,
-                                child: Text(
-                                  'Transaction History',
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .displayMedium!
-                                      .copyWith(
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.w500,
-                                          color: const Color(0xff848F92)),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      )
-                    ],
-                  ),
-                ),
     );
   }
 }

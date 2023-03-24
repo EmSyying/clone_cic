@@ -11,12 +11,13 @@ import 'package:go_router/go_router.dart';
 import '../../../../Utils/form_builder/custom_button.dart';
 import '../../../../Utils/form_builder/custom_textformfield.dart';
 import '../../../../Utils/function/format_account_number.dart';
-import '../../../../Utils/function/format_date_time.dart';
 import '../../../../Utils/helper/custom_appbar_colorswhite.dart';
 import '../../../../widgets/privilege/custom_card_current_point.dart';
+import '../../../../widgets/privilege/privilege_gift_mvp/custom_bottom_popup.dart';
 import '../../../../widgets/privilege/privilege_gift_mvp/custom_card_gift_mvp_form.dart';
 import '../../../wallet/controller/wallet_controller.dart';
 import '../../controller/privilege_controller.dart';
+import '../choose_gift_template.dart';
 
 class GiftMVPTransferScreen extends StatefulWidget {
   const GiftMVPTransferScreen({super.key, this.walletNumber, this.amount = ""});
@@ -60,6 +61,7 @@ class _GiftMVPTransferScreenState extends State<GiftMVPTransferScreen> {
 
   final privilegeController = Get.put(PrivilegeController());
   final walletController = Get.put(WalletController());
+  final priCon = Get.put(PrivilegeController());
 
   void _showTemplate(BuildContext context) {
     privilegeController.fetchListTemplate();
@@ -121,49 +123,213 @@ class _GiftMVPTransferScreenState extends State<GiftMVPTransferScreen> {
                         ),
                         Expanded(
                           child: Obx(
-                            () => privilegeController.isLoadingTemplate.value
-                                ? const Center(
-                                    child: CircularProgressIndicator())
-                                : ListView.separated(
-                                    padding: const EdgeInsets.all(20),
-                                    controller: scrollController,
-                                    itemCount: privilegeController
-                                        .listGiftTemplate.length,
-                                    itemBuilder:
-                                        (BuildContext context, int index) {
-                                      final item = privilegeController
-                                          .listGiftTemplate[index];
-                                      return GestureDetector(
-                                        onTap: () {
-                                          privilegeController
-                                              .receiveWalletNumberController
-                                              .text = FormatDate
-                                                  .formatAccountNumber(item
-                                                      .walletNumberNoFormat) ??
-                                              '';
-                                          privilegeController
-                                              .inputRecieverWalletChanged(
-                                                  privilegeController
-                                                      .receiveWalletNumberController
-                                                      .text);
+                              () => privilegeController.isLoadingTemplate.value
+                                  ? const Center(
+                                      child: CircularProgressIndicator())
+                                  : Column(
+                                      children: priCon.listGiftTemplate
+                                          .asMap()
+                                          .entries
+                                          .map(
+                                            (e) => Padding(
+                                              padding: const EdgeInsets.only(
+                                                  bottom: 16.0),
+                                              child: GestureDetector(
+                                                onTap: () {
+                                                  try {
+                                                    var string =
+                                                        GoRouterState.of(
+                                                                context)
+                                                            .location;
+                                                    priCon
+                                                        .onClearChosenGiftMVPField();
+                                                    context.push(
+                                                        "$string/choosen-template",
+                                                        extra: ChosenMVPModel(
+                                                          id: e.value.id,
+                                                          imageUrl:
+                                                              e.value.image,
+                                                          defaultImageLetter: e
+                                                              .value
+                                                              .defaultImage,
+                                                          receiverName:
+                                                              e.value.name,
+                                                          receiverWallet: e
+                                                              .value
+                                                              .walletNumber,
+                                                        ));
+                                                  } catch (e) {
+                                                    debugPrint("Hello ERROR$e");
+                                                  }
+                                                },
+                                                child: CustomCardGiftMVPForm(
+                                                  backgroundColor: priCon
+                                                      .listColors[e.key % 6],
+                                                  id: e.value.id,
+                                                  acountName: e.value.name,
+                                                  accountNumber:
+                                                      e.value.walletNumber,
+                                                  imageAccount: e.value.image,
+                                                  defaultImage:
+                                                      e.value.defaultImage,
+                                                  // onTapDeleted: () {
+                                                  //   priCon.deleteTemplate(
+                                                  //     context,
+                                                  //     e.value.id,
+                                                  //   );
+                                                  //   // priCon.isDeletTemplate.value;
+                                                  // },
+                                                  onTapEdit: () {
+                                                    debugPrint(
+                                                        "--------Testing tttttttttt:");
+                                                    try {
+                                                      var string =
+                                                          GoRouterState.of(
+                                                                  context)
+                                                              .location;
+                                                      debugPrint(
+                                                          "--------Testing tttttttttt: $string");
+                                                      context.push(
+                                                          "/gift-mvp-template/create-template?templatId=${e.value.id}&recieverWalletNumber=${e.value.walletNumberNoFormat}&templateName=${e.value.name}${e.value.image != null ? '&templateImg=${e.value.image}' : ''}${e.value.defaultImage != null ? '&defaultImage=${e.value.defaultImage}' : ''}");
+                                                      debugPrint(
+                                                          "Hello ERRO====R $string");
+                                                    } catch (e) {
+                                                      debugPrint(
+                                                          "Hello ERRO====R$e");
+                                                    }
+                                                  },
+                                                  onTapHistory: () {
+                                                    //header template history
+                                                    priCon
+                                                        .transactionHistoryTemplate(
+                                                            e.value.id);
+                                                    showModalBottomSheet(
+                                                      context: context,
+                                                      isScrollControlled: true,
+                                                      shape:
+                                                          const RoundedRectangleBorder(
+                                                        borderRadius:
+                                                            BorderRadius.only(
+                                                                topLeft: Radius
+                                                                    .circular(
+                                                                        14),
+                                                                topRight: Radius
+                                                                    .circular(
+                                                                        14)),
+                                                      ),
+                                                      // expand: false,
+                                                      backgroundColor:
+                                                          Colors.white,
+                                                      builder: (context) =>
+                                                          DraggableScrollableSheet(
+                                                        initialChildSize: 0.64,
+                                                        minChildSize: 0.2,
+                                                        maxChildSize: 0.9,
+                                                        expand: false,
+                                                        builder: (context,
+                                                            scrollController) {
+                                                          return containPopTransactionHistory(
+                                                              scrollController,
+                                                              context,
+                                                              e);
+                                                        },
+                                                      ),
+                                                    );
+                                                  },
+                                                ),
+                                              ),
+                                            ),
+                                          )
+                                          .toList(),
+                                    )
+                              // : ListView.separated(
+                              //     padding: const EdgeInsets.all(20),
+                              //     controller: scrollController,
+                              //     itemCount: privilegeController
+                              //         .listGiftTemplate.length,
+                              //     itemBuilder:
+                              //         (BuildContext context, int index) {
+                              //       final item = privilegeController
+                              //           .listGiftTemplate[index];
 
-                                          Navigator.pop(context);
-                                        },
-                                        child: CustomCardGiftMVPForm(
-                                          backgroundColor: privilegeController
-                                              .listColors[index % 6],
-                                          id: item.id,
-                                          acountName: item.name,
-                                          accountNumber: item.walletNumber,
-                                          imageAccount: item.image,
-                                          defaultImage: item.defaultImage,
-                                        ),
-                                      );
-                                    },
-                                    separatorBuilder: (context, index) =>
-                                        const SizedBox(height: 20),
-                                  ),
-                          ),
+                              //       return GestureDetector(
+                              //         onTap: () {
+                              //           privilegeController
+                              //               .receiveWalletNumberController
+                              //               .text = FormatDate
+                              //                   .formatAccountNumber(item
+                              //                       .walletNumberNoFormat) ??
+                              //               '';
+                              //           privilegeController
+                              //               .inputRecieverWalletChanged(
+                              //                   privilegeController
+                              //                       .receiveWalletNumberController
+                              //                       .text);
+
+                              //           Navigator.pop(context);
+                              //         },
+                              //         child: CustomCardGiftMVPForm(
+                              //           backgroundColor: privilegeController
+                              //               .listColors[index % 6],
+                              //           id: item.id,
+                              //           acountName: item.name,
+                              //           accountNumber: item.walletNumber,
+                              //           imageAccount: item.image,
+                              //           defaultImage: item.defaultImage,
+                              //           onTapEdit: () {
+                              //             try {
+                              //               var string =
+                              //                   GoRouterState.of(context)
+                              //                       .location;
+
+                              // context.push(
+                              //     "$string/create-template?templatId=${item.id}&recieverWalletNumber=${item.walletNumberNoFormat}&templateName=${item.name}${item.image != null ? '&templateImg=${item.image}' : ''}${item.defaultImage != null ? '&defaultImage=${item.defaultImage}' : ''}");
+                              //               debugPrint(
+                              //                   "Hello ERRO====R $string");
+                              //             } catch (e) {
+                              //               debugPrint("Hello ERRO====R$e");
+                              //             }
+                              //           },
+                              //           onTapHistory: () {
+                              //             //header template history
+                              //             priCon.transactionHistoryTemplate(
+                              //                 item.id);
+                              //             showModalBottomSheet(
+                              //               context: context,
+                              //               isScrollControlled: true,
+                              //               shape:
+                              //                   const RoundedRectangleBorder(
+                              //                 borderRadius: BorderRadius.only(
+                              //                     topLeft:
+                              //                         Radius.circular(14),
+                              //                     topRight:
+                              //                         Radius.circular(14)),
+                              //               ),
+                              //               // expand: false,
+                              //               backgroundColor: Colors.white,
+                              //               builder: (context) =>
+                              //                   DraggableScrollableSheet(
+                              //                 initialChildSize: 0.64,
+                              //                 minChildSize: 0.2,
+                              //                 maxChildSize: 0.9,
+                              //                 expand: false,
+                              //                 builder: (context,
+                              //                     scrollController) {
+                              //                   return containPopTransactionHistory(
+                              //                       scrollController,
+                              //                       context,
+                              //                       e);
+                              //                 },
+                              //               ),
+                              //             );
+                              //           },
+                              //         ),
+                              //       );
+                              //     },
+                              //     separatorBuilder: (context, index) =>
+                              //         const SizedBox(height: 20),
+                              //   ),
+                              ),
                         ),
                       ],
                     ),
