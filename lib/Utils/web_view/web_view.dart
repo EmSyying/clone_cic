@@ -76,7 +76,7 @@ Page resource error:
           );
         },
       )
-      ..loadRequest(Uri.parse('https://flutter.dev'));
+      ..loadRequest(Uri.parse('${widget.url}'));
 
     // #docregion platform_features
     if (controller.platform is AndroidWebViewController) {
@@ -91,7 +91,7 @@ Page resource error:
     super.initState();
   }
 
-  String selectedUrl = 'https://flutter.io';
+  // String selectedUrl = 'https://flutter.io';
 
 // ignore: prefer_collection_literals
   bool isLoading = true;
