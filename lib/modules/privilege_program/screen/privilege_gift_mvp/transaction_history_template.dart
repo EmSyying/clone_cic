@@ -31,17 +31,10 @@ class TransactionHistoryTemplate extends StatelessWidget {
         Container(
           width: 42,
           height: 42,
-          decoration: BoxDecoration(
+          decoration: const BoxDecoration(
             shape: BoxShape.circle,
-            color: backgroundColor,
-            //color: Colors.white,
-            boxShadow: [
-              BoxShadow(
-                color: Colors.grey.withAlpha(25),
-                blurRadius: 4,
-                offset: const Offset(0, 1),
-              )
-            ],
+            // color: backgroundColor,
+            color: Color(0xfff5f5f0),
           ),
           clipBehavior: Clip.hardEdge,
           child: image != null
@@ -56,7 +49,7 @@ class TransactionHistoryTemplate extends StatelessWidget {
                           fontSize: 14,
                           fontWeight: FontWeight.w700,
                           overflow: TextOverflow.ellipsis,
-                          color: Colors.white,
+                          color: Colors.black,
                         ),
                   ),
                 ),

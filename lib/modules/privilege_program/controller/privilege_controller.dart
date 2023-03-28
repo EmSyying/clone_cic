@@ -1067,10 +1067,22 @@ class PrivilegeController extends GetxController {
           extra: {
             'onPressed': () {
               onClearRedeemToMVP();
-              onFetchShopDetail(shopStoreId.value).then((value) {
-                context.go(
-                    "/privilege/all-store/privilege-detail/${shopStoreId.value}");
-              });
+              //  onFetchShopDetail(shopStoreId.value).then((value) {
+              //     context.go(
+              //         "/privilege/all-store/privilege-detail/${shopStoreId.value}");
+              //   });
+              if (shopCategoryItemList.isEmpty) {
+                onFetchShopDetail(shopStoreId.value).then((value) {
+                  context.go(
+                      "/privilege/all-store/privilege-detail/${shopStoreId.value}");
+                });
+              } else {
+                onFetchShopDetail(shopStoreId.value).then((value) {
+                  context.pop();
+                  context.pop();
+                  context.pop();
+                });
+              }
               update();
             },
           },
