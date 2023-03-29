@@ -1,25 +1,24 @@
 // ignore_for_file: use_build_context_synchronously
 
-import 'package:cicgreenloan/modules/event_module/screen/event_enable_notification.dart';
+import 'package:cicgreenloan/modules/event_module/screen/enable_notification.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 
 import '../../../Utils/form_builder/custom_button.dart';
 import 'waiting_approval_screen.dart';
 
-class SuccessRegistationEventScreen extends StatefulWidget {
-  const SuccessRegistationEventScreen({
+class SuccessRegistationScreen extends StatefulWidget {
+  const SuccessRegistationScreen({
     super.key,
   });
 
   @override
-  State<SuccessRegistationEventScreen> createState() =>
-      _SuccessRegistationEventScreenState();
+  State<SuccessRegistationScreen> createState() =>
+      _SuccessRegistationScreenState();
 }
 
-class _SuccessRegistationEventScreenState
-    extends State<SuccessRegistationEventScreen> with WidgetsBindingObserver {
+class _SuccessRegistationScreenState extends State<SuccessRegistationScreen>
+    with WidgetsBindingObserver {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -33,7 +32,8 @@ class _SuccessRegistationEventScreenState
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    SvgPicture.asset('assets/images/event/success_event.svg'),
+                    Image.asset(
+                        'assets/images/registration/success_registration.png'),
                     const SizedBox(
                       height: 20.0,
                     ),
@@ -83,7 +83,7 @@ class _SuccessRegistationEventScreenState
                       );
                       if (settings.authorizationStatus ==
                           AuthorizationStatus.authorized) {
-                        print('User granted permission');
+                        //  print('User granted permission');
                         Navigator.push(
                           context,
                           MaterialPageRoute(
@@ -92,26 +92,15 @@ class _SuccessRegistationEventScreenState
                         );
                       } else if (settings.authorizationStatus ==
                           AuthorizationStatus.provisional) {
-                        print('User granted provisional permission');
+                        //  print('User granted provisional permission');
                       } else {
-                        print('User declined or has not accepted permission');
+                        // print('User declined or has not accepted permission');
                         Navigator.push(
                             context,
                             MaterialPageRoute(
                                 builder: (context) =>
-                                    const EventEnableNotificationScreen()));
+                                    const EnableNotificationScreen()));
                       }
-                      // bool allow =
-                      //     await Permission.notification.status.isDenied;
-
-                      // show the dialog/open settings screen
-
-                      // Navigator.push(
-                      //   context,
-                      //   MaterialPageRoute(
-                      //       builder: (context) =>
-                      //           const WaitingApprovalScreen()),
-                      // );
                     },
                     title: 'Done',
                     isDisable: false,
