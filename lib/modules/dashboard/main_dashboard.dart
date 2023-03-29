@@ -6,7 +6,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 
 import 'package:cicgreenloan/Utils/pop_up_alert/reminder_dailog.dart';
 import 'package:cicgreenloan/Utils/popupannouncement/popup_announcement.dart';
-import 'package:cicgreenloan/main.dart';
+// import 'package:cicgreenloan/main.dart';
 import 'package:cicgreenloan/utils/function/get_sharepreference_data.dart';
 import 'package:cicgreenloan/Utils/app_settings/controllers/appsetting_controller.dart';
 import 'package:cicgreenloan/modules/member_directory/controllers/customer_controller.dart';
@@ -42,7 +42,7 @@ import '../../Utils/helper/find_widget_position.dart';
 import '../../Utils/helper/local_notification.dart';
 import '../../Utils/helper/underdevelopment_bottom_sheet.dart';
 import '../../Utils/pin_code_controller/set_pin_code_controller.dart';
-import '../../configs/firebase_deeplink/deeplink_service.dart';
+import '../../configs/route_configuration/route.dart';
 import '../../core/flavor/flavor_configuration.dart';
 import '../../utils/helper/firebase_analytics.dart';
 import '../get_funding/controller/approve_payment_detail_controller.dart';
@@ -476,16 +476,17 @@ class _MainDashboardState extends State<MainDashboard> {
                               ),
                               GestureDetector(
                                 onTap: () async {
-                                  final url = await DynamicLinkService
-                                      .createDynamicLink(
-                                          path:
-                                              'privilege/all-store/redeem-point-to-pay?receiveAccountNumber=614543119&receiveAccountName=PIZZA HUT KAMPUCHEA KROM&shopStoreId=1',
-                                          isShort: true);
                                   // final url = await DynamicLinkService
                                   //     .createDynamicLink(
-                                  //         path: 'privilege-payment/1',
+                                  //         path:
+                                  //             'privilege/all-store/redeem-point-to-pay?receiveAccountNumber=614543119&receiveAccountName=PIZZA HUT KAMPUCHEA KROM&shopStoreId=1',
                                   //         isShort: true);
-                                  debugPrint("Event: $url");
+                                  // // final url = await DynamicLinkService
+                                  // //     .createDynamicLink(
+                                  // //         path: 'privilege-payment/1',
+                                  // //         isShort: true);
+
+                                  // debugPrint("Event: $url");
                                 },
                                 child: const Text(
                                   'Mobile',
@@ -619,7 +620,17 @@ class _MainDashboardState extends State<MainDashboard> {
                     //   },
                     //   child: const Text('Tester'),
                     // ),
-
+                    GestureDetector(
+                      onTap: () {
+                        context.push("/invite-user-referal");
+                      },
+                      child: SvgPicture.asset(
+                        'assets/images/invite/Invite.svg',
+                      ),
+                    ),
+                    const SizedBox(
+                      width: 20,
+                    ),
                     if (!_settingCon.isAMMode!)
                       GestureDetector(
                         key: actionKey,

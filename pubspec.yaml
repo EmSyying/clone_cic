@@ -169,6 +169,7 @@ flutter:
     - assets/images/svgfile/backgroundSlide.svg
     - assets/images/svgfile/
     - assets/images/
+    - assets/images/invite/
     - assets/images/banks/
     - assets/images/wallet/
     - assets/images/banks/bank_transparent_logo/

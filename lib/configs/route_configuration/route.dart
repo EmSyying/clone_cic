@@ -35,6 +35,7 @@ import '../../modules/dashboard/buttom_navigation_bar.dart';
 import '../../modules/dashboard/dashboard.dart';
 import '../../modules/dashboard/main_dashboard.dart';
 
+import '../../modules/invite_user/screen/invite_user_screen.dart';
 import '../../modules/learning_platform_module/screens/learning_home.dart';
 import '../../modules/learning_platform_module/screens/video_list_by_module.dart';
 import '../../modules/member_directory/controllers/customer_controller.dart';
@@ -79,6 +80,7 @@ final router = GoRouter(
     navigatorKey: rootNavigatorKey,
     debugLogDiagnostics: true,
     redirect: (context, state) {
+      debugPrint("state.location===${state.location}");
       if (settingCon.appSettingNofier.value.userToken == null &&
           !state.location.contains('/contract-term') &&
           !state.location.contains('/privacy-policy') &&
@@ -109,6 +111,15 @@ final router = GoRouter(
                   name: state.name,
                   child: const MainDashboard()),
               routes: [
+                GoRoute(
+                  parentNavigatorKey: rootNavigatorKey,
+                  path: "invite-user-referal",
+                  builder: (BuildContext context, GoRouterState state) {
+                    return InviteUserReferral(
+                      key: state.pageKey,
+                    );
+                  },
+                ),
                 GoRoute(
                   parentNavigatorKey: rootNavigatorKey,
                   path: 'giftmvp',
