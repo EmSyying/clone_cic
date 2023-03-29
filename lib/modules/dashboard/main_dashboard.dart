@@ -7,6 +7,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cicgreenloan/Utils/pop_up_alert/reminder_dailog.dart';
 import 'package:cicgreenloan/Utils/popupannouncement/popup_announcement.dart';
 import 'package:cicgreenloan/main.dart';
+import 'package:cicgreenloan/modules/dashboard/testing.dart';
 import 'package:cicgreenloan/utils/function/get_sharepreference_data.dart';
 import 'package:cicgreenloan/Utils/app_settings/controllers/appsetting_controller.dart';
 import 'package:cicgreenloan/modules/member_directory/controllers/customer_controller.dart';
@@ -667,9 +668,14 @@ class _MainDashboardState extends State<MainDashboard> {
                     ),
                     GestureDetector(
                       onTap: () async {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const Testing()));
+
                         // await LocalData.storeAppTou('appTour',
                         //     false);
-                        _showDashboardTour();
+                        // _showDashboardTour();
                       },
                       child: SvgPicture.asset('assets/images/demo.svg'),
                     ),
