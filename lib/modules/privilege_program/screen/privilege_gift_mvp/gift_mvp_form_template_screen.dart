@@ -14,6 +14,7 @@ import '../../../../widgets/bonus/custom_empty_state.dart';
 import '../../../../widgets/privilege/privilege/custom_formfield_search.dart';
 import '../../../../widgets/privilege/privilege_gift_mvp/custom_bottom_popup.dart';
 import '../../../../widgets/privilege/privilege_gift_mvp/custom_card_gift_mvp_form.dart';
+import '../../../event_module/screen/success_registration_event_screen.dart';
 import '../../controller/privilege_controller.dart';
 import '../choose_gift_template.dart';
 
@@ -83,6 +84,23 @@ class _GiftMVPFromTemplateScreenState extends State<GiftMVPFromTemplateScreen> {
                 context.pop();
               },
             ),
+            action: [
+              Padding(
+                padding: const EdgeInsets.only(right: 20.0),
+                child: GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) =>
+                            const SuccessRegistationEventScreen(),
+                      ),
+                    );
+                  },
+                  child: const Icon(Icons.add_a_photo),
+                ),
+              ),
+            ],
           ),
           body: Obx(
             () => Container(
