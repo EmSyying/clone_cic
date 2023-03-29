@@ -1,9 +1,9 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'package:cicgreenloan/modules/event_module/screen/event_enable_notification.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:permission_handler/permission_handler.dart';
 
 import '../../../Utils/form_builder/custom_button.dart';
 import 'waiting_approval_screen.dart';
@@ -20,8 +20,6 @@ class SuccessRegistationEventScreen extends StatefulWidget {
 
 class _SuccessRegistationEventScreenState
     extends State<SuccessRegistationEventScreen> with WidgetsBindingObserver {
-  Future<String>? permissionStatusFuture;
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -72,29 +70,48 @@ class _SuccessRegistationEventScreenState
                   child: CustomButton(
                     width: double.infinity,
                     onPressed: () async {
-                      bool isDenied =
-                          await Permission.notification.request().isDenied;
-                      // bool allow =
-                      //     await Permission.notification.status.isDenied;
-                      debugPrint('debugPint ============$isDenied');
-
-                      // show the dialog/open settings screen
-
-                      if (isDenied) {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) =>
-                                  const EventEnableNotificationScreen()),
-                        );
-                      } else {
+                      FirebaseMessaging messaging = FirebaseMessaging.instance;
+                      NotificationSettings settings =
+                          await messaging.requestPermission(
+                        alert: true,
+                        announcement: false,
+                        badge: true,
+                        carPlay: false,
+                        criticalAlert: false,
+                        provisional: false,
+                        sound: true,
+                      );
+                      if (settings.authorizationStatus ==
+                          AuthorizationStatus.authorized) {
+                        print('User granted permission');
                         Navigator.push(
                           context,
                           MaterialPageRoute(
                               builder: (context) =>
                                   const WaitingApprovalScreen()),
                         );
+                      } else if (settings.authorizationStatus ==
+                          AuthorizationStatus.provisional) {
+                        print('User granted provisional permission');
+                      } else {
+                        print('User declined or has not accepted permission');
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    const EventEnableNotificationScreen()));
                       }
+                      // bool allow =
+                      //     await Permission.notification.status.isDenied;
+
+                      // show the dialog/open settings screen
+
+                      // Navigator.push(
+                      //   context,
+                      //   MaterialPageRoute(
+                      //       builder: (context) =>
+                      //           const WaitingApprovalScreen()),
+                      // );
                     },
                     title: 'Done',
                     isDisable: false,

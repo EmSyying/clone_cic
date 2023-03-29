@@ -1,12 +1,12 @@
-import 'package:cicgreenloan/modules/event_module/screen/waiting_approval_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 import '../../../Utils/form_builder/custom_button.dart';
 import '../../../Utils/helper/color.dart';
-import '../../../Utils/helper/notification_permission.dart';
+import 'waiting_approval_screen.dart';
 
 class EventEnableNotificationScreen extends StatefulWidget {
   const EventEnableNotificationScreen({super.key});
@@ -19,52 +19,6 @@ class EventEnableNotificationScreen extends StatefulWidget {
 class _EventEnableNotificationScreenState
     extends State<EventEnableNotificationScreen> with WidgetsBindingObserver {
   final flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
-  Future<String>? permissionStatusFuture;
-  var permGranted = "granted";
-  var permDenied = "denied";
-  var permUnknown = "unknown";
-  var permProvisional = "provisional";
-
-  @override
-  void initState() {
-    super.initState();
-    // set up the notification permissions class
-    // set up the future to fetch the notification data
-    permissionStatusFuture = getCheckNotificationPermStatus();
-    // With this, we will be able to check if the permission is granted or not
-    // when returning to the application
-    WidgetsBinding.instance.addObserver(this);
-  }
-
-  /// When the application has a resumed status, check for the permission
-  /// status
-  @override
-  void didChangeAppLifecycleState(AppLifecycleState state) {
-    if (state == AppLifecycleState.resumed) {
-      setState(() {
-        permissionStatusFuture = getCheckNotificationPermStatus();
-      });
-    }
-  }
-
-  /// Checks the notification permission status
-  Future<String> getCheckNotificationPermStatus() {
-    return NotificationPermissions.getNotificationPermissionStatus()
-        .then((status) {
-      switch (status) {
-        case PermissionStatus.denied:
-          return permDenied;
-        case PermissionStatus.granted:
-          return permGranted;
-        case PermissionStatus.unknown:
-          return permUnknown;
-        case PermissionStatus.provisional:
-          return permProvisional;
-        default:
-          return '';
-      }
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -117,26 +71,39 @@ class _EventEnableNotificationScreenState
                 child: CustomButton(
                   width: double.infinity,
                   onPressed: () async {
-                    //   await NotificationHelper.initial();
-                    NotificationPermissions.requestNotificationPermissions(
-                            iosSettings: const NotificationSettingsIos(
-                                sound: true, badge: true, alert: true))
-                        .then((_) {
-                      // when finished, check the permission status
+                    openAppSettings();
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const WaitingApprovalScreen()),
+                    );
+                    // final timer = Timer.periodic(const Duration(seconds: 1),
+                    //     (timer) async {
+                    //   FirebaseMessaging messaging = FirebaseMessaging.instance;
+                    //   NotificationSettings settings =
+                    //       await messaging.requestPermission(
+                    //     alert: true,
+                    //     announcement: false,
+                    //     badge: true,
+                    //     carPlay: false,
+                    //     criticalAlert: false,
+                    //     provisional: false,
+                    //     sound: true,
+                    //   );
+                    //   if (settings.authorizationStatus ==
+                    //       AuthorizationStatus.authorized) {
+                    //     timer.cancel();
+                    //     print('User granted permission');
 
-                      setState(() {
-                        permissionStatusFuture =
-                            getCheckNotificationPermStatus().then((value) {
-                          Navigator.pushReplacement(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) =>
-                                    const WaitingApprovalScreen()),
-                          );
-                          return '';
-                        });
-                      });
-                    });
+                    //   } else if (settings.authorizationStatus ==
+                    //       AuthorizationStatus.provisional) {
+                    //     print('User granted provisional permission');
+                    //     timer.cancel();
+                    //   } else {
+                    //     print('User declined or has not accepted permission');
+                    //     timer.cancel();
+                    //   }
+                    // });
                   },
                   title: 'Allow Notifications',
                   isDisable: false,
