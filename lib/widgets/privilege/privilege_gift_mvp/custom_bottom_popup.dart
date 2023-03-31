@@ -11,6 +11,8 @@ import 'custom_header_transaction.dart';
 containPopTransactionHistory(ScrollController scrollController,
     BuildContext context, MapEntry<int, TemplateGiftMVPModel> e) {
   final priCon = Get.put(PrivilegeController());
+  debugPrint("priCon.listColors[e.key % 6]${priCon.listColors[e.key % 6]}");
+
   return Obx(
     () => priCon.isLoadingTransactionTemplate.value
         ? loadingTransactionTemplate(
@@ -57,6 +59,7 @@ containPopTransactionHistory(ScrollController scrollController,
                             defaultImage: priCon
                                 .listTransactionHistoryTemplate[index]
                                 .defaultImage,
+                            backgroundColor: priCon.listColors[e.key % 6],
                           ),
                         )),
                     Container(

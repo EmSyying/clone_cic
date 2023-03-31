@@ -163,6 +163,8 @@ class _GiftMVPFromTemplateScreenState extends State<GiftMVPFromTemplateScreen> {
                                                     receiverName: e.value.name,
                                                     receiverWallet:
                                                         e.value.walletNumber,
+                                                    color: priCon
+                                                        .listColors[e.key % 6],
                                                   ));
                                             } catch (e) {
                                               debugPrint("Hello ERROR$e");

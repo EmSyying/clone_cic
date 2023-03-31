@@ -23,7 +23,7 @@ import '../controller/privilege_controller.dart';
 class ChosenMVPModel {
   final String? receiverName, receiverWallet, imageUrl, defaultImageLetter;
   final int? id;
-  final String? color;
+  final Color? color;
   ChosenMVPModel({
     this.receiverName,
     this.receiverWallet,
@@ -127,6 +127,11 @@ class ChooseGiftTemplateScreen extends StatelessWidget {
                                                         .length,
                                                     itemBuilder: (_, index) =>
                                                         TransactionHistoryTemplate(
+                                                      defaultImage:
+                                                          privilegeController
+                                                              .listTransactionHistoryTemplate[
+                                                                  index]
+                                                              .defaultImage,
                                                       id: privilegeController
                                                           .listTransactionHistoryTemplate[
                                                               index]
@@ -147,6 +152,8 @@ class ChooseGiftTemplateScreen extends StatelessWidget {
                                                           .listTransactionHistoryTemplate[
                                                               index]
                                                           .amount,
+                                                      backgroundColor:
+                                                          chosenMVPModel!.color,
                                                       // amountColorType:
                                                       //     listTransactionHistory[
                                                       //             index]
@@ -452,8 +459,7 @@ class ChooseGiftTemplateScreen extends StatelessWidget {
                                   color: chosenMVPModel != null
                                       ? chosenMVPModel!.defaultImageLetter != ""
                                           ? chosenMVPModel!.color != null
-                                              ? Color(int.parse(
-                                                  chosenMVPModel!.color!))
+                                              ? chosenMVPModel!.color!
                                               : Colors.grey[200]
                                           : Colors.white
                                       : Colors.white,
@@ -468,10 +474,10 @@ class ChooseGiftTemplateScreen extends StatelessWidget {
                                           child: Text(
                                             chosenMVPModel!.defaultImageLetter
                                                 .toString(),
-                                            style:
-                                                txtTheme.bodyMedium!.copyWith(
-                                              fontSize: 25,
-                                            ),
+                                            style: txtTheme.bodyMedium!
+                                                .copyWith(
+                                                    fontSize: 25,
+                                                    color: Colors.white),
                                           ),
                                         )
                                       : Image.network(
