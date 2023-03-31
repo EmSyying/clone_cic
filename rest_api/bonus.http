@@ -248,7 +248,7 @@ Content-Type: application/json
 Authorization: Bearer {{token}}
 
 ###
-get {{baseUrl}}v4/user/wallet/transaction?income=1
+get {{baseUrl}}v4/ui
 Accept: application/json
 Content-Type: application/json
 Authorization: Bearer {{token}}
