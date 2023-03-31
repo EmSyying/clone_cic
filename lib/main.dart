@@ -75,6 +75,8 @@ Future<void> main() async {
     await settingCon.fetchAppSetting();
     await settingCon.onCheckAuthentication();
     await NotificationHelper.initial();
+    await DynamicLinkService.initDynamicLinks();
+
     optionCon.fetchAllOptions();
     await LocalData.getCurrentUser().then(
       (value) {

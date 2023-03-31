@@ -9,6 +9,7 @@ import 'package:url_strategy/url_strategy.dart';
 import 'Utils/function/get_sharepreference_data.dart';
 import 'Utils/function/notification_helper.dart';
 import 'Utils/helper/local_storage.dart';
+import 'configs/firebase_deeplink/deeplink_service.dart';
 import 'core/flavor/flavor_configuration.dart';
 import 'main.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
@@ -36,6 +37,7 @@ Future<void> main() async {
     setPathUrlStrategy();
     await settingCon.onInitAppSetting();
     await NotificationHelper.initial();
+    await DynamicLinkService.initDynamicLinks();
     optionCon.fetchAllOptions();
     await LocalData.getCurrentUser().then(
       (value) {

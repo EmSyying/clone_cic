@@ -61,6 +61,7 @@ import '../../modules/ut_trading/screens/trading_option.dart';
 import '../../modules/ut_trading/screens/trading_platform.dart';
 
 import '../../modules/wallet/screen/review_mma_transfer_screen.dart';
+import '../../core/auth/registration_screen.dart';
 import '../../widgets/investments/fif_option1.dart';
 import '../../widgets/investments/view_agreement_list.dart';
 import 'route_singleton.dart';
@@ -72,7 +73,7 @@ final GlobalKey<NavigatorState> rootNavigatorKey =
 final GlobalKey<NavigatorState> shellNavigatorKey =
     GlobalKey<NavigatorState>(debugLabel: 'shell');
 
-final settingCon = Get.put(SettingController());
+final settingCon = Get.put(SettingController(),permanent:true);
 final userCon = Get.put(CustomerController());
 
 final router = GoRouter(
@@ -81,19 +82,44 @@ final router = GoRouter(
     debugLogDiagnostics: true,
     redirect: (context, state) {
       debugPrint("state.location===${state.location}");
-      if (settingCon.appSettingNofier.value.userToken == null &&
+      debugPrint(
+          "settingCon.isAgreePolicy.value===${settingCon.isAgreePolicy.value}");
+      debugPrint(
+          "settingCon.userToken.value===${settingCon.appSettingNofier.value.userToken.toString().length}");
+      if (settingCon.isAgreePolicy.value == false &&
+          !state.location.contains('/contract-term') &&
+          !state.location.contains('/privacy-policy')) {
+        debugPrint("Hello world");
+        return '/start-slide';
+      } else if (settingCon.appSettingNofier.value.userToken == null &&
           !state.location.contains('/contract-term') &&
           !state.location.contains('/privacy-policy') &&
           !state.location.contains('/login') &&
           !state.location.contains('/login-password') &&
           !state.location.contains('/changepassword') &&
-          !state.location.contains('switch-splash-screen')) {
+          !state.location.contains('switch-splash-screen') &&
+          !state.location.contains('/register')) {
+        debugPrint("Hello world 1");
+
         return '/start-slide';
+      } else if (settingCon.appSettingNofier.value.userToken != "" &&
+          settingCon.appSettingNofier.value.userToken != null &&
+          state.location.contains('/register')) {
+        debugPrint("Hello world 2");
+        return "/";
+      } else {
+        debugPrint("Hello world 3");
+        return null;
       }
-      return null;
     },
     initialLocation: '/',
     routes: <RouteBase>[
+      GoRoute(
+        path: "/register",
+        builder: (BuildContext context, GoRouterState state) {
+          return const RegistrationScreen();
+        },
+      ),
       ShellRoute(
         navigatorKey: shellNavigatorKey,
         builder: (context, state, child) => PaymentSchedule(
@@ -102,6 +128,7 @@ final router = GoRouter(
         ),
         routes: <RouteBase>[
           // CICRoute.instance.serviceAgreement(fromWhere: 'Wallet'),
+
           GoRoute(
               path: '/',
 

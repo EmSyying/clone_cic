@@ -69,13 +69,18 @@ class PrivacyPolcy extends StatelessWidget {
                       child: CustomButton(
                         isOutline: false,
                         isDisable: false,
-                        onPressed: () {
+                        onPressed: () async {
                           if (fromPage != null) {
                             debugPrint(
                                 "From Page Contract and term: $fromPage");
                             context.pop();
                           } else {
-                            context.push('/login');
+                            settingController
+                                .onUpdateAgreePolicyStatus(true)
+                                .then((value) {
+                              context.push('/register');
+                            });
+
                             // Navigator.push(
                             //     context,
                             //     MaterialPageRoute(

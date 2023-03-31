@@ -6,8 +6,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../Utils/pin_code_controller/set_pin_code_controller.dart';
+import '../../modules/invite_user/controller/invite_user_controller.dart';
 
 final setPinCon = Get.put(SetPINCodeController());
+// final inviteReferralController = Get.put(InviteUserReferrerController());
 FirebaseDynamicLinks dynamiclink = FirebaseDynamicLinks.instance;
 
 class DynamicLinkService {
@@ -59,17 +61,35 @@ class DynamicLinkService {
       String links = initialLink.link
           .toString()
           .replaceAll('https://cicapp.page.link', '');
-      await customerCon.getUser();
-      router.go(links);
+      if (initialLink.link.queryParameters['referral-code'] != null) {
+        debugPrint(
+            "Referral-Code====${initialLink.link.queryParameters['referral-code']}");
+        Get.put(InviteUserReferrerController()).referralCode =
+            initialLink.link.queryParameters['referral-code'] ?? "";
+        router.go(links);
+      } else {
+        await customerCon.getUser();
+        router.go(links);
+      }
     }
     dynamiclink.onLink.listen((PendingDynamicLinkData? dynamicLink) async {
       setPinCon.deepLink = dynamicLink?.link;
-      debugPrint("Initial Link: ${dynamicLink?.link}");
+      debugPrint("On Link: ${dynamicLink?.link}");
       String links = dynamicLink!.link
           .toString()
           .replaceAll('https://cicapp.page.link', '');
-      await customerCon.getUser();
-      router.go(links);
+
+      if (dynamicLink.link.queryParameters['referral-code'] != null) {
+        debugPrint(
+            "Referral-Code====${dynamicLink.link.queryParameters['referral-code']}");
+        Get.put(InviteUserReferrerController()).referralCode =
+            dynamicLink.link.queryParameters['referral-code'] ?? "";
+        router.go(links);
+      } else {
+        await customerCon.getUser();
+        router.go(links);
+      }
+
       // context.go(dynamicLink!.link.path);
       // setPinCon.update();
 

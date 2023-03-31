@@ -15,7 +15,6 @@ class InviteUserReferral extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
-
     return GetBuilder(
       init: InviteUserReferrerController(),
       builder: (controller) => Scaffold(
@@ -64,7 +63,7 @@ class InviteUserReferral extends StatelessWidget {
                       padding: EdgeInsets.only(
                           top: constaint.maxHeight > 600 ? 20 : 10),
                       child: Text(
-                        "Share your referral code",
+                        "Spread the word and Ignite our\n CiC Community",
                         textAlign: TextAlign.center,
                         style: textTheme.bodyMedium!.copyWith(
                           fontSize: 18,
@@ -78,7 +77,7 @@ class InviteUserReferral extends StatelessWidget {
                       child: SizedBox(
                         width: (329 / Get.width) * Get.width,
                         child: Text(
-                          "Lorem ipsum dolor sit amet consectetur. Mi ut nulla amet vitae eget duis ac egestas. Adipiscing volutpat imperdiet ullamcorper.",
+                          "Share your unique referral link or code with your favorite people: your family, your partners, your employees, and your friends.",
                           textAlign: TextAlign.center,
                           style: textTheme.bodyMedium!.copyWith(
                             fontSize: 14,
@@ -108,21 +107,20 @@ class InviteUserReferral extends StatelessWidget {
                           right: 20,
                           top: constaint.maxHeight > 600
                               ? (58 / Get.height) * Get.height
-                              : 20),
-                      child: buildCard(context, controller.referrerCode,
-                          controller.isLoading),
+                              : 30),
+                      child: buildCard(context, controller.referralCode, false),
                     ),
+                    // Padding(
+                    //   padding: EdgeInsets.only(
+                    //       left: 20,
+                    //       right: 20,
+                    //       top: constaint.maxHeight > 600 ? 20 : 10),
+                    //   child: buildCard(context, controller.dynamicLink,
+                    //       controller.isLoading),
+                    // ),
                     Padding(
                       padding: EdgeInsets.only(
-                          left: 20,
-                          right: 20,
-                          top: constaint.maxHeight > 600 ? 20 : 10),
-                      child: buildCard(context, controller.dynamicLink,
-                          controller.isLoading),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.only(
-                          top: constaint.maxHeight > 600 ? 50 : 30,
+                          top: constaint.maxHeight > 600 ? 104 : 55,
                           right: 20,
                           left: 20),
                       child: Container(
@@ -137,15 +135,30 @@ class InviteUserReferral extends StatelessWidget {
                       child: GestureDetector(
                         onTap: () {
                           try {
-                            if (controller.onShare && !controller.isLoading) {
+                            if (controller.onShare &&
+                                controller.dynamicLink != "") {
+                              debugPrint(
+                                  "LINKDYNAMIC==${controller.dynamicLink}");
                               controller.onShare = false;
                               Share.shareWithResult(
-                                'Lorem ipsum dolor sit ametcon sectetur. Sociis dui molestie ipsum consequat.'
-                                '\n 1. Download the app | https://cicapp.page.link/HnCL \n 2. Registration \n 3. Done',
+                                'Welcome to CiC App. You are invited to register and activate your account in CiC App with referral code ${controller.referralCode}'
+                                '\n 1. Download the app via: \n    ${controller.dynamicLink} \n 2. Follow registration process \n 3. Done',
                               ).then((value) {
                                 debugPrint("Hello");
                                 controller.onShare = true;
                               });
+                            } else {
+                              ScaffoldMessenger.of(context)
+                                  .showSnackBar(SnackBar(
+                                content: Row(
+                                  children: const [
+                                    Icon(Icons.error_outline),
+                                    SizedBox(width: 15),
+                                    Text("Referral code is empty."),
+                                  ],
+                                ),
+                                behavior: SnackBarBehavior.floating,
+                              ));
                             }
                           } catch (e) {
                             debugPrint("$e");

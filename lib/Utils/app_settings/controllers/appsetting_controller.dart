@@ -78,7 +78,7 @@ class SettingController extends GetxController {
       debugPrint("user mode: $userMode");
       await fetchAppBottomBar(userType: isAMMode! ? 'am' : 'qm');
       await fetchAppSetting(userType: isAMMode! ? 'am' : 'qm');
-
+      await onCheckAgreePolicyStatus();
       isLoadingAppSetting = false;
       update();
     } catch (ex) {
@@ -91,6 +91,20 @@ class SettingController extends GetxController {
   }
 
   ValueNotifier<Setting> appSettingNofier = ValueNotifier(Setting());
+  ValueNotifier<bool> isAgreePolicy = ValueNotifier(false);
+  onCheckAgreePolicyStatus() async {
+    var status = await LocalStorage.getBooleanValue(key: "agree_policy");
+    isAgreePolicy.value = status;
+    appSettingNofier.notifyListeners();
+    debugPrint("status===$status");
+  }
+
+  Future<void> onUpdateAgreePolicyStatus(bool status) async {
+    await LocalStorage.storeData(key: "agree_policy", value: status);
+    isAgreePolicy.value = status;
+    appSettingNofier.notifyListeners();
+  }
+
   Future<bool> onCheckAuthentication() async {
     String? token = await LocalData.getCurrentUser();
     appSettingNofier.value.userToken = token;
@@ -163,7 +177,8 @@ class SettingController extends GetxController {
   String url = '${FlavorConfig.instance.values!.apiBaseUrl}app-setting';
 
   Future<Setting> fetchSetting({String? userType}) async {
-    final token = await LocalStorage.getStringValue(key: 'access_token');
+    // final token = await LocalStorage.getStringValue(key: 'access_token');
+    String? token = await LocalData.getCurrentUser();
     String url =
         '${FlavorConfig.instance.values!.apiBaseUrl}app-setting/$userType';
     SharedPreferences pref = await SharedPreferences.getInstance();
@@ -409,7 +424,7 @@ class SettingController extends GetxController {
     return appSettingVersion.value;
   }
 
-  late AnimationController animationController;
+  AnimationController? animationController;
   Future<List<AppSettingData>> fetchAppSetting(
       {BuildContext? context,
       bool? isSwitchSplashScreen,
@@ -442,7 +457,7 @@ class SettingController extends GetxController {
       isLoading(false);
       if (isSwitchSplashScreen == true) {
         Future.delayed(const Duration(seconds: 1), () async {
-          await animationController.reverse().then((value) => router.pop());
+          await animationController?.reverse().then((value) => router.pop());
         });
       }
     }

@@ -40,19 +40,19 @@ class _BooksState extends State<SwitchSplashScreen>
       upperBound: 1.3,
     );
 
-    _settingCon.animationController.forward();
+    _settingCon.animationController?.forward();
   }
 
   @override
   void dispose() {
     super.dispose();
-    _settingCon.animationController.dispose();
+    _settingCon.animationController?.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return AnimatedBuilder(
-        animation: _settingCon.animationController,
+        animation: _settingCon.animationController!,
         child:
             // SvgPicture.asset('assets/images/svgfile/swich-am.svg'),
             Scaffold(
@@ -94,7 +94,7 @@ class _BooksState extends State<SwitchSplashScreen>
           // animationController.reverse().then((value) => Navigator.pop(context));
           return ClipPath(
             clipper: MyClipPath(
-                value: _settingCon.animationController.value,
+                value: _settingCon.animationController!.value,
                 offset: widget.offset),
             child: child,
           );

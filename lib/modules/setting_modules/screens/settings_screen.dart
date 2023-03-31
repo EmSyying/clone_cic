@@ -1,4 +1,4 @@
-// ignore_for_file: use_build_context_synchronously
+// ignore_for_file: use_build_context_synchronously, invalid_use_of_protected_member, invalid_use_of_visible_for_testing_member
 
 import 'dart:io';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -196,7 +196,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       _memberCon.personalProfile.value = PersonalProfile();
                       Navigator.pop(context);
                       removeUser('current_user');
+                      _settingCon.appSettingNofier.value.userToken = "";
+                      _settingCon.appSettingNofier.notifyListeners();
                       _user.isLoginSuccess(false);
+
                       await LocalData.removePINcode('setPIN');
                       Navigator.push(
                           context,
@@ -319,6 +322,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
                           _memberCon.personalProfile.value = PersonalProfile();
 
                           removeUser('current_user');
+                          _settingCon.appSettingNofier.value.userToken = "";
+                          _settingCon.appSettingNofier.notifyListeners();
                           _user.isLoginSuccess(false);
 
                           await LocalData.removePINcode('setPIN');

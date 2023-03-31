@@ -62,6 +62,8 @@ class User {
   String? companyName;
   String? title;
   String? location;
+  String? referralCode;
+  String? inviteLink;
 
   User({
     this.id,
@@ -125,9 +127,14 @@ class User {
     this.companyName,
     this.title,
     this.location,
+    this.referralCode,
+    this.inviteLink,
   });
 
   User.fromJson(Map<String, dynamic> json) {
+    referralCode = json['referral_code'] ?? "";
+    inviteLink = json['invite_link'] ?? "";
+
     id = json['id'];
     isCustomer = json['is_customer'];
     customerId = json['customer_id'];
@@ -211,6 +218,8 @@ class User {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
+    data['referral_code'] = referralCode;
+    data['invite_link'] = inviteLink;
     data['id'] = id;
     data['is_customer'] = isCustomer;
     data['customer_id'] = customerId;
