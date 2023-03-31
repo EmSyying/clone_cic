@@ -539,7 +539,6 @@ class ChooseGiftTemplateScreen extends StatelessWidget {
 Widget loadingTransactionTemplate(
     BuildContext context, ChosenMVPModel? chosenMVPModel) {
   return LayoutBuilder(builder: (context, constrain) {
-    debugPrint("constrain:==${constrain.maxHeight}");
     return Stack(
       clipBehavior: Clip.hardEdge,
       children: [
@@ -598,7 +597,6 @@ Widget loadingTransactionTemplate(
                     ),
                   ),
                   Divider(
-                    //thickness: 1.2,
                     color: Colors.grey[400],
                     height: 1,
                   ),

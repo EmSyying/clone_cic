@@ -54,7 +54,6 @@ class CustomCardGiftMVPForm extends StatelessWidget {
             decoration: BoxDecoration(
               shape: BoxShape.circle,
               color: backgroundColor,
-             
             ),
             clipBehavior: Clip.hardEdge,
             child: imageAccount != null
@@ -160,11 +159,14 @@ class CustomCardGiftMVPForm extends StatelessWidget {
                     ),
                   ),
                   onPressed: () {
-                    // onTapDeleted?.call();
-                    if (Platform.isIOS) {
-                      buildAlertIos(context, txtTheme, id);
+                    if (onTapDeleted != null) {
+                      onTapDeleted?.call();
                     } else {
-                      buildAlertAndroid(context, txtTheme, id);
+                      if (Platform.isIOS) {
+                        buildAlertIos(context, txtTheme, id);
+                      } else {
+                        buildAlertAndroid(context, txtTheme, id);
+                      }
                     }
                   },
                   leadingIcon: SvgPicture.asset("assets/images/trash.svg"))

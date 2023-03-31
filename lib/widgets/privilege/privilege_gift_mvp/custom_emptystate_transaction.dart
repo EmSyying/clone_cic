@@ -6,70 +6,54 @@ import 'custom_header_transaction.dart';
 Widget emtyStateTransactionTemplate(
     BuildContext context, ChosenMVPModel? chosenMVPModel) {
   return LayoutBuilder(builder: (context, constrain) {
-    debugPrint("constrain:==${constrain.maxHeight}");
     return Stack(
       children: [
-        Container(
-          child: SingleChildScrollView(
-            physics: constrain.maxHeight > 600
-                ? const NeverScrollableScrollPhysics()
-                : const AlwaysScrollableScrollPhysics(),
-            child: Column(
-              children: [
-                Column(
-                  mainAxisSize: MainAxisSize.min,
+        SingleChildScrollView(
+          physics: constrain.maxHeight > 600
+              ? const NeverScrollableScrollPhysics()
+              : const AlwaysScrollableScrollPhysics(),
+          child: Column(
+            children: [
+              const SizedBox(
+                height: 80,
+              ),
+              Container(
+                color: Colors.white,
+                width: double.infinity,
+                padding: const EdgeInsets.only(bottom: 30.0, top: 20),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    const SizedBox(
-                      height: 80,
+                    Image.asset(
+                      'assets/images/emptyState.png',
+                      width: 250,
+                      height: 250,
                     ),
-                    //Header Card Gift Template
-
-                    Divider(
-                      //thickness: 1.2,
-                      color: Colors.grey[400],
-                      height: 1,
+                    Text(
+                      'No Transaction History',
+                      style: Theme.of(context)
+                          .textTheme
+                          .headlineMedium!
+                          .copyWith(fontWeight: FontWeight.w600),
+                    ),
+                    const SizedBox(
+                      height: 6.0,
+                    ),
+                    Text(
+                      'No Transaction History Here !',
+                      style: Theme.of(context)
+                          .textTheme
+                          .displayMedium!
+                          .copyWith(fontWeight: FontWeight.w400),
+                      textAlign: TextAlign.center,
                     ),
                   ],
                 ),
-                Container(
-                  color: Colors.white,
-                  width: double.infinity,
-                  padding: const EdgeInsets.only(bottom: 30.0, top: 20),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Image.asset(
-                        'assets/images/emptyState.png',
-                        width: 250,
-                        height: 250,
-                      ),
-                      Text(
-                        'No Transaction History',
-                        style: Theme.of(context)
-                            .textTheme
-                            .headlineMedium!
-                            .copyWith(fontWeight: FontWeight.w600),
-                      ),
-                      const SizedBox(
-                        height: 6.0,
-                      ),
-                      Text(
-                        'No Transaction History Here !',
-                        style: Theme.of(context)
-                            .textTheme
-                            .displayMedium!
-                            .copyWith(fontWeight: FontWeight.w400),
-                        textAlign: TextAlign.center,
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
         Container(
-          // color: Colors.white,
           decoration: const BoxDecoration(
               borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(10), topRight: Radius.circular(10)),
@@ -117,7 +101,6 @@ Widget emtyStateTransactionTemplate(
                 ),
               ),
               Divider(
-                //thickness: 1.2,
                 color: Colors.grey[400],
                 height: 1,
               ),

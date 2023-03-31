@@ -31,6 +31,7 @@ class GiftMVPFromTemplateScreen extends StatefulWidget {
 
 class _GiftMVPFromTemplateScreenState extends State<GiftMVPFromTemplateScreen> {
   final priCon = Get.put(PrivilegeController());
+
   int? id;
   Timer? searchOnStoppedTyping;
 
@@ -64,6 +65,7 @@ class _GiftMVPFromTemplateScreenState extends State<GiftMVPFromTemplateScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final txtTheme = Theme.of(context).textTheme;
     return Stack(
       children: [
         Scaffold(
@@ -178,13 +180,15 @@ class _GiftMVPFromTemplateScreenState extends State<GiftMVPFromTemplateScreen> {
                                             accountNumber: e.value.walletNumber,
                                             imageAccount: e.value.image,
                                             defaultImage: e.value.defaultImage,
-                                            // onTapDeleted: () {
-                                            //   priCon.deleteTemplate(
-                                            //     context,
-                                            //     id = e.value.id,
-                                            //   );
-                                            //   // priCon.isDeletTemplate.value;
-                                            // },
+                                            onTapDeleted: () {
+                                              if (Platform.isIOS) {
+                                                buildAlertIos(context, txtTheme,
+                                                    e.value.id);
+                                              } else {
+                                                buildAlertAndroid(context,
+                                                    txtTheme, e.value.id);
+                                              }
+                                            },
                                             onTapEdit: () {
                                               try {
                                                 var string =
