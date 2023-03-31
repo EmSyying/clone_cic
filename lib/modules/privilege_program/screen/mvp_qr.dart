@@ -65,7 +65,6 @@ class MvpQrScreenState extends State<MvpQrScreen> {
   Widget build(BuildContext context) {
     TextStyle textStyle = Theme.of(context).textTheme.displayMedium!;
     final privilegeController = Get.put(PrivilegeController());
-    
 
     return Stack(
       children: [
@@ -111,7 +110,7 @@ class MvpQrScreenState extends State<MvpQrScreen> {
                     Padding(
                       padding: const EdgeInsets.only(top: 50),
                       child: Text(
-                        'Show QR Code to receive payment from others.',
+                        'Show QR Code to receive MVP from others',
                         style: textStyle.copyWith(
                           fontWeight: FontWeight.w400,
                           fontSize: 12,
@@ -314,7 +313,7 @@ class MvpQrScreenState extends State<MvpQrScreen> {
       // debugPrint("Shot Url: $url");
       Share.shareXFiles([XFile('${directory.path}/transferqr.png')],
           text:
-              'Hi! Here is my CiC QR and Payment\'s Link. Scan the QR or tap on the link for sending payment: ${privilegeController.mvpDynamicLinkModel.value.sortLink}',
+              'Hi! Here is my MVP QR. Scan the QR or tap on link for sending MVP: ${privilegeController.mvpDynamicLinkModel.value.sortLink}',
           sharePositionOrigin: box.localToGlobal(Offset.zero) & box.size);
     } catch (e) {
       debugPrint("$e");
