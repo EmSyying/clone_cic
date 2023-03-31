@@ -60,6 +60,9 @@ containPopTransactionHistory(ScrollController scrollController,
                                 .listTransactionHistoryTemplate[index]
                                 .defaultImage,
                             backgroundColor: priCon.listColors[e.key % 6],
+                            direction: priCon
+                                .listTransactionHistoryTemplate[index]
+                                .direction,
                           ),
                         )),
                     Container(

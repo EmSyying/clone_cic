@@ -12,6 +12,7 @@ class TransactionHisotryTemplateModel with _$TransactionHisotryTemplateModel {
     @JsonKey(name: "image") final String? image,
     @JsonKey(name: "default_image") final String? defaultImage,
     @JsonKey(name: "wallet_name") final String? walletName,
+    @JsonKey(name: "direction") final String? direction,
     @JsonKey(name: "amount") final String? amount,
     @JsonKey(name: "payment_date") final String? paymentDate,
   }) = _TransactionHisotryTemplateModel;

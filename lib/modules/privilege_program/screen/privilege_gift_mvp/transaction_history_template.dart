@@ -9,6 +9,7 @@ class TransactionHistoryTemplate extends StatelessWidget {
   final String? amountColorType;
   final String? defaultImage;
   final int? id;
+  final String? direction;
   final Color? backgroundColor;
   const TransactionHistoryTemplate({
     super.key,
@@ -20,6 +21,7 @@ class TransactionHistoryTemplate extends StatelessWidget {
     this.id,
     this.defaultImage,
     this.backgroundColor,
+    this.direction = "DR",
   });
 
   @override
@@ -82,14 +84,31 @@ class TransactionHistoryTemplate extends StatelessWidget {
           ],
         ),
         const Spacer(),
-        Text(
-          amount ?? '',
-          style: Theme.of(context).textTheme.displayMedium!.copyWith(
-                fontSize: 12,
-                color:
-                    amountColorType == "Cash Out" ? Colors.red : Colors.green,
-                fontWeight: FontWeight.w500,
-              ),
+        Row(
+          children: [
+            direction == "DR"
+                ? const Icon(
+                    Icons.remove,
+                    size: 14,
+                    color: Colors.red,
+                  )
+                : const Icon(
+                    Icons.add,
+                    size: 14,
+                    color: Colors.green,
+                  ),
+            const SizedBox(
+              width: 4.0,
+            ),
+            Text(
+              amount ?? '',
+              style: Theme.of(context).textTheme.displayMedium!.copyWith(
+                    fontSize: 12,
+                    color: direction == "DR" ? Colors.red : Colors.green,
+                    fontWeight: FontWeight.w500,
+                  ),
+            ),
+          ],
         ),
       ]),
     );

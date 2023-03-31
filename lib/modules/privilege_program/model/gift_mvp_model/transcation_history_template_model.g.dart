@@ -15,6 +15,7 @@ _$_TransactionHisotryTemplateModel _$$_TransactionHisotryTemplateModelFromJson(
       image: json['image'] as String?,
       defaultImage: json['default_image'] as String?,
       walletName: json['wallet_name'] as String?,
+      direction: json['direction'] as String?,
       amount: json['amount'] as String?,
       paymentDate: json['payment_date'] as String?,
     );
@@ -28,6 +29,7 @@ Map<String, dynamic> _$$_TransactionHisotryTemplateModelToJson(
       'image': instance.image,
       'default_image': instance.defaultImage,
       'wallet_name': instance.walletName,
+      'direction': instance.direction,
       'amount': instance.amount,
       'payment_date': instance.paymentDate,
     };

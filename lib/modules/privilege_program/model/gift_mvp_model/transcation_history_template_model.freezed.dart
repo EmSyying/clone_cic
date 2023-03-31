@@ -33,6 +33,8 @@ mixin _$TransactionHisotryTemplateModel {
   String? get defaultImage => throw _privateConstructorUsedError;
   @JsonKey(name: "wallet_name")
   String? get walletName => throw _privateConstructorUsedError;
+  @JsonKey(name: "direction")
+  String? get direction => throw _privateConstructorUsedError;
   @JsonKey(name: "amount")
   String? get amount => throw _privateConstructorUsedError;
   @JsonKey(name: "payment_date")
@@ -59,6 +61,7 @@ abstract class $TransactionHisotryTemplateModelCopyWith<$Res> {
       @JsonKey(name: "image") String? image,
       @JsonKey(name: "default_image") String? defaultImage,
       @JsonKey(name: "wallet_name") String? walletName,
+      @JsonKey(name: "direction") String? direction,
       @JsonKey(name: "amount") String? amount,
       @JsonKey(name: "payment_date") String? paymentDate});
 }
@@ -83,6 +86,7 @@ class _$TransactionHisotryTemplateModelCopyWithImpl<$Res,
     Object? image = freezed,
     Object? defaultImage = freezed,
     Object? walletName = freezed,
+    Object? direction = freezed,
     Object? amount = freezed,
     Object? paymentDate = freezed,
   }) {
@@ -110,6 +114,10 @@ class _$TransactionHisotryTemplateModelCopyWithImpl<$Res,
       walletName: freezed == walletName
           ? _value.walletName
           : walletName // ignore: cast_nullable_to_non_nullable
+              as String?,
+      direction: freezed == direction
+          ? _value.direction
+          : direction // ignore: cast_nullable_to_non_nullable
               as String?,
       amount: freezed == amount
           ? _value.amount
@@ -139,6 +147,7 @@ abstract class _$$_TransactionHisotryTemplateModelCopyWith<$Res>
       @JsonKey(name: "image") String? image,
       @JsonKey(name: "default_image") String? defaultImage,
       @JsonKey(name: "wallet_name") String? walletName,
+      @JsonKey(name: "direction") String? direction,
       @JsonKey(name: "amount") String? amount,
       @JsonKey(name: "payment_date") String? paymentDate});
 }
@@ -162,6 +171,7 @@ class __$$_TransactionHisotryTemplateModelCopyWithImpl<$Res>
     Object? image = freezed,
     Object? defaultImage = freezed,
     Object? walletName = freezed,
+    Object? direction = freezed,
     Object? amount = freezed,
     Object? paymentDate = freezed,
   }) {
@@ -190,6 +200,10 @@ class __$$_TransactionHisotryTemplateModelCopyWithImpl<$Res>
           ? _value.walletName
           : walletName // ignore: cast_nullable_to_non_nullable
               as String?,
+      direction: freezed == direction
+          ? _value.direction
+          : direction // ignore: cast_nullable_to_non_nullable
+              as String?,
       amount: freezed == amount
           ? _value.amount
           : amount // ignore: cast_nullable_to_non_nullable
@@ -213,6 +227,7 @@ class _$_TransactionHisotryTemplateModel
       @JsonKey(name: "image") this.image,
       @JsonKey(name: "default_image") this.defaultImage,
       @JsonKey(name: "wallet_name") this.walletName,
+      @JsonKey(name: "direction") this.direction,
       @JsonKey(name: "amount") this.amount,
       @JsonKey(name: "payment_date") this.paymentDate});
 
@@ -239,6 +254,9 @@ class _$_TransactionHisotryTemplateModel
   @JsonKey(name: "wallet_name")
   final String? walletName;
   @override
+  @JsonKey(name: "direction")
+  final String? direction;
+  @override
   @JsonKey(name: "amount")
   final String? amount;
   @override
@@ -247,7 +265,7 @@ class _$_TransactionHisotryTemplateModel
 
   @override
   String toString() {
-    return 'TransactionHisotryTemplateModel(id: $id, templateName: $templateName, walletNumber: $walletNumber, image: $image, defaultImage: $defaultImage, walletName: $walletName, amount: $amount, paymentDate: $paymentDate)';
+    return 'TransactionHisotryTemplateModel(id: $id, templateName: $templateName, walletNumber: $walletNumber, image: $image, defaultImage: $defaultImage, walletName: $walletName, direction: $direction, amount: $amount, paymentDate: $paymentDate)';
   }
 
   @override
@@ -265,6 +283,8 @@ class _$_TransactionHisotryTemplateModel
                 other.defaultImage == defaultImage) &&
             (identical(other.walletName, walletName) ||
                 other.walletName == walletName) &&
+            (identical(other.direction, direction) ||
+                other.direction == direction) &&
             (identical(other.amount, amount) || other.amount == amount) &&
             (identical(other.paymentDate, paymentDate) ||
                 other.paymentDate == paymentDate));
@@ -273,7 +293,7 @@ class _$_TransactionHisotryTemplateModel
   @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(runtimeType, id, templateName, walletNumber,
-      image, defaultImage, walletName, amount, paymentDate);
+      image, defaultImage, walletName, direction, amount, paymentDate);
 
   @JsonKey(ignore: true)
   @override
@@ -300,6 +320,7 @@ abstract class _TransactionHisotryTemplateModel
           @JsonKey(name: "image") final String? image,
           @JsonKey(name: "default_image") final String? defaultImage,
           @JsonKey(name: "wallet_name") final String? walletName,
+          @JsonKey(name: "direction") final String? direction,
           @JsonKey(name: "amount") final String? amount,
           @JsonKey(name: "payment_date") final String? paymentDate}) =
       _$_TransactionHisotryTemplateModel;
@@ -325,6 +346,9 @@ abstract class _TransactionHisotryTemplateModel
   @override
   @JsonKey(name: "wallet_name")
   String? get walletName;
+  @override
+  @JsonKey(name: "direction")
+  String? get direction;
   @override
   @JsonKey(name: "amount")
   String? get amount;

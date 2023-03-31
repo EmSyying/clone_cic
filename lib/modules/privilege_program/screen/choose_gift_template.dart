@@ -154,13 +154,11 @@ class ChooseGiftTemplateScreen extends StatelessWidget {
                                                           .amount,
                                                       backgroundColor:
                                                           chosenMVPModel!.color,
-                                                      // amountColorType:
-                                                      //     listTransactionHistory[
-                                                      //             index]
-                                                      //         .amountColorType,
+                                                      direction: privilegeController
+                                                          .listTransactionHistoryTemplate[
+                                                              index]
+                                                          .direction,
                                                     ),
-                                                    //   title: Text('Item $index'),
-                                                    // )
                                                   )),
                                               Container(
                                                 decoration: const BoxDecoration(
@@ -244,11 +242,11 @@ class ChooseGiftTemplateScreen extends StatelessWidget {
                                                         ),
                                                       ),
                                                     ),
-                                                    Divider(
-                                                      //thickness: 1.2,
-                                                      color: Colors.grey[400],
-                                                      height: 1,
-                                                    ),
+                                                    // Divider(
+                                                    //   //thickness: 1.2,
+                                                    //   color: Colors.grey[400],
+                                                    //   height: 1,
+                                                    // ),
                                                   ],
                                                 ),
                                               )
